@@ -1,9 +1,5 @@
-pepito 1 = + - 
-pepito pepito 2 -
-int pepito = 1
-asd = asd
-asd = asd 
-asd = asd 
-asd = asd 
-SIS O NON ?
+Pepito = 1
+/*Hola 
 
+*/
+De nuevo

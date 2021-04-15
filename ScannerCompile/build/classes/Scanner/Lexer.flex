@@ -10,6 +10,7 @@ espacio=[ ,\t,\r]+
     public String lexeme;
 %}
 %%
+"/*"((\*+[^/*])|([^*]))*\**"*/" {System.out.println("Bloque de comentarios");}
 int |
 if |
 else |
@@ -24,6 +25,6 @@ return new Operador(yyline,yytext());}
 "*" {return new Operador(yyline,yytext());}
 "/" {return new Operador(yyline,yytext());}
 "\n" {yyline++;}
-{L}({L}|{D})* {System.out.println(yyline);lexeme=yytext(); return new Literal(yyline,yytext());}
+{L}({L}|{D})* {lexeme=yytext(); return new Literal(yyline,yytext());}
 ("(-"{D}+")")|{D}+ {lexeme=yytext(); return new Operador(yyline,yytext());}
  . {return new Operador(yyline,yytext());}
