@@ -550,7 +550,7 @@ class Lexer {
           }
         case 11: break;
         case 2: 
-          { System.out.println(yyline);lexeme=yytext(); return new Literal(yyline,yytext());
+          { lexeme=yytext(); return new Literal(yyline,yytext());
           }
         case 12: break;
         case 3: 

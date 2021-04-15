@@ -1,3 +1,4 @@
+
 package Scanner;
 import TokenTypes.*;
 %%
@@ -5,7 +6,7 @@ import TokenTypes.*;
 %type Token
 L=[a-zA-Z_]+
 D=[0-9]+
-
+block_comment=["\*"*(\*(?!\/)|[^*])*\*\/]+
 espacio=[ ,\t,\r]+
 Identifier = [A-Za-z_][A-Za-z_0-9]*
 
@@ -54,12 +55,3 @@ return new Operador(yyline,yytext());}
 {L}({L}|{D})* {lexeme=yytext(); return new Literal(yyline,yytext());}
 ("(-"{D}+")")|{D}+ {lexeme=yytext(); return new Operador(yyline,yytext());}
  . {return new Operador(yyline,yytext());}
-
-
-
-
-
-
-
-
-
