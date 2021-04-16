@@ -20,6 +20,8 @@ import java.util.ArrayList;
  */
 public class Principal {
     
+    public static ArrayList<Token> tokensList = new ArrayList<Token>();
+    
     public static void main(String[] args) {
         String ruta = "D:\\Development\\ScannerCompi\\ScannerCompile\\src\\Scanner/Lexer.flex";
         generarLexer(ruta);
@@ -58,6 +60,18 @@ public class Principal {
             System.out.println(var);
         }
     }
+    
+    public static void revisarTipos(Token tok, int linea){
+        for(int k = 0; k<tokensList.size(); k++){
+            if (tokensList.get(k).getToken() == tok.getToken()){
+                tokensList.get(k).getAparece().add(linea);
+            }
+            else{
+                tokensList.add(tok);
+            }
+        }
+    }
+  
     public static void generarLexer(String ruta){
         File archivo = new File(ruta);
         JFlex.Main.generate(archivo);

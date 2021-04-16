@@ -5,6 +5,8 @@
  */
 package TokenTypes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author carlo
@@ -12,9 +14,11 @@ package TokenTypes;
 public class Token {
     String tipo;
     int linea;
-    String token;  
+    String token;
+    ArrayList<Integer> aparece;
     
     
+   
         Token(int linea,String token){
         this.linea = linea;
         this.token = token;
@@ -43,6 +47,14 @@ public class Token {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public ArrayList<Integer> getAparece() {
+        return aparece;
+    }
+
+    public void setAparece(ArrayList<Integer> aparece) {
+        this.aparece = aparece;
     }
     
     
