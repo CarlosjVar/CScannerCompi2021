@@ -1,4 +1,5 @@
-pepoito =  1
-/* pñañañañaña */
-goto 1
-ñ
+"a" "a" "a"
+oli
+alo
+Int Int Int goto Int
+goto

@@ -25,7 +25,7 @@ CChar = [^\'\\\n\r] | {EscChar}
 SChar = [^\"\\\n\r] | {EscChar}
 EscChar = \\[ntbrf\\\'\"] | {OctalEscape}
 OctalEscape = \\[0-7] | \\[0-7][0-7] | \\[0-3][0-7][0-7]
-
+String = \"(.[^\"]*)\"
 
 Reservadas = auto |break |case |char |const |continue |default |do |double |else |enum |extern |float |for |goto |if |int |long |register |return |short |signed |sizeof |static |struct |switch |typedef |union |unsigned |void |volatile |while
 Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"&&" |"!" |"=" |"+" |"-" |"*" |"/" |"%" |"(" ")" |"[" "]" |"{" "}"| ":" |"." |"+=" |"-=" |"*=" |"/=" |"&" |"^" |"|" |">>" |"<<" |"~" |"%=" |"&=" |"^=" |"|=" |"<<=" |">>=" |"->"
@@ -44,7 +44,9 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {Operadores} { return new Operador(yyline,yytext());}
 
-"\n" {yyline++;}
+{String} { return new Literal(yyline,yytext());}
+
+"\n" { yyline++;}
 
 
 

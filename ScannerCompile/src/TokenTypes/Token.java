@@ -12,16 +12,17 @@ import java.util.ArrayList;
  * @author carlo
  */
 public class Token {
-    String tipo;
-    int linea;
-    String token;
-    ArrayList<Integer> aparece;
+    private String tipo;
+    private int linea;
+    private String token;
+    private Integer ocurrencias;
     
     
    
-        Token(int linea,String token){
+    Token(int linea,String token){
         this.linea = linea;
         this.token = token;
+        this.ocurrencias = 1;
     }
         
         
@@ -49,12 +50,12 @@ public class Token {
         this.tipo = tipo;
     }
 
-    public ArrayList<Integer> getAparece() {
-        return aparece;
+    public Integer getOcurrencias() {
+        return ocurrencias;
     }
 
-    public void setAparece(ArrayList<Integer> aparece) {
-        this.aparece = aparece;
+    public void setOcurrencias(Integer ocurrencias) {
+        this.ocurrencias = ocurrencias;
     }
     
     
