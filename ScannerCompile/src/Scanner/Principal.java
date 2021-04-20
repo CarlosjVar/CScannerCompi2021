@@ -26,12 +26,12 @@ public class Principal {
     
     public static void generateJflex()
             {
-                        String ruta = "D:\\Development\\ScannerCompi\\ScannerCompile\\src\\Scanner/Lexer.flex";
+                        String ruta = "E:\\ArchivosTec\\Quintosemestre\\Compi\\CScannerCompi2021\\ScannerCompile\\src\\Scanner\\Lexer.flex";
                         generarLexer(ruta);
             }
     public static void main(String[] args) {
         try {
-            Reader lector = new BufferedReader(new FileReader("D:/Development/ScannerCompi/ScannerCompile/src/Scanner/ejemplo.txt"));
+            Reader lector = new BufferedReader(new FileReader("E:\\ArchivosTec\\Quintosemestre\\Compi\\CScannerCompi2021\\ScannerCompile\\src\\Scanner\\ejemplo.txt"));
             Lexer lexer = new Lexer(lector);
             int numerolinea = 0;
             //Se crea un subhashmap
