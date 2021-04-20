@@ -1,7 +1,0 @@
-pepito 1 = + - 
-pepito pepito 2 -
-int pepito = 1
-asd = asd
-asd = asd 
-
-
