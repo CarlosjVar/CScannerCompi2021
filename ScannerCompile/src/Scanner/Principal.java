@@ -24,10 +24,12 @@ public class Principal {
     public static ArrayList<Token> tokensList = new ArrayList<Token>();
     public static HashMap<Integer,HashMap<String,Token>> codeLines = new HashMap<Integer,HashMap<String,Token>>();
     
+    public static void generateJflex()
+            {
+                        String ruta = "D:\\Development\\ScannerCompi\\ScannerCompile\\src\\Scanner/Lexer.flex";
+                        generarLexer(ruta);
+            }
     public static void main(String[] args) {
-        String ruta = "D:\\Development\\ScannerCompi\\ScannerCompile\\src\\Scanner/Lexer.flex";
-        generarLexer(ruta);
-
         try {
             Reader lector = new BufferedReader(new FileReader("D:/Development/ScannerCompi/ScannerCompile/src/Scanner/ejemplo.txt"));
             Lexer lexer = new Lexer(lector);
