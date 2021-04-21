@@ -66,6 +66,22 @@ public class Token {
     }
     public String getOcurrenciasTotales(){
         String resultado = "";
+        
+         for (Integer key : this.OcurrenciasTotales.keySet()) {
+                Integer ocurrencias = this.OcurrenciasTotales.get(key);
+                String concat = "";
+                if(ocurrencias==1)
+                {
+                    concat = key+",";
+                }
+                else
+                {
+                    concat = key+"("+ocurrencias+") ,";
+
+                }
+                resultado = resultado.concat(concat);   
+        }
+         
         return resultado;
     }
     

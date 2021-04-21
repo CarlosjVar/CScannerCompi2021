@@ -1,6 +1,6 @@
 "a" "a" "a"
 oli
-ñ
+ñ ñ ñ 
 alo
 Int Int Int goto Int
 goto

@@ -79,10 +79,12 @@ public class Principal {
             
             revisarTipos();
             
-            allTokens.forEach((k,v)->{
-                System.out.println("En la linea "+k+" estan los tokens "+v.OcurrenciasTotales); 
-  
-            });
+           allTokens.forEach((k,v)->{
+               String a = v.getOcurrenciasTotales();
+               System.out.println(a);
+               
+           });
+ 
         } catch (FileNotFoundException ex) {
             System.out.println("a");
         } catch (IOException ex) {
