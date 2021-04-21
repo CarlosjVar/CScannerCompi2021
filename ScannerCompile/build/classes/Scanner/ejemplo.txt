@@ -1,5 +1,8 @@
 "a" "a" "a"
 oli
+ñ
 alo
 Int Int Int goto Int
 goto
+eroor
+ñ

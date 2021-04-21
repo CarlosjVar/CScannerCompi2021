@@ -26,12 +26,15 @@ public class Principal {
     
     public static void generateJflex()
             {
-                        String ruta = "E:\\ArchivosTec\\Quintosemestre\\Compi\\CScannerCompi2021\\ScannerCompile\\src\\Scanner\\Lexer.flex";
+                        String ruta = "C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/Lexer.flex";
                         generarLexer(ruta);
+                        System.out.println("abc");
+
             }
     public static void main(String[] args) {
+        generateJflex();
         try {
-            Reader lector = new BufferedReader(new FileReader("E:\\ArchivosTec\\Quintosemestre\\Compi\\CScannerCompi2021\\ScannerCompile\\src\\Scanner\\ejemplo.txt"));
+            Reader lector = new BufferedReader(new FileReader("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/ejemplo.txt"));
             Lexer lexer = new Lexer(lector);
             int numerolinea = 0;
             //Se crea un subhashmap
@@ -51,7 +54,6 @@ public class Principal {
                 {
                     codeLines.put(currentLine, lineaHash);
                     lineaHash =  new HashMap<String,Token>();
- 
                 }        
                 
                 String currentKey = token.getToken();

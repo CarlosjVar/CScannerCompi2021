@@ -52,4 +52,4 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {Integer} { return new Literal(yyline,yytext());}
 {Float} { return new Literal(yyline,yytext());}
- . {System.out.println("Error lexico");}
+ . {return new ErrorLexico(yyline,yytext());}
