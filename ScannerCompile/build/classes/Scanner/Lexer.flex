@@ -26,7 +26,7 @@ SChar = [^\"\\\n\r] | {EscChar}
 EscChar = \\[ntbrf\\\'\"] | {OctalEscape}
 OctalEscape = \\[0-7] | \\[0-7][0-7] | \\[0-3][0-7][0-7]
 String = \"(.[^\"]*)\"
-
+InvalidIdentifier = [0-9]+ [A-Za-z_$]+
 Reservadas = auto |break |case |char |const |continue |default |do |double |else |enum |extern |float |for |goto |if |int |long |register |return |short |signed |sizeof |static |struct |switch |typedef |union |unsigned |void |volatile |while
 Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"&&" |"!" |"=" |"+" |"-" |"*" |"/" |"%" |"(" ")" |"[" "]" |"{" "}"| ":" |"." |"+=" |"-=" |"*=" |"/=" |"&" |"^" |"|" |">>" |"<<" |"~" |"%=" |"&=" |"^=" |"|=" |"<<=" |">>=" |"->"
 %{
@@ -49,7 +49,7 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 "\n" { yyline++;}
 
 
-
+{InvalidIdentifier} { System.out.println("Identificador Inválido "+yytext());} 
 {Integer} { return new Literal(yyline,yytext());}
 {Float} { return new Literal(yyline,yytext());}
  . {return new ErrorLexico(yyline,yytext());}

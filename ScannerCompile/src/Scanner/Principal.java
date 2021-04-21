@@ -78,10 +78,17 @@ public class Principal {
             //Se revisa si hay Tokens iguales en diferentes lineas por medio de un método, si hay los agrupa
             
             revisarTipos();
-            
+                      
            allTokens.forEach((k,v)->{
                String a = v.getOcurrenciasTotales();
-               System.out.println(a);
+               System.out.println("El token "+k +" aparece" + a);
+               
+           });
+                       
+            System.out.println("Errores");
+           allErrors.forEach((k,v)->{
+               String a = v.getOcurrenciasTotales();
+               System.out.println("El error "+k +" aparece" + a);
                
            });
  
@@ -127,7 +134,6 @@ public class Principal {
                 }
                 
                 
-                System.out.println("El token "+k2+" aparece "+v2.getOcurrencias()+" veces en la linea "+v2.getLinea());
                 });
             });
     }
