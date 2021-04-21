@@ -21,17 +21,18 @@ import java.util.HashMap;
  */
 public class Principal {
     
-    public static ArrayList<Token> tokensList = new ArrayList<Token>();
     public static HashMap<Integer,HashMap<String,Token>> codeLines = new HashMap<Integer,HashMap<String,Token>>();
+    public static HashMap<String,Token> allTokens = new HashMap<String,Token>();
+    public static HashMap<String,Token> allErrors = new HashMap<String,Token>();
     
     public static void generateJflex()
             {
-                        String ruta = "E:\\ArchivosTec\\Quintosemestre\\Compi\\CScannerCompi2021\\ScannerCompile\\src\\Scanner\\Lexer.flex";
+                        String ruta = "D:\\Development\\ScannerCompi\\ScannerCompile\\src\\Scanner/Lexer.flex";
                         generarLexer(ruta);
             }
     public static void main(String[] args) {
         try {
-            Reader lector = new BufferedReader(new FileReader("E:\\ArchivosTec\\Quintosemestre\\Compi\\CScannerCompi2021\\ScannerCompile\\src\\Scanner\\ejemplo.txt"));
+            Reader lector = new BufferedReader(new FileReader("D:/Development/ScannerCompi/ScannerCompile/src/Scanner/ejemplo.txt"));
             Lexer lexer = new Lexer(lector);
             int numerolinea = 0;
             //Se crea un subhashmap
@@ -72,13 +73,13 @@ public class Principal {
                 }
                 currentLine = token.getLinea();
             }
+            //Se revisa si hay Tokens iguales en diferentes lineas por medio de un método, si hay los agrupa
             
-            //Ejemplo de foreach
-            codeLines.forEach((k,v)->{
-                System.out.println("En la linea "+k+" estan los tokens "+v); 
-                v.forEach((k2,v2)->{
-                System.out.println("El token "+k2+" aparece "+v2.getOcurrencias()+" veces en la linea "+v2.getLinea());
-                });
+            revisarTipos();
+            
+            allTokens.forEach((k,v)->{
+                System.out.println("En la linea "+k+" estan los tokens "+v.OcurrenciasTotales); 
+  
             });
         } catch (FileNotFoundException ex) {
             System.out.println("a");
@@ -88,16 +89,44 @@ public class Principal {
         
     }
     
-//    public static void revisarTipos(Token tok, int linea){
-//        for(int k = 0; k<tokensList.size(); k++){
-//            if (tokensList.get(k).getToken() == tok.getToken()){
-//                tokensList.get(k).getAparece().add(linea);
-//            }
-//            else{
-//                tokensList.add(tok);
-//            }
-//        }
-//    }
+    public static void revisarTipos(){
+        
+         codeLines.forEach((k,v)->{
+                v.forEach((k2,v2)->{
+                Token tokenFound = v2;
+                if(!tokenFound.getTipo().equals("ErrorLexico"))
+                {
+                    if(allTokens.containsKey(k2))
+                    {
+                        allTokens.get(k2).setOcurrenciasTotales(tokenFound.getLinea(),tokenFound.getOcurrencias()); 
+                    }
+                
+                    else
+                    {
+                        tokenFound.setOcurrenciasTotales(tokenFound.getLinea(), tokenFound.getOcurrencias());
+                        allTokens.put(tokenFound.getToken(),tokenFound);
+                    }
+                }
+                else
+                {
+                    
+                    if(allErrors.containsKey(k2))
+                    {
+                        allErrors.get(k2).setOcurrenciasTotales(tokenFound.getLinea(),tokenFound.getOcurrencias()); 
+                    }
+                
+                    else
+                    {
+                        tokenFound.setOcurrenciasTotales(tokenFound.getLinea(), tokenFound.getOcurrencias());
+                        allErrors.put(tokenFound.getToken(),tokenFound);
+                    }
+                }
+                
+                
+                System.out.println("El token "+k2+" aparece "+v2.getOcurrencias()+" veces en la linea "+v2.getLinea());
+                });
+            });
+    }
   
     public static void generarLexer(String ruta){
         File archivo = new File(ruta);

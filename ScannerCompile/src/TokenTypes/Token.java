@@ -6,6 +6,9 @@
 package TokenTypes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -16,6 +19,7 @@ public class Token {
     private int linea;
     private String token;
     private Integer ocurrencias;
+    public HashMap<Integer,Integer> OcurrenciasTotales;
     
     
    
@@ -53,6 +57,18 @@ public class Token {
     public Integer getOcurrencias() {
         return ocurrencias;
     }
+    public void setOcurrenciasTotales(Integer linea, Integer ocurrencias){
+        if( this.OcurrenciasTotales == null)
+        {
+            this.OcurrenciasTotales = new HashMap<>();
+        }
+        this.OcurrenciasTotales.put(linea,ocurrencias);
+    }
+    public String getOcurrenciasTotales(){
+        String resultado = "";
+        return resultado;
+    }
+    
 
     public void setOcurrencias(Integer ocurrencias) {
         this.ocurrencias = ocurrencias;
