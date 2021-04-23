@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package View;
 
+import java.awt.Toolkit;
 import java.io.File;
-import javax.swing.JFileChooser;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -31,53 +35,60 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lbTitulo = new java.awt.Label();
-        jButton1 = new javax.swing.JButton();
+        btn_Archivo = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Scanner");
         setBackground(new java.awt.Color(1, 0, 19));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("gatito.png")));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(1, 0, 19));
 
-        lbTitulo.setAlignment(java.awt.Label.CENTER);
-        lbTitulo.setFont(new java.awt.Font("Lucida Fax", 0, 24)); // NOI18N
-        lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lbTitulo.setText("Scanner Para C++");
-
-        jButton1.setBackground(new java.awt.Color(0, 0, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Escoger Archivo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_Archivo.setBackground(new java.awt.Color(22, 49, 87));
+        btn_Archivo.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        btn_Archivo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Archivo.setText("Seleccionar archivo");
+        btn_Archivo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_Archivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_ArchivoActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("SCANNER PARA C++");
+        jLabel2.setToolTipText("");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Laptop\\OneDrive\\Documentos\\Quinto Semestre\\COMPILADORES E INTERPRETES\\CScannerCompi2021\\ScannerCompile\\src\\View\\Fondo.png")); // NOI18N
+        jLabel1.setText("Scanner Para");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addGap(130, 130, 130)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(btn_Archivo, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(100, 100, 100)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jLabel1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(btn_Archivo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        lbTitulo.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,15 +104,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_ArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ArchivoActionPerformed
         // TODO add your handling code here:
-        JFileChooser buscador= new JFileChooser();
-        buscador.showOpenDialog(null);
-        File archivo =buscador.getSelectedFile();
-        String path=archivo.getAbsolutePath();
-        TablaTokens ventana = new TablaTokens(path);
-        ventana.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_ArchivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,8 +144,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    public javax.swing.JButton btn_Archivo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private java.awt.Label lbTitulo;
     // End of variables declaration//GEN-END:variables
+
 }
+

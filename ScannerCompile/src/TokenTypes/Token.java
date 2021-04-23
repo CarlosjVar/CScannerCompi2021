@@ -5,10 +5,7 @@
  */
 package TokenTypes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  *
@@ -81,7 +78,9 @@ public class Token {
                 }
                 resultado = resultado.concat(concat);   
         }
-         
+        if (resultado != null && resultado.length() > 0 && resultado.charAt(resultado.length() - 1) == ',') {
+                    resultado = resultado.substring(0, resultado.length() - 1);
+                } 
         return resultado;
     }
     
