@@ -100,7 +100,7 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(76, 85, 669, 390);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gato.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Laptop\\OneDrive\\Documentos\\Quinto Semestre\\COMPILADORES E INTERPRETES\\CScannerCompi2021\\ScannerCompile\\src\\View\\gato.png")); // NOI18N
         jPanel1.add(jLabel6);
         jLabel6.setBounds(220, 10, 80, 90);
 
@@ -112,7 +112,7 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(0, 0, 811, 77);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Fondo_2.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Laptop\\OneDrive\\Documentos\\Quinto Semestre\\COMPILADORES E INTERPRETES\\CScannerCompi2021\\ScannerCompile\\src\\View\\Fondo_2.png")); // NOI18N
         jLabel4.setText("Scanner Para");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(-80, -20, 890, 550);
@@ -153,7 +153,7 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(110, 83, 599, 390);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gato.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Laptop\\OneDrive\\Documentos\\Quinto Semestre\\COMPILADORES E INTERPRETES\\CScannerCompi2021\\ScannerCompile\\src\\View\\gato.png")); // NOI18N
         jPanel2.add(jLabel7);
         jLabel7.setBounds(220, 10, 80, 90);
 
@@ -165,7 +165,7 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel2.add(jLabel1);
         jLabel1.setBounds(0, 0, 811, 77);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Fondo_2.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Laptop\\OneDrive\\Documentos\\Quinto Semestre\\COMPILADORES E INTERPRETES\\CScannerCompi2021\\ScannerCompile\\src\\View\\Fondo_2.png")); // NOI18N
         jLabel5.setText("Scanner Para");
         jPanel2.add(jLabel5);
         jLabel5.setBounds(0, 0, 890, 550);

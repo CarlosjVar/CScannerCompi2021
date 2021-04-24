@@ -150,7 +150,7 @@
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Laptop\OneDrive\Documentos\Quinto Semestre\COMPILADORES E INTERPRETES\CScannerCompi2021\ScannerCompile\src\View\gato.png"/>
+                  <Image iconType="3" name="/View/gato.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -180,7 +180,7 @@
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Laptop\OneDrive\Documentos\Quinto Semestre\COMPILADORES E INTERPRETES\CScannerCompi2021\ScannerCompile\src\View\Fondo_2.png"/>
+                  <Image iconType="3" name="/View/Fondo_2.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Scanner Para"/>
               </Properties>
@@ -270,7 +270,7 @@
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Laptop\OneDrive\Documentos\Quinto Semestre\COMPILADORES E INTERPRETES\CScannerCompi2021\ScannerCompile\src\View\gato.png"/>
+                  <Image iconType="3" name="/View/gato.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -300,7 +300,7 @@
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Laptop\OneDrive\Documentos\Quinto Semestre\COMPILADORES E INTERPRETES\CScannerCompi2021\ScannerCompile\src\View\Fondo_2.png"/>
+                  <Image iconType="3" name="/View/Fondo_2.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Scanner Para"/>
               </Properties>

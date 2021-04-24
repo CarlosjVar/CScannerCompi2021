@@ -116,7 +116,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Laptop\OneDrive\Documentos\Quinto Semestre\COMPILADORES E INTERPRETES\CScannerCompi2021\ScannerCompile\src\View\Fondo.png"/>
+              <Image iconType="3" name="/View/Fondo.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Scanner Para"/>
           </Properties>

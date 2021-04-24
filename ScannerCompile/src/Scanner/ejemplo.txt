@@ -1,7 +1,7 @@
 "a" "a" "a"
 oli
 ñ ñ ñ 
-alo
+añlo
 Int Int Int goto Int
 090p
 int 1a = 0;

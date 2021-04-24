@@ -64,7 +64,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel2.setText("SCANNER PARA C++");
         jLabel2.setToolTipText("");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Fondo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Laptop\\OneDrive\\Documentos\\Quinto Semestre\\COMPILADORES E INTERPRETES\\CScannerCompi2021\\ScannerCompile\\src\\View\\Fondo.png")); // NOI18N
         jLabel1.setText("Scanner Para");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

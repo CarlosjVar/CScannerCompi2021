@@ -30,6 +30,7 @@ public class Modelo {
     try { 
         Reader lector = new BufferedReader(new FileReader(ruta));
         Lexer lexer = new Lexer(lector);
+        int numerolinea = 0;
         //Se crea un subhashmap
         HashMap<String,Token> lineaHash = new HashMap<>();
         Integer currentLine = 0;
@@ -131,7 +132,7 @@ public class Modelo {
     }
     
     public static void generarLexer( ){
-        String ruta = ".\\src\\Scanner\\Lexer.flex";
+        String ruta = "C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/Lexer.flex";
         File archivo = new File(ruta);
         JFlex.Main.generate(archivo);
     }

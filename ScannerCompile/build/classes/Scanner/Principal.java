@@ -7,7 +7,6 @@ package Scanner;
 
 import Controller.Controlador;
 import View.ventanaPrincipal;
-import java.io.File;
 
 /**
  *
@@ -16,7 +15,6 @@ import java.io.File;
 public class Principal {
 
     public static void main(String[] args) {
-        File file = new File(".\\src\\Scanner\\Lexer.flex");  
         ventanaPrincipal vista = new ventanaPrincipal();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();

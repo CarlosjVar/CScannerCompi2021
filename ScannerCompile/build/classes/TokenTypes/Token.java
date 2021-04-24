@@ -69,17 +69,17 @@ public class Token {
                 String concat = "";
                 if(ocurrencias==1)
                 {
-                    concat = key+", ";
+                    concat = key+",";
                 }
                 else
                 {
-                    concat = key+"("+ocurrencias+"), ";
+                    concat = key+"("+ocurrencias+") ,";
 
                 }
                 resultado = resultado.concat(concat);   
         }
-        if (resultado != null && resultado.length() > 0 ){
-                    resultado = resultado.substring(0, resultado.length() - 2);
+        if (resultado != null && resultado.length() > 0 && resultado.charAt(resultado.length() - 1) == ',') {
+                    resultado = resultado.substring(0, resultado.length() - 1);
                 } 
         return resultado;
     }

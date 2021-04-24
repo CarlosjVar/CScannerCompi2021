@@ -7,7 +7,7 @@ import TokenTypes.*;
 
 espacio=[ ,\t,\r]+
 
-
+IdentificadorMalo= [A-Za-z_][A-Za-z_0-9]* ñ [A-Za-z_0-9]*
 Zero = 0
 DecInt = [1-9][0-9]*
 OctalInt = 0[0-7]+
@@ -39,8 +39,9 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {Reservadas} { return new Reservadas(yyline,yytext());}
 
-{Identificadores} { return new Identificador(yyline,yytext());} 
+{IdentificadorMalo} {return new ErrorLexico(yyline,yytext());}
 
+{Identificadores} { return new Identificador(yyline,yytext());} 
 
 {Operadores} { return new Operador(yyline,yytext());}
 
@@ -49,7 +50,7 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 "\n" { yyline++;}
 
 
-{InvalidIdentifier} { System.out.println("Identificador Inválido "+yytext());} 
+{InvalidIdentifier} { return new ErrorLexico(yyline,yytext());} 
 {Integer} { return new Literal(yyline,yytext());}
 {Float} { return new Literal(yyline,yytext());}
  . {return new ErrorLexico(yyline,yytext());}
