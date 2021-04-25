@@ -61,7 +61,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("SCANNER PARA C++");
+        jLabel2.setText("SCANNER PARA C");
         jLabel2.setToolTipText("");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Fondo.png"))); // NOI18N

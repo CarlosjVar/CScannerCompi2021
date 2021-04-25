@@ -22,12 +22,13 @@ Float = ( {Float1} | {Float2} | {Float3} | {Float4} ) [fFdD]? |
 [0-9]+ [fFDd]
 Identificadores = [A-Za-z_$] [A-Za-z_$0-9]*
 CChar = [^\'\\\n\r] | {EscChar}
-SChar = [^\"\\\n\r] | {EscChar}
 EscChar = \\[ntbrf\\\'\"] | {OctalEscape}
 OctalEscape = \\[0-7] | \\[0-7][0-7] | \\[0-3][0-7][0-7]
 String = \"(.[^\"]*)\"
+CharLiteral = \'(.[^\']*)\'
+
 InvalidIdentifier = [0-9]+ [A-Za-z_$]+
-Reservadas = auto |break |case |char |const |continue |default |do |double |else |enum |extern |float |for |goto |if |int |long |register |return |short |signed |sizeof |static |struct |switch |typedef |union |unsigned |void |volatile |while
+Reservadas = main | auto |break |case |char |const |continue |default |do |double |else |enum |extern |float |for |goto |if |int |long |register |return |short |signed |sizeof |static |struct |switch |typedef |union |unsigned |void |volatile |while
 Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"&&" |"!" |"=" |"+" |"-" |"*" |"/" |"%" |"(" | ")" | "[" | "]" |"{" | "}" | ":" |"." |"+=" |"-=" |"*=" |"/=" |"&" |"^" |"|" |">>" |"<<" |"~" |"%=" |"&=" |"^=" |"|=" |"<<=" |">>=" |"->"
 %{
     public String lexeme;
@@ -50,7 +51,8 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {Operadores} { return new Operador(yyline,yytext());}
 
-{String} { return new Literal(yyline,yytext());}
+{String } { return new Literal(yyline,yytext());}
+{CharLiteral } { return new Literal(yyline,yytext());}
 
 "\n" { yyline++;}
 
