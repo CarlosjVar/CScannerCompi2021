@@ -16,7 +16,6 @@ import java.io.File;
 public class Principal {
 
     public static void main(String[] args) {
-        File file = new File(".\\src\\Scanner\\Lexer.flex");  
         ventanaPrincipal vista = new ventanaPrincipal();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();
