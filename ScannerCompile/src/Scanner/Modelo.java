@@ -73,14 +73,11 @@ public class Modelo {
 
        allTokens.forEach((k,v)->{
            String a = v.getOcurrenciasTotales();
-           System.out.println("El token "+k +" aparece" + a);
 
        });
 
-        System.out.println("Errores");
        allErrors.forEach((k,v)->{
            String a = v.getOcurrenciasTotales();
-           System.out.println("El error "+k +" aparece" + a);
 
        });
 
