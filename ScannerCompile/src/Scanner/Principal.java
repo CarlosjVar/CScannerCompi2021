@@ -15,7 +15,7 @@ import java.io.File;
  */
 public class Principal {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         ventanaPrincipal vista = new ventanaPrincipal();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();

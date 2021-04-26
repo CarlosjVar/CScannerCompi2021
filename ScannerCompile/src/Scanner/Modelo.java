@@ -25,7 +25,7 @@ public class Modelo {
 
     public Modelo() {
     }
-    
+    //Se encarga de iniciar el proceso de análisis léxico del documento ingresado
     public static void iniciar(String ruta) {
     try { 
         Reader lector = new BufferedReader(new FileReader(ruta));
@@ -88,7 +88,7 @@ public class Modelo {
     }
 
 }
-    
+    //A partir de los tokens obtenidos por la función principal se encarga de separarlos en Errores o en Tokens
     public static void revisarTipos(){
         
          codeLines.forEach((k,v)->{
@@ -126,7 +126,7 @@ public class Modelo {
                 });
             });
     }
-    
+    //Método de desarrollador utilizada solo si es necesario generar de nuevo la clase encargada de las expresiones regulares
     public static void generarLexer( ){
         String ruta = ".\\src\\Scanner\\Lexer.flex";
         File archivo = new File(ruta);

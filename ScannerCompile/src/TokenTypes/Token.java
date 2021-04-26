@@ -61,6 +61,7 @@ public class Token {
         }
         this.OcurrenciasTotales.put(linea,ocurrencias);
     }
+    //Función encargada de retornar un String con todas las apariciones de este Token
     public String getOcurrenciasTotales(){
         String resultado = "";
         

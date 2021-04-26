@@ -47,7 +47,7 @@ public class Controlador implements ActionListener{
             File archivo =buscador.getSelectedFile();
             if (archivo != null){
                 String path=archivo.getAbsolutePath();
-                Modelo.iniciar(path);                
+                Modelo.iniciar(path);  
                 this.tabla = new TablaTokens();
                 llenarLista();
                 this.ventana.setVisible(false);

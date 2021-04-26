@@ -34,8 +34,8 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
     public String lexeme;
 %}
 %%
+"//".* {/*Ignore*/}
 "/*"((\*+[^/*])|([^*]))*\**"*/" {System.out.println("Bloque de comentarios");}
-
 
 {Reservadas} { return new Reservadas(yyline,yytext());}
 
