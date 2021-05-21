@@ -28,18 +28,18 @@ public enum Symbols {
     While,           
     If,
     Else,
-    Igual,
-    Suma,
-    Resta,
-    Multiplicación,
-    Division,
+    Aritmeticos,
+    Relacionales,
     Identificador,
     Parentesis_a,
     Parentesis_c,
+    Corchete_a,
+    Corchete_c,
     Llave_a,
     Llave_c,
     Main,
     Scolon,
-    ERROR
+    ERROR,
+    Numero
     
 }

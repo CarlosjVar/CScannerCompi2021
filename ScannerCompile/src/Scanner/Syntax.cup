@@ -16,7 +16,13 @@ parser code
     }
 }
 
-terminal Int, If, Else, While, Igual, Suma, Resta, Multiplicacion, Division,
-Parentesis_a,Parentesis_c,Llave_a,Llave_c,Main
+terminal Int, If, Else, While, Igual, Suma, Resta, Multiplicacion, Division, Aritmeticos, Relacionales, Parentesis_a, Parentesis_c, Corchete_a, Corchete_c, Llave_a, Llave_c, Main;
 
-non terminal
+non terminal INICIO
+
+start with INICIO;
+
+INICIO ::= 
+    Int Main Parentesis_a Parentesis_c Llave_a  Llave_c |
+    Main Parentesis_a Parentesis_c Llave_a  Llave_c
+;
