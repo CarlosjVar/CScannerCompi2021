@@ -41,5 +41,4 @@ public enum Symbols {
     Scolon,
     ERROR,
     Numero
-    
 }

@@ -24,3 +24,4 @@ hs_err_pid*
 /ScannerCompile/dist/
 ScannerCompile/build/
 
+/ScannerCompile/nbproject/private/

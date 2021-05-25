@@ -24,29 +24,35 @@ public class Principal {
         ventanaPrincipal vista = new ventanaPrincipal();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();
-        String ruta2 = "C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/LexerCup.flex";
-        String[] rutaS = {"C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/Syntax.cup"};
+        String ruta1 = "E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/Lexer.flex";
+        String ruta2 = "E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/LexerCup.flex";
+        String[] rutaS = {"-parser", "Sintax","E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/Syntax.cup"};
+        
+        
+        
         File archivo;
+        archivo = new File(ruta1);
+        JFlex.Main.generate(archivo);
         archivo = new File(ruta2);
         JFlex.Main.generate(archivo);
         java_cup.Main.main(rutaS);
         
-        Path rutaSym = Paths.get("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner//sym.java");
+        Path rutaSym = Paths.get("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner//sym.java");
         if (Files.exists(rutaSym)) {
             Files.delete(rutaSym);
         }
         Files.move(
-                Paths.get("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/sym.java"), 
-                Paths.get("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/sym.java")
+                Paths.get("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/sym.java"), 
+                Paths.get("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/sym.java")
         );
-        Path rutaSin = Paths.get("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/Sintax.java");
+        
+        Path rutaSin = Paths.get("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/Sintax.java");
         if (Files.exists(rutaSin)) {
             Files.delete(rutaSin);
         }
         Files.move(
-                Paths.get("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/Sintax.java"), 
-                Paths.get("C:/Users/Laptop/OneDrive/Documentos/Quinto Semestre/COMPILADORES E INTERPRETES/CScannerCompi2021/ScannerCompile/src/Scanner/Sintax.java")
+                Paths.get("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/Sintax.java"), 
+                Paths.get("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/Sintax.java")
         );
     }
-    
  }
