@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Syntax.cup</file>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Modelo.java</file>
             <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/LexerCup.java</file>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Principal.java</file>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Lexer.flex</file>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/TokenTypes/Sint.java</file>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Lexer.java</file>
-            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Controller/Controlador.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/parser.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/ejemplo.txt</file>
             <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/LexerCup.flex</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Syntax.cup</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ScannerCompile/src/Scanner/Principal.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,0 +1,53 @@
+
+package Scanner;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+
+:};
+
+terminal 
+    Linea,
+    Int,
+    Break,
+    Case,
+    Char,
+    Const,
+    Continue,
+    Default,
+    Do,
+    For,
+    Long,
+    Return,
+    Short,
+    Switch,
+    Void,
+    While,           
+    If,
+    Else,
+    Aritmeticos,
+    Relacionales,
+    Identificador,
+    Literal,
+    Parentesis_a,
+    Parentesis_c,
+    Corchete_a,
+    Corchete_c,
+    Llave_a,
+    Llave_c,
+    Main,
+    Scolon,
+    Numero,
+    LEX_ERROR 
+    ;
+
+non  terminal INICIO;
+
+start with INICIO;
+
+INICIO ::= 
+    Int Main Parentesis_a Parentesis_c Llave_a  Llave_c |
+    Main Parentesis_a Parentesis_c Llave_a  Llave_c
+;
