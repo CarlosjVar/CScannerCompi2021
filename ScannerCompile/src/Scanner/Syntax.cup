@@ -5,19 +5,36 @@ import java_cup_runtime_Symbol;
 
 parser code
 {:
-    private Symbol s;
+:};
 
-    public void syntax_error(Symbol s){
-        this.s = S;
-    }
-
-    public Symbol getS()
-    {
-        return this.s;
-    }
-}
-
-terminal Int, Break, Case, Char, Const, Continue, Default, Do, Else, For, If, Long, Return, Short, Switch, Void, While, Identificador, Scolon, Main, Corchete_a, Corchete_c, Linea, Parentesis_a, Parentesis_c, Llave_a, Llave_c;
+terminal Int,
+    Break,
+    Case,
+    Char,
+    Const,
+    Continue,
+    Default,
+    Do,
+    Else,
+    For,
+    If,
+    Long,
+    Return,
+    Short,
+    Switch,
+    Void,
+    While,
+    Identificador,
+    Literal,
+    Scolon, 
+    Main,
+    Corchete_a,
+    Corchete_c,
+    Linea,
+    Parentesis_a,
+    Parentesis_c, 
+    Llave_a, 
+    Llave_c;
 
 non terminal INICIO
 

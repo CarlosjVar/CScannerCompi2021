@@ -1,5 +1,6 @@
 package Scanner;
 import TokenTypes.Symbols;
+import TokenTypes.*;
 import java_cup.runtime.Symbol;
 %%
 %class LexerCup
@@ -39,9 +40,9 @@ CharLiteral = \'(.[^\']*)\'
 "{"     {return new Symbol(sym.Llave_a,yychar,yyline,yytext());}
 "}"     {return new Symbol(sym.Llave_c,yychar,yyline,yytext());}
 
-( "++" | "--“ | "=" | "+" | "-" | "*” | "/" | "%" | "(" ")" |"+=" | "-=" | "*=" | "/=" )    {return new Symbol(Symbols.Aritmeticos,yychar,yyline,yytext());}
+( "++" | "--“ | "=" | "+" | "-" | "*” | "/" | "%" | "(" ")" |"+=" | "-=" | "*=" | "/=" )    {return new Symbol(sym.Aritmeticos,yychar,yyline,yytext());}
 
-( "==" | ">=" | ">" | "<=" | "<" | "!=" | "||" | "&&" | "!" )   {return new Symbol(Symbols.Relacionales,yychar,yyline,yytext());}
+( "==" | ">=" | ">" | "<=" | "<" | "!=" | "||" | "&&" | "!" )   {return new Symbol(sym.Relacionales,yychar,yyline,yytext());}
 
 
 
@@ -65,7 +66,7 @@ while   {return new Symbol(sym.While,yychar,yyline,yytext());}
 {Identificadores}   {return new Symbol(sym.Identificador,yychar,yyline,yytext());} 
 ";"     {return new Symbol(sym.Scolon,yychar,yyline,yytext());}
 "main"  {return new Symbol(sym.Main,yychar,yyline,yytext());}
-{Integer}   { return new Literal(yyline,yytext());}
+{Integer}   {  return new Symbol(sym.Literal, yychar, yyline, yytext());}
 
 
 ( "[" )     {return new Symbol(sym.Corchete_a, yychar, yyline, yytext());}
@@ -77,10 +78,10 @@ while   {return new Symbol(sym.While,yychar,yyline,yytext());}
 {espacio} {/*Ignore*/}
 
 
-{String } { return new Literal(yyline,yytext());}
+{String } { return new Symbol(sym.Literal, yychar, yyline, yytext());}
 
-{CharLiteral } { return new Literal(yyline,yytext());}
+{CharLiteral } { return new Symbol(sym.Literal, yychar, yyline, yytext());}
 
-"\n" {return new Symbol(sym.Linea,yychar,yyline,yytext);}
+"\n" {return new Symbol(sym.Linea,yychar,yyline,yytext());}
 
- . {return new ErrorLexico(yyline,yytext());}
+ . { return new Symbol(sym.LEX_ERROR, yychar, yyline, yytext());}
