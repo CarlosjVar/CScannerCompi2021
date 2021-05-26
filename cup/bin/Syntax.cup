@@ -1,16 +1,22 @@
 
 package Scanner;
 
-import java_cup.runtime.Symbol;
+import java_cup_runtime_Symbol;
 
 parser code
 {:
+    private Symbol s;
 
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
 :};
 
-terminal 
-    Linea,
-    Int,
+terminal Int,
     Break,
     Case,
     Char,
@@ -18,32 +24,28 @@ terminal
     Continue,
     Default,
     Do,
+    Else,
     For,
+    If,
     Long,
     Return,
     Short,
     Switch,
     Void,
-    While,           
-    If,
-    Else,
-    Aritmeticos,
-    Relacionales,
+    While,
     Identificador,
     Literal,
-    Parentesis_a,
-    Parentesis_c,
+    Scolon, 
+    Main,
     Corchete_a,
     Corchete_c,
-    Llave_a,
-    Llave_c,
-    Main,
-    Scolon,
-    Numero,
-    LEX_ERROR 
-    ;
+    Linea,
+    Parentesis_a,
+    Parentesis_c, 
+    Llave_a, 
+    Llave_c;
 
-non  terminal INICIO;
+non terminal INICIO
 
 start with INICIO;
 

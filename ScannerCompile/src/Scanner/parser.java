@@ -97,7 +97,15 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
 
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
 
+    public Symbol getS(){
+        return this.s;
+}
 
 
 /** Cup generated class to encapsulate user supplied action code.*/

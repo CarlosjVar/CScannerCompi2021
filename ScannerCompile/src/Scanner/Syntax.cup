@@ -5,6 +5,15 @@ import java_cup_runtime_Symbol;
 
 parser code
 {:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+    }
 :};
 
 terminal Int,

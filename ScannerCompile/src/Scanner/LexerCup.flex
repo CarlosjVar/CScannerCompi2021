@@ -3,9 +3,12 @@ import TokenTypes.Symbols;
 import TokenTypes.*;
 import java_cup.runtime.Symbol;
 %%
-%class LexerCup
+%cup
+%public
+%class Lexer
 %type java_cup.runtime.Symbol
-
+%line
+%column
 
 espacio=[ ,\t,\r]+
 IdentificadorMalo= [A-Za-z_][A-Za-z_0-9]* ñ [A-Za-z_0-9]*

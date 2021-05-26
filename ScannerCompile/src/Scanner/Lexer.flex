@@ -5,6 +5,7 @@ import TokenTypes.*;
 %type Token
 
 
+
 espacio=[ ,\t,\r]+
 
 IdentificadorMalo= [A-Za-z_][A-Za-z_0-9]* ñ [A-Za-z_0-9]*
