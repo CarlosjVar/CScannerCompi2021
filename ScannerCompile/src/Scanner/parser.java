@@ -31,8 +31,8 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\003\000\002\002\004\000\002\002\010\000\002\002" +
-    "\007" });
+    "\000\003\000\002\002\004\000\002\002\011\000\002\002" +
+    "\010" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -40,13 +40,14 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\016\000\006\005\006\040\004\001\002\000\004\032" +
-    "\015\001\002\000\004\002\014\001\002\000\004\040\007" +
+    "\000\020\000\006\005\006\030\004\001\002\000\004\032" +
+    "\016\001\002\000\004\002\015\001\002\000\004\030\007" +
     "\001\002\000\004\032\010\001\002\000\004\033\011\001" +
     "\002\000\004\036\012\001\002\000\004\037\013\001\002" +
-    "\000\004\002\000\001\002\000\004\002\001\001\002\000" +
-    "\004\033\016\001\002\000\004\036\017\001\002\000\004" +
-    "\037\020\001\002\000\004\002\uffff\001\002" });
+    "\000\004\040\014\001\002\000\004\002\000\001\002\000" +
+    "\004\002\001\001\002\000\004\033\017\001\002\000\004" +
+    "\036\020\001\002\000\004\037\021\001\002\000\004\040" +
+    "\022\001\002\000\004\002\uffff\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -54,11 +55,12 @@ public class parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\016\000\004\002\004\001\001\000\002\001\001\000" +
+    "\000\020\000\004\002\004\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -147,20 +149,20 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // INICIO ::= Int Main Parentesis_a Parentesis_c Llave_a Llave_c 
+          case 1: // INICIO ::= Int Identificador Parentesis_a Parentesis_c Llave_a Llave_c Scolon 
             {
               Object RESULT =null;
 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // INICIO ::= Main Parentesis_a Parentesis_c Llave_a Llave_c 
+          case 2: // INICIO ::= Identificador Parentesis_a Parentesis_c Llave_a Llave_c Scolon 
             {
               Object RESULT =null;
 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("INICIO",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 

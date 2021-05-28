@@ -28,9 +28,9 @@ public class Principal {
         ventanaPrincipal vista = new ventanaPrincipal();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();
-        String ruta1 = "E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/Lexer.flex";
-        String ruta2 = "E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/LexerCup.flex";
-        String[] rutaS = {"-parser", "Sintax","E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/Syntax.cup"};
+        String ruta1 = "./src/Scanner/Lexer.flex";
+        String ruta2 = "./src/Scanner/LexerCup.flex";
+        String[] rutaS = {"-parser", "Sintax","./src/Scanner/Syntax.cup"};
              
         File archivo;
 //        archivo = new File(ruta1);
@@ -38,8 +38,8 @@ public class Principal {
         archivo = new File(ruta2);
         JFlex.Main.generate(archivo);
         
-        Reader reader = new FileReader("E:/ArchivosTec/Quintosemestre/Compi/CScannerCompi2021/ScannerCompile/src/Scanner/ejemplo.txt");     
-        parser p = new parser(new Lexer(reader));
+        Reader reader = new FileReader("./src/Scanner/ejemplo.txt");     
+        parser p = new parser(new LexerCup(reader));
         
         try{
         p.parse();

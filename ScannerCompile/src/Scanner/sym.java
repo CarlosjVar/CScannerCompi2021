@@ -14,7 +14,7 @@ public class sym {
   public static final int For = 11;
   public static final int Parentesis_a = 24;
   public static final int Char = 6;
-  public static final int Numero = 32;
+  public static final int Numero = 31;
   public static final int Corchete_c = 27;
   public static final int Relacionales = 21;
   public static final int Corchete_a = 26;
@@ -26,19 +26,18 @@ public class sym {
   public static final int Const = 7;
   public static final int Llave_a = 28;
   public static final int Short = 14;
-  public static final int Main = 30;
   public static final int Aritmeticos = 20;
   public static final int EOF = 0;
   public static final int Case = 5;
   public static final int If = 18;
   public static final int Linea = 2;
   public static final int Return = 13;
-  public static final int LEX_ERROR = 33;
+  public static final int LEX_ERROR = 32;
   public static final int error = 1;
   public static final int Switch = 15;
   public static final int Do = 10;
   public static final int Void = 16;
-  public static final int Scolon = 31;
+  public static final int Scolon = 30;
   public static final int Literal = 23;
   public static final int While = 17;
   public static final int Long = 12;
@@ -73,7 +72,6 @@ public class sym {
   "Corchete_c",
   "Llave_a",
   "Llave_c",
-  "Main",
   "Scolon",
   "Numero",
   "LEX_ERROR"

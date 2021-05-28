@@ -49,7 +49,7 @@ CharLiteral = \'(.[^\']*)\'
 
 
 
-int     {return new Symbol(sym.Int,yychar,yyline,yytext());}
+"int"     {return new Symbol(sym.Int,yychar,yyline,yytext());}
 break   {return new Symbol(sym.Break,yychar,yyline,yytext());}
 case    {return new Symbol(sym.Case,yychar,yyline,yytext());}
 char    {return new Symbol(sym.Char,yychar,yyline,yytext());}
@@ -68,7 +68,6 @@ void    {return new Symbol(sym.Void,yychar,yyline,yytext());}
 while   {return new Symbol(sym.While,yychar,yyline,yytext());}
 {Identificadores}   {return new Symbol(sym.Identificador,yychar,yyline,yytext());} 
 ";"     {return new Symbol(sym.Scolon,yychar,yyline,yytext());}
-"main"  {return new Symbol(sym.Main,yychar,yyline,yytext());}
 {Integer}   {  return new Symbol(sym.Literal, yychar, yyline, yytext());}
 
 
