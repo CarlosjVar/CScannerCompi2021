@@ -43,9 +43,13 @@ CharLiteral = \'(.[^\']*)\'
 "{"     {return new Symbol(sym.Llave_a,yychar,yyline,yytext());}
 "}"     {return new Symbol(sym.Llave_c,yychar,yyline,yytext());}
 
-( "++" | "--“ | "=" | "+" | "-" | "*” | "/" | "%" | "(" ")" |"+=" | "-=" | "*=" | "/=" )    {return new Symbol(sym.Aritmeticos,yychar,yyline,yytext());}
 
-( "==" | ">=" | ">" | "<=" | "<" | "!=" | "||" | "&&" | "!" )   {return new Symbol(sym.Relacionales,yychar,yyline,yytext());}
+
+( "~" | "++" | "--" )   {return new Symbol(sym.Unarios,yychar,yyline,yytext());}
+
+( "==" | ">=" | ">" | "<=" | "<" | "!=" )   {return new Symbol(sym.Relacionales,yychar,yyline,yytext());}
+
+( "*" | "/" | "%" ) {return new Symbol(sym.Timesslash,yychar,yyline,yytext());}
 
 
 
@@ -69,6 +73,13 @@ while   {return new Symbol(sym.While,yychar,yyline,yytext());}
 {Identificadores}   {return new Symbol(sym.Identificador,yychar,yyline,yytext());} 
 ";"     {return new Symbol(sym.Scolon,yychar,yyline,yytext());}
 {Integer}   {  return new Symbol(sym.Literal, yychar, yyline, yytext());}
+"=" {return new Symbol(sym.Asignacion,yychar,yyline,yytext());}
+"||" {return new Symbol(sym.Or,yychar,yyline,yytext());}
+"&&" {return new Symbol(sym.And,yychar,yyline,yytext());}
+"!"  {return new Symbol(sym.Not,yychar,yyline,yytext());}
+"+" {return new Symbol(sym.Mas,yychar,yyline,yytext());}
+"-" {return new Symbol(sym.Menos,yychar,yyline,yytext());}
+
 
 
 ( "[" )     {return new Symbol(sym.Corchete_a, yychar, yyline, yytext());}

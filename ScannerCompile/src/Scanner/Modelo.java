@@ -29,7 +29,7 @@ public class Modelo {
     public static void iniciar(String ruta) {
     try { 
         Reader lector = new BufferedReader(new FileReader(ruta));
-        Lexer lexer = new Lexer(lector);
+        LexerViejo lexer = new LexerViejo(lector);
         //Se crea un subhashmap
         HashMap<String,Token> lineaHash = new HashMap<>();
         Integer currentLine = 0;

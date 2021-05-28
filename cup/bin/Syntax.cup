@@ -1,12 +1,12 @@
 
 package Scanner;
 
-import java_cup_runtime_Symbol;
+import java_cup.runtime.Symbol;
 
 parser code
 {:
     private Symbol s;
-
+    
     public void syntax_error(Symbol s){
         this.s = s;
     }
@@ -16,7 +16,9 @@ parser code
 }
 :};
 
-terminal Int,
+terminal 
+    Linea,
+    Int,
     Break,
     Case,
     Char,
@@ -24,32 +26,96 @@ terminal Int,
     Continue,
     Default,
     Do,
-    Else,
     For,
-    If,
     Long,
     Return,
     Short,
     Switch,
     Void,
-    While,
+    While,           
+    If,
+    Else,
+    Relacionales,
     Identificador,
     Literal,
-    Scolon, 
-    Main,
+    Parentesis_a,
+    Parentesis_c,
     Corchete_a,
     Corchete_c,
-    Linea,
-    Parentesis_a,
-    Parentesis_c, 
-    Llave_a, 
-    Llave_c;
+    Llave_a,
+    Llave_c,
+    Main,
+    Scolon,
+    Numero,
+    Asignacion,
+    Or,
+    And,
+    Not,
+    Mas,
+    Menos,
+    Timesslash,
+    Unarios,
+    LEX_ERROR
+    ;
 
-non terminal INICIO
+
+non  terminal INICIO, GLOBALES, MAIN, DECLARACION_FUNCION, SENTENCIA, LLAMADA_FUNCION, DECLARACION_VAR, ASIGNACION, IF, IF_ELSE, WHILE, DO_WHILE,
+ FOR,PARAMS , TIPO, LONG , SHORT,EXP, SENTENCIA_BOOLEANA, Op_booleano;
 
 start with INICIO;
 
-INICIO ::= 
-    Int Main Parentesis_a Parentesis_c Llave_a  Llave_c |
-    Main Parentesis_a Parentesis_c Llave_a  Llave_c
-;
+GLOBALES::=  Scolon ;
+
+INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon;
+
+MAIN::= Int Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+
+
+
+DECLARACION_FUNCION::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+
+SENTENCIA::= SENTENCIA DECLARACION_VAR  | DECLARACION_VAR |
+        SENTENCIA LLAMADA_FUNCION | LLAMADA_FUNCION
+        SENTENCIA ASIGNACION | ASIGNACION | 
+        SENTENCIA IF | IF | 
+        SENTENCIA IF_ELSE | IF_ELSE |
+        SENTENCIA WHILE| WHILE |
+        SENTENCIA DO_WHILE | DO_WHILE |
+        SENTENCIA FOR | FOR  ;
+
+
+
+LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificador Parentesis_a PARAMS Parentesis_c  Scolon ;
+
+DECLARACION_VAR::= Const TIPO Identificador ASIGNACION EXP Scolon | TIPO Identificador Asignacion EXP Scolon | TIPO Identificador Scolon| Const TIPO Identificador Scolon;
+
+EXP::= EXP Scolon EXP | Parentesis_a EXP Parentesis_c ;
+
+ASIGNACION::= Identificador ASIGNACION EXP Scolon ;
+
+IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
+
+SENTENCIA_BOOLEANA ::= 
+    Op_booleano  |
+    Identificador Relacionales Op_booleano |
+    Identificador Relacionales Numero |
+    Identificador Relacionales Identificador |
+    Identificador Relacionales Literal;
+
+Op_booleano::= Numero | Literal | Identificador;
+
+IF_ELSE::= ;
+
+WHILE::= ;
+
+DO_WHILE::= ;
+
+FOR::= ;
+
+PARAMS::= Identificador ;
+
+TIPO ::= Int | Void | Char | LONG |SHORT ;
+
+LONG ::= Long | Long Int |Long Long| Long Long Int ;
+
+SHORT ::= Short | Short Int | Short Short | Short Short Int ;
