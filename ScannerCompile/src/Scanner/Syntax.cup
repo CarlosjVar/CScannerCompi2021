@@ -60,7 +60,16 @@ terminal
 
 
 non  terminal INICIO, GLOBALES, MAIN, DECLARACION_FUNCION, SENTENCIA, LLAMADA_FUNCION, DECLARACION_VAR, ASIGNACION, IF, IF_ELSE, WHILE, DO_WHILE,
- FOR,PARAMS , TIPO, LONG , SHORT,EXP, SENTENCIA_BOOLEANA;
+ FOR,PARAMS , TIPO, LONG , SHORT,EXP, SENTENCIA_BOOLEANA, Op_booleano , SENTENCIA_FOR, DECLARACION_FOR, OPERADOR,OP_RELACIONALES;
+
+
+precedence right Asignacion;
+precedence left Or;
+precedence left And;
+precedence nonassoc Relacionales;
+precedence left Mas, Menos;
+precedence left Timesslash;
+precedence right Not;
 
 start with INICIO;
 
@@ -68,7 +77,7 @@ GLOBALES::=  Scolon ;
 
 INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon;
 
-MAIN::= Int Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+MAIN::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
 
 
 
@@ -89,28 +98,45 @@ LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificado
 
 DECLARACION_VAR::= Const TIPO Identificador ASIGNACION EXP Scolon | TIPO Identificador Asignacion EXP Scolon | TIPO Identificador Scolon| Const TIPO Identificador Scolon;
 
-EXP::= EXP Scolon EXP | Parentesis_a EXP Parentesis_c ;
 
-ASIGNACION::= Identificador ASIGNACION EXP Scolon ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Numero | OPERADOR;
+
+OPERADOR::= Mas| Menos | Timesslash  ; 
+
+
+
+ASIGNACION::= Identificador Asignacion EXP Scolon ;
 
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
 
-SENTENCIA_BOOLEANA ::=
-    Op_booleano | 
-    Identificador Relacional Op_booleano |
-    Identificador Relacional Numero |
-    Identificador Relacional Identificador |
-    Identificador Relacional Comillas Comillas |
-    Identificador Relacional Comillas Identificador Comillas
+OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
+
+SENTENCIA_BOOLEANA ::= 
+    Op_booleano  |
+    Identificador OP_RELACIONALES Op_booleano ;
+    
+
+Op_booleano::= Numero | Literal | Identificador;
+
+IF_ELSE::=  If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c Else Llave_a SENTENCIA Llave_c ;
+
+WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
+
+DO_WHILE::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Scolon ;
+
+FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c ;
+
+SENTENCIA_FOR ::=
+    TIPO Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
+    Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
 ;
 
-IF_ELSE::= ;
+DECLARACION_FOR ::= 
+    Identificador Asignacion Numero |
+    Identificador Unarios | 
+    Unarios Identificador
+;
 
-WHILE::= ;
-
-DO_WHILE::= ;
-
-FOR::= ;
 
 PARAMS::= Identificador ;
 
