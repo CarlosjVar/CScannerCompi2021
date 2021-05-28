@@ -38,7 +38,9 @@ public class Principal {
         //archivo = new File(ruta2);
        // JFlex.Main.generate(archivo);
         
-        Reader reader = new FileReader("./src/Scanner/ejemplo.txt");     
+        Reader reader = new FileReader("./src/Scanner/ejemplo.txt");  
+        
+        LexerCup s = new LexerCup(reader);
         parser p = new parser(new LexerCup(reader));
         
         try{
