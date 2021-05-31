@@ -1,8 +1,8 @@
+int pene = 5;
 int main(){ 
     if ( pepito ) {
-        int a ; 
-         int mala = 3 ;
-
+        const int a ; 
+        int mala = 3 ;
     }
     while ( 5 )
     {
@@ -13,5 +13,9 @@ int main(){
     }do{
     
     }while(1);
+    
+    for ( a = 69 ; a == 8 ; ++a ) {
+        int mala = 3 ;
+    }
      
 } ;

@@ -60,7 +60,7 @@ terminal
 
 
 non  terminal INICIO, 
-GLOBALES, 
+GLOBALES,
 MAIN, 
 DECLARACION_FUNCION, 
 SENTENCIA, 
@@ -76,6 +76,8 @@ PARAMS ,
 TIPO, 
 LONG , 
 SHORT,
+SCOL_LINEA,
+INICIO_AUX,
 EXP, 
 SENTENCIA_BOOLEANA,
 Op_booleano , 
@@ -100,9 +102,13 @@ precedence right Not;
 start with INICIO;
 TIPO::= Int | Char | Void ;
 
-GLOBALES::=  Scolon ;
+GLOBALES::= TIPO Identificador DECLARACION_VAR_AUX SCOL_LINEA GLOBALES | ;
 
-INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon ;
+SCOL_LINEA::= Scolon Linea | Scolon ;
+
+INICIO::= GLOBALES INICIO_AUX | DECLARACION_FUNCION MAIN Scolon | MAIN Scolon ;
+
+INICIO_AUX::= DECLARACION_FUNCION MAIN Scolon | MAIN Scolon ;
 
 MAIN ::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c  ;
 
@@ -111,13 +117,15 @@ SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
                 IF_ELSE  DECL_AUX |
                 WHILE DECL_AUX|
                 DO_WHILE Scolon DECL_AUX |
-                FOR Scolon DECL_AUX  |
+                FOR DECL_AUX  |
                 Linea SENTENCIA|  
                 ;
 
 DECL_AUX::= SENTENCIA  ;
 
-DECLARACION_VAR::=   TIPO Identificador DECLARACION_VAR_AUX ;
+CONST_AUX::= Const | ;
+
+DECLARACION_VAR::=  CONST_AUX TIPO Identificador DECLARACION_VAR_AUX ;
 
 DECLARACION_VAR_AUX::=  Asignacion EXP  |  ;
 
@@ -133,7 +141,7 @@ OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
 
 IF_ELSE::=  IF  LINEA_AUX Else Llave_a SENTENCIA Llave_c ;
 
-LINEA_AUX::= Linea   | ;
+LINEA_AUX::= Linea | ;
 
 WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c LINEA_AUX Llave_a SENTENCIA Llave_c ;
 
@@ -142,8 +150,14 @@ DO_WHILE::= Do Llave_a  SENTENCIA Llave_c LINEA_AUX While Parentesis_a SENTENCIA
 FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c ;
 
 SENTENCIA_FOR ::=
-    TIPO Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
-    Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+    TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
+    Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+;
+
+DECLARACION_FOR ::= 
+    Identificador Asignacion Numero |
+    Identificador Unarios | 
+    Unarios Identificador
 ;
 
 EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR;

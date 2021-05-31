@@ -59,63 +59,108 @@ terminal
     ;
 
 
-non  terminal INICIO, GLOBALES, MAIN, DECLARACION_FUNCION, SENTENCIA, LLAMADA_FUNCION, DECLARACION_VAR, ASIGNACION, IF, IF_ELSE, WHILE, DO_WHILE,
- FOR,PARAMS , TIPO, LONG , SHORT,EXP, SENTENCIA_BOOLEANA, Op_booleano;
+non  terminal INICIO, 
+GLOBALES,
+MAIN, 
+DECLARACION_FUNCION, 
+SENTENCIA, 
+LLAMADA_FUNCION, 
+DECLARACION_VAR, 
+ASIGNACION, 
+IF, 
+IF_ELSE,
+WHILE, 
+DO_WHILE,
+FOR,
+PARAMS , 
+TIPO, 
+LONG , 
+SHORT,
+SCOL_LINEA,
+INICIO_AUX,
+EXP, 
+SENTENCIA_BOOLEANA,
+Op_booleano , 
+SENTENCIA_FOR, 
+DECLARACION_FOR, 
+OPERADOR,OP_RELACIONALES , 
+CONST_AUX , 
+DECLARACION_VAR_AUX,
+DECL_AUX,
+LINEA_AUX
+;
+
+
+precedence right Asignacion;
+precedence left Or;
+precedence left And;
+precedence nonassoc Relacionales;
+precedence left Mas, Menos;
+precedence left Timesslash;
+precedence right Not;
 
 start with INICIO;
+TIPO::= Int | Char | Void ;
 
-GLOBALES::=  Scolon ;
+GLOBALES::= TIPO Identificador DECLARACION_VAR_AUX SCOL_LINEA GLOBALES|  ;
 
-INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon;
+SCOL_LINEA::= Scolon Linea | Scolon ;
 
-MAIN::= Int Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+INICIO::= GLOBALES INICIO_AUX | INICIO_AUX ;
 
+INICIO_AUX::= DECLARACION_FUNCION MAIN Scolon | MAIN Scolon ;
 
+MAIN ::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c  ;
 
-DECLARACION_FUNCION::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
+                IF DECL_AUX |
+                IF_ELSE  DECL_AUX |
+                WHILE DECL_AUX|
+                DO_WHILE Scolon DECL_AUX |
+                FOR DECL_AUX  |
+                Linea SENTENCIA|  
+                ;
 
-SENTENCIA::= SENTENCIA DECLARACION_VAR  | DECLARACION_VAR |
-        SENTENCIA LLAMADA_FUNCION | LLAMADA_FUNCION
-        SENTENCIA ASIGNACION | ASIGNACION | 
-        SENTENCIA IF | IF | 
-        SENTENCIA IF_ELSE | IF_ELSE |
-        SENTENCIA WHILE| WHILE |
-        SENTENCIA DO_WHILE | DO_WHILE |
-        SENTENCIA FOR | FOR  ;
+DECL_AUX::= SENTENCIA  ;
 
+CONST_AUX::= Const | ;
 
+DECLARACION_VAR::=  CONST_AUX TIPO Identificador DECLARACION_VAR_AUX ;
 
-LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificador Parentesis_a PARAMS Parentesis_c  Scolon ;
-
-DECLARACION_VAR::= Const TIPO Identificador ASIGNACION EXP Scolon | TIPO Identificador Asignacion EXP Scolon | TIPO Identificador Scolon| Const TIPO Identificador Scolon;
-
-EXP::= EXP Scolon EXP | Parentesis_a EXP Parentesis_c ;
-
-ASIGNACION::= Identificador ASIGNACION EXP Scolon ;
+DECLARACION_VAR_AUX::=  Asignacion EXP  |  ;
 
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
 
 SENTENCIA_BOOLEANA ::= 
     Op_booleano  |
-    Identificador Relacionales Op_booleano |
-    Identificador Relacionales Numero |
-    Identificador Relacionales Identificador |
-    Identificador Relacionales Literal;
+    Identificador OP_RELACIONALES Op_booleano ;
 
 Op_booleano::= Numero | Literal | Identificador;
 
-IF_ELSE::= ;
+OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
 
-WHILE::= ;
+IF_ELSE::=  IF  LINEA_AUX Else Llave_a SENTENCIA Llave_c ;
 
-DO_WHILE::= ;
+LINEA_AUX::= Linea | ;
 
-FOR::= ;
+WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c LINEA_AUX Llave_a SENTENCIA Llave_c ;
 
-PARAMS::= Identificador ;
+DO_WHILE::= Do Llave_a  SENTENCIA Llave_c LINEA_AUX While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c ;
 
-TIPO ::= Int | Void | Char | LONG |SHORT ;
+FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c ;
 
-LONG ::= Long | Long Int |Long Long| Long Long Int ;
+SENTENCIA_FOR ::=
+    TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
+    Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+;
 
-SHORT ::= Short | Short Int | Short Short | Short Short Int ;
+DECLARACION_FOR ::= 
+    Identificador Asignacion Numero |
+    Identificador Unarios | 
+    Unarios Identificador
+;
+
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR;
+
+OPERADOR::= Mas| Menos | Timesslash  ; 
+
