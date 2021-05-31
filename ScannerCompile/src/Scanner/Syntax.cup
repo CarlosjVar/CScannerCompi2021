@@ -59,8 +59,34 @@ terminal
     ;
 
 
-non  terminal INICIO, GLOBALES, MAIN, DECLARACION_FUNCION, SENTENCIA, LLAMADA_FUNCION, DECLARACION_VAR, ASIGNACION, IF, IF_ELSE, WHILE, DO_WHILE,
- FOR,PARAMS , TIPO, LONG , SHORT,EXP, SENTENCIA_BOOLEANA, Op_booleano , SENTENCIA_FOR, DECLARACION_FOR, OPERADOR,OP_RELACIONALES;
+non  terminal INICIO, 
+GLOBALES, 
+MAIN, 
+DECLARACION_FUNCION, 
+SENTENCIA, 
+LLAMADA_FUNCION, 
+DECLARACION_VAR, 
+ASIGNACION, 
+IF, 
+IF_ELSE,
+WHILE, 
+DO_WHILE,
+FOR,
+PARAMS , 
+TIPO, 
+LONG , 
+SHORT,
+EXP, 
+SENTENCIA_BOOLEANA,
+Op_booleano , 
+SENTENCIA_FOR, 
+DECLARACION_FOR, 
+OPERADOR,OP_RELACIONALES , 
+CONST_AUX , 
+DECLARACION_VAR_AUX,
+DECL_AUX,
+LINEA_AUX
+;
 
 
 precedence right Asignacion;
@@ -72,57 +98,46 @@ precedence left Timesslash;
 precedence right Not;
 
 start with INICIO;
+TIPO::= Int | Char | Void ;
 
 GLOBALES::=  Scolon ;
 
-INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon;
+INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon ;
 
-MAIN::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+MAIN ::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c  ;
 
+SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
+                IF DECL_AUX |
+                IF_ELSE  DECL_AUX |
+                WHILE DECL_AUX|
+                DO_WHILE Scolon DECL_AUX |
+                FOR Scolon DECL_AUX  |
+                Linea SENTENCIA|  
+                ;
 
+DECL_AUX::= SENTENCIA  ;
 
-DECLARACION_FUNCION::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+DECLARACION_VAR::=   TIPO Identificador DECLARACION_VAR_AUX ;
 
-SENTENCIA::= SENTENCIA DECLARACION_VAR  | DECLARACION_VAR |
-        SENTENCIA LLAMADA_FUNCION | LLAMADA_FUNCION
-        SENTENCIA ASIGNACION | ASIGNACION | 
-        SENTENCIA IF | IF | 
-        SENTENCIA IF_ELSE | IF_ELSE |
-        SENTENCIA WHILE| WHILE |
-        SENTENCIA DO_WHILE | DO_WHILE |
-        SENTENCIA FOR | FOR  ;
-
-
-
-LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificador Parentesis_a PARAMS Parentesis_c  Scolon ;
-
-DECLARACION_VAR::= Const TIPO Identificador ASIGNACION EXP Scolon | TIPO Identificador Asignacion EXP Scolon | TIPO Identificador Scolon| Const TIPO Identificador Scolon;
-
-
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Numero | OPERADOR;
-
-OPERADOR::= Mas| Menos | Timesslash  ; 
-
-
-
-ASIGNACION::= Identificador Asignacion EXP Scolon ;
+DECLARACION_VAR_AUX::=  Asignacion EXP  |  ;
 
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
-
-OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
 
 SENTENCIA_BOOLEANA ::= 
     Op_booleano  |
     Identificador OP_RELACIONALES Op_booleano ;
-    
 
 Op_booleano::= Numero | Literal | Identificador;
 
-IF_ELSE::=  If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c Else Llave_a SENTENCIA Llave_c ;
+OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
 
-WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
+IF_ELSE::=  IF  LINEA_AUX Else Llave_a SENTENCIA Llave_c ;
 
-DO_WHILE::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Scolon ;
+LINEA_AUX::= Linea   | ;
+
+WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c LINEA_AUX Llave_a SENTENCIA Llave_c ;
+
+DO_WHILE::= Do Llave_a  SENTENCIA Llave_c LINEA_AUX While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c ;
 
 FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c ;
 
@@ -131,17 +146,7 @@ SENTENCIA_FOR ::=
     Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
 ;
 
-DECLARACION_FOR ::= 
-    Identificador Asignacion Numero |
-    Identificador Unarios | 
-    Unarios Identificador
-;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR;
 
+OPERADOR::= Mas| Menos | Timesslash  ; 
 
-PARAMS::= Identificador ;
-
-TIPO ::= Int | Void | Char | LONG |SHORT ;
-
-LONG ::= Long | Long Int |Long Long| Long Long Int ;
-
-SHORT ::= Short | Short Int | Short Short | Short Short Int ;

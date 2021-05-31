@@ -1,2 +1,17 @@
-int main(){int a = 0 ;
-    int b = 0; };
+int main(){ 
+    if ( pepito ) {
+        int a ; 
+         int mala = 3 ;
+
+    }
+    while ( 5 )
+    {
+        int a ; 
+        if(5){
+        int b = 0 ;
+        }
+    }do{
+    
+    }while(1);
+     
+} ;
