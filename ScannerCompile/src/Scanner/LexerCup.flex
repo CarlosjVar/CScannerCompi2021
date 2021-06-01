@@ -52,7 +52,8 @@ CharLiteral = \'(.[^\']*)\'
 ( "*" | "/" | "%" ) {return new Symbol(sym.Timesslash,yychar,yyline,yytext());}
 
 
-
+read {return new Symbol(sym.Read,yychar,yyline,yytext());}
+write {return new Symbol(sym.Write,yychar,yyline,yytext());}
 "int"     {return new Symbol(sym.Int,yychar,yyline,yytext());}
 break   {return new Symbol(sym.Break,yychar,yyline,yytext());}
 case    {return new Symbol(sym.Case,yychar,yyline,yytext());}
@@ -80,6 +81,7 @@ main    {return new Symbol(sym.Main,yychar,yyline,yytext());}
 "!"  {return new Symbol(sym.Not,yychar,yyline,yytext());}
 "+" {return new Symbol(sym.Mas,yychar,yyline,yytext());}
 "-" {return new Symbol(sym.Menos,yychar,yyline,yytext());}
+
 , {System.out.println("koma"); return new Symbol(sym.Coma,yychar,yyline,yytext());}
 
 
