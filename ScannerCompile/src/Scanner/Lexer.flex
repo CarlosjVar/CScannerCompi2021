@@ -27,7 +27,7 @@ EscChar = \\[ntbrf\\\'\"] | {OctalEscape}
 OctalEscape = \\[0-7] | \\[0-7][0-7] | \\[0-3][0-7][0-7]
 String = \"(.[^\"]*)\"
 CharLiteral = \'(.[^\']*)\'
-
+SP = \r|\n|\r\n
 InvalidIdentifier = [0-9]+ [A-Za-z_$]+
 Reservadas = main | auto |break |case |char |const |continue |default |do |double |else |enum |extern |float |for |goto |if |int |long |register |return |short |signed |sizeof |static |struct |switch |typedef |union |unsigned |void |volatile |while
 Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"&&" |"!" |"=" |"+" |"-" |"*" |"/" |"%" |"(" | ")" | "[" | "]" |"{" | "}" | ":" |"." |"+=" |"-=" |"*=" |"/=" |"&" |"^" |"|" |">>" |"<<" |"~" |"%=" |"&=" |"^=" |"|=" |"<<=" |">>=" |"->"
@@ -40,7 +40,7 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {Reservadas} { return new Reservadas(yyline,yytext());}
 
-{espacio} {/*Ignore*/}
+{SP} {System.out.println("Error")}
 
 
 {IdentificadorMalo} {return new ErrorLexico(yyline,yytext());}
@@ -60,4 +60,4 @@ Operadores = "," |";" |"++" |"--" |"=="|">=" |">" |"?" |"<=" |"<" |"!=" |"||" |"
 
 {InvalidIdentifier} { return new ErrorLexico(yyline,yytext());} 
 
- . {return new ErrorLexico(yyline,yytext());}
+ . {System.out.println("Error");return new ErrorLexico(yyline,yytext());}

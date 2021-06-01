@@ -1,3 +1,6 @@
-int main (){ 
-     int a;
+int roo(int a , char a){};
+
+int main(){ 
+
+     
 } ;

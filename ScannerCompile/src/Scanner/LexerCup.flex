@@ -9,8 +9,8 @@ import java_cup.runtime.Symbol;
 %type java_cup.runtime.Symbol
 %line
 %column
-
-espacio=[ ,\t,\r]+
+LineEnd = \r|\n|\r\n
+espacio = {LineEnd}|[ \t\f]
 IdentificadorMalo= [A-Za-z_][A-Za-z_0-9]* ñ [A-Za-z_0-9]*
 Zero = 0
 DecInt = [1-9][0-9]*
@@ -18,7 +18,7 @@ OctalInt = 0[0-7]+
 HexInt = "-"?"0"[xX][0-9A-F]+
 Integer = ( {Zero} | {DecInt} | {OctalInt} | {HexInt} )[lL]?
 
-Identificadores = [A-Za-z_$] [A-Za-z_$0-9]*
+Identificadores = [A-Za-z_$] [A-Za-z_$0-9]* 
 CChar = [^\'\\\n\r] | {EscChar}
 EscChar = \\[ntbrf\\\'\"] | {OctalEscape}
 OctalEscape = \\[0-7] | \\[0-7][0-7] | \\[0-3][0-7][0-7]
@@ -89,7 +89,7 @@ main    {return new Symbol(sym.Main,yychar,yyline,yytext());}
 {Identificadores}({Identificadores}|{Integer})* {return new Symbol(sym.Identificador, yychar, yyline, yytext());}
 ("(-"{Integer}+")")|{Integer}+ {return new Symbol(sym.Numero, yychar, yyline, yytext());}
 
-{espacio} {/*Ignore*/}
+{espacio}+ {/*Ignore*/}
 
 
 {String } {System.out.println("String"); return new Symbol(sym.Literal, yychar, yyline, yytext());}
