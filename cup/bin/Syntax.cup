@@ -23,6 +23,7 @@ terminal
     Case,
     Char,
     Const,
+    Coma,
     Continue,
     Default,
     Do,
@@ -72,11 +73,11 @@ IF_ELSE,
 WHILE, 
 DO_WHILE,
 FOR,
-PARAMS , 
+PARAMS, 
+PARAMS_AUX,
 TIPO, 
 LONG , 
 SHORT,
-SCOL_LINEA,
 INICIO_AUX,
 EXP, 
 SENTENCIA_BOOLEANA,
@@ -87,6 +88,8 @@ OPERADOR,OP_RELACIONALES ,
 CONST_AUX , 
 DECLARACION_VAR_AUX,
 DECL_AUX,
+PARAMS_LL_AUX,
+PARAMS_LL,
 LINEA_AUX
 ;
 
@@ -100,17 +103,16 @@ precedence left Timesslash;
 precedence right Not;
 
 start with INICIO;
-TIPO::= Int | Char | Void ;
 
-GLOBALES::= TIPO Identificador DECLARACION_VAR_AUX SCOL_LINEA GLOBALES|  ;
+GLOBALES::= Scolon;
 
-SCOL_LINEA::= Scolon Linea | Scolon ;
+INICIO::= GLOBALES DECLARACION_FUNCION MAIN Scolon | DECLARACION_FUNCION MAIN Scolon ;
 
-INICIO::= GLOBALES INICIO_AUX | INICIO_AUX ;
+MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c ;
 
-INICIO_AUX::= DECLARACION_FUNCION MAIN Scolon | MAIN Scolon ;
+DECLARACION_FUNCION::=  DECLARACION_FUNCION TIPO Identificador Parentesis_a PARAMS Parentesis_c Llave_a SENTENCIA Llave_c Scolon LINEA_AUX | ;
 
-MAIN ::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c  ;
+LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificador Parentesis_a PARAMS_LL Parentesis_c  Scolon ;
 
 SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
                 IF DECL_AUX |
@@ -141,7 +143,7 @@ OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
 
 IF_ELSE::=  IF  LINEA_AUX Else Llave_a SENTENCIA Llave_c ;
 
-LINEA_AUX::= Linea | ;
+LINEA_AUX::= Linea LINEA_AUX | ;
 
 WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c LINEA_AUX Llave_a SENTENCIA Llave_c ;
 
@@ -160,7 +162,16 @@ DECLARACION_FOR ::=
     Unarios Identificador
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR ;
 
-OPERADOR::= Mas| Menos | Timesslash  ; 
+OPERADOR::= Mas| Menos | Timesslash ;
 
+PARAMS::= TIPO Identificador PARAMS_AUX ;
+
+PARAMS_AUX::= Coma PARAMS | ;
+
+PARAMS_LL::= Identificador PARAMS_LL_AUX ;
+
+PARAMS_LL_AUX::= Coma PARAMS_LL | ;
+
+TIPO::= Int | Char | Void ;

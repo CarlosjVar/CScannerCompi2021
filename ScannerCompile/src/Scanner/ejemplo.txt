@@ -1,21 +1,3 @@
-int pene = 5;
-int main(){ 
-    if ( pepito ) {
-        const int a ; 
-        int mala = 3 ;
-    }
-    while ( 5 )
-    {
-        int a ; 
-        if(5){
-        int b = 0 ;
-        }
-    }do{
-    
-    }while(1);
-    
-    for ( a = 69 ; a == 8 ; ++a ) {
-        int mala = 3 ;
-    }
-     
+int main (){ 
+     int a;
 } ;

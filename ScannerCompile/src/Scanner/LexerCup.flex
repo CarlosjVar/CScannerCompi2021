@@ -70,6 +70,7 @@ short   {return new Symbol(sym.Short,yychar,yyline,yytext());}
 switch  {return new Symbol(sym.Switch,yychar,yyline,yytext());}
 void    {return new Symbol(sym.Void,yychar,yyline,yytext());}
 while   {return new Symbol(sym.While,yychar,yyline,yytext());}
+main    {return new Symbol(sym.Main,yychar,yyline,yytext());}
 {Identificadores}   {return new Symbol(sym.Identificador,yychar,yyline,yytext());} 
 ";"     {return new Symbol(sym.Scolon,yychar,yyline,yytext());}
 {Integer}   {  return new Symbol(sym.Literal, yychar, yyline, yytext());}
@@ -79,7 +80,7 @@ while   {return new Symbol(sym.While,yychar,yyline,yytext());}
 "!"  {return new Symbol(sym.Not,yychar,yyline,yytext());}
 "+" {return new Symbol(sym.Mas,yychar,yyline,yytext());}
 "-" {return new Symbol(sym.Menos,yychar,yyline,yytext());}
-
+, {System.out.println("koma"); return new Symbol(sym.Coma,yychar,yyline,yytext());}
 
 
 ( "[" )     {return new Symbol(sym.Corchete_a, yychar, yyline, yytext());}
@@ -91,9 +92,9 @@ while   {return new Symbol(sym.While,yychar,yyline,yytext());}
 {espacio} {/*Ignore*/}
 
 
-{String } { return new Symbol(sym.Literal, yychar, yyline, yytext());}
+{String } {System.out.println("String"); return new Symbol(sym.Literal, yychar, yyline, yytext());}
 
-{CharLiteral } { return new Symbol(sym.Literal, yychar, yyline, yytext());}
+{CharLiteral } { System.out.println("Char"); return new Symbol(sym.Literal, yychar, yyline, yytext());}
 
 "\n" {return new Symbol(sym.Linea,yychar,yyline,yytext());}
 
