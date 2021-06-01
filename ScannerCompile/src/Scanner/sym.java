@@ -43,10 +43,11 @@ public class sym {
   public static final int Char = 6;
   public static final int Unarios = 40;
   public static final int Do = 11;
-  public static final int LEX_ERROR = 43;
+  public static final int LEX_ERROR = 44;
   public static final int Continue = 9;
   public static final int Case = 5;
   public static final int Short = 15;
+  public static final int Dos_puntos = 43;
   public static final int Const = 7;
   public static final int Identificador = 22;
   public static final int Write = 41;
@@ -96,6 +97,7 @@ public class sym {
   "Unarios",
   "Write",
   "Read",
+  "Dos_puntos",
   "LEX_ERROR"
   };
 }
