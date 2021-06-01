@@ -90,9 +90,12 @@ DECLARACION_VAR_AUX,
 DECL_AUX,
 PARAMS_LL_AUX,
 PARAMS_LL,
-LINEA_AUX
+LLAMADA_FUNCION_AUX,
+PARAMS_PREV,
+PARAMS_LL_PREV,
+LINEA_AUX,
+GLOB_AUX
 ;
-
 
 precedence right Asignacion;
 precedence left Or;
@@ -101,25 +104,24 @@ precedence nonassoc Relacionales;
 precedence left Mas, Menos;
 precedence left Timesslash;
 precedence right Not;
-
+ 
 start with INICIO;
 
-GLOBALES::= Scolon;
-
-INICIO::= GLOBALES DECLARACION_FUNCION MAIN Scolon | DECLARACION_FUNCION MAIN Scolon ;
+INICIO::= GLOBALES DECLARACION_FUNCION MAIN Scolon ;
 
 MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c ;
 
-DECLARACION_FUNCION::=  DECLARACION_FUNCION TIPO Identificador Parentesis_a PARAMS Parentesis_c Llave_a SENTENCIA Llave_c Scolon LINEA_AUX | ;
+DECLARACION_FUNCION::=  DECLARACION_FUNCION TIPO Identificador Parentesis_a PARAMS_PREV Parentesis_c Llave_a SENTENCIA Llave_c Scolon LINEA_AUX | ;
 
-LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificador Parentesis_a PARAMS_LL Parentesis_c  Scolon ;
+LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon;
 
 SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
                 IF DECL_AUX |
                 IF_ELSE  DECL_AUX |
                 WHILE DECL_AUX|
                 DO_WHILE Scolon DECL_AUX |
-                FOR DECL_AUX  |
+                FOR DECL_AUX |
+                LLAMADA_FUNCION DECL_AUX |
                 Linea SENTENCIA|  
                 ;
 
@@ -166,12 +168,21 @@ EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Litera
 
 OPERADOR::= Mas| Menos | Timesslash ;
 
+PARAMS_PREV::= PARAMS | ;
+
 PARAMS::= TIPO Identificador PARAMS_AUX ;
 
 PARAMS_AUX::= Coma PARAMS | ;
+
+PARAMS_LL_PREV::= PARAMS_LL | ;
 
 PARAMS_LL::= Identificador PARAMS_LL_AUX ;
 
 PARAMS_LL_AUX::= Coma PARAMS_LL | ;
 
 TIPO::= Int | Char | Void ;
+
+GLOBALES::= TIPO Identificador Scolon LINEA_AUX GLOB_AUX ;
+
+GLOB_AUX::=  GLOBALES | ;
+

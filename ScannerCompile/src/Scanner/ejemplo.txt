@@ -1,6 +1,6 @@
-int roo(int a , char a){};
+int roo(){};
 
 int main(){ 
 
-     
+     roo();
 } ;
