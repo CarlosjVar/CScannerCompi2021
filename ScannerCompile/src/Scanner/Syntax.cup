@@ -2,9 +2,16 @@
 package Scanner;
 
 import java_cup.runtime.Symbol;
-
+import java.util.ArrayList;
 parser code
 {:
+
+    public ArrayList<String> errores = new ArrayList<String>();
+
+    public void addError(String error,Symbol token){
+            this.errores.add(error + token.right+1);
+    }
+
     private Symbol s;
     
     public void syntax_error(Symbol s){
@@ -128,20 +135,17 @@ start with INICIO;
 
 DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX     |  ;
 
-DECLARACIONES_INICIALES_AUX::=  DECLARACIONES_INICIALES_AUX_AUX Scolon LINEA_AUX| Parentesis_a PARAMS_PREV Parentesis_c Llave_a SENTENCIA Llave_c Scolon LINEA_AUX ;
+DECLARACIONES_INICIALES_AUX::=  DECLARACIONES_INICIALES_AUX_AUX Scolon | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c Scolon  ;
 
 DECLARACIONES_INICIALES_AUX_AUX::= Asignacion EXP |  ;
 
 INICIO::= DECLARACIONES_INICIALES MAIN  ;
 
-MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c|
-         error {:     :}    ;
-
-DECLARACION_FUNCION::=  DECLARACION_FUNCION TIPO Identificador Parentesis_a PARAMS_PREV Parentesis_c Llave_a SENTENCIA   Llave_c Scolon  LINEA_AUX | ;
+MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a  DECLARACION_VAR SENTENCIA Llave_c  ;
 
 LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon| LANG_FUNCS;
 
-SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
+SENTENCIA::=    
                 IF DECL_AUX |
                 IF_ELSE  DECL_AUX |
                 WHILE DECL_AUX|
@@ -155,13 +159,13 @@ SENTENCIA::=    DECLARACION_VAR Scolon DECL_AUX |
                 Break Scolon DECL_AUX|
                 Linea SENTENCIA|  
                 ;
-ASIGNACION_VAR::= Identificador Asignacion EXP Scolon;
+ASIGNACION_VAR::= Identificador ARRAY_AUX Scolon;
 
 DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  CONST_AUX TIPO Identificador ARRAY_AUX ;
+DECLARACION_VAR::=  CONST_AUX TIPO Identificador ARRAY_AUX Scolon  DECLARACION_VAR |    ;
 
 ARRAY_AUX::= Corchete_a  EXP Corchete_c Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
 
@@ -173,23 +177,22 @@ ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 DECLARACION_VAR_AUX::=  Asignacion EXP  |  ;
 
-IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
+IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
+        If error:e Llave_c   {:   this.parser.addError("If error in line" , (Symbol) e );  :}    ;
 
 SENTENCIA_BOOLEANA ::= 
-    Op_booleano  |
-    Identificador OP_RELACIONALES Op_booleano ;
+    EXP  |
+    Identificador OP_RELACIONALES EXP ;
 
-Op_booleano::= Numero | Literal | Identificador;
+
 
 OP_RELACIONALES::= Relacionales | And | Or | Not;
 
-IF_ELSE::=  IF  LINEA_AUX Else Llave_a SENTENCIA Llave_c ;
+IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c ;
 
-LINEA_AUX::= Linea LINEA_AUX | ;
+WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c ;
 
-WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c LINEA_AUX Llave_a  SENTENCIA  Llave_c ;
-
-DO_WHILE::= Do Llave_a  SENTENCIA   Llave_c LINEA_AUX While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c ;
+DO_WHILE::= Do Llave_a  SENTENCIA   Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c ;
 
 CONTINUE::= Continue Scolon ;
 

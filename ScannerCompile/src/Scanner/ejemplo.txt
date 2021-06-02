@@ -6,8 +6,7 @@ int func2(int param1,int param2) {
 int c; 
 c=4;} ;
 int main(){ 
-    int a = 3;
-    
-    if a { }
- 
+   
+    if a {}
+
 }
