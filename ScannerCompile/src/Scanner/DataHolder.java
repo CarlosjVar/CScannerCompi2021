@@ -15,13 +15,13 @@ public class DataHolder {
     
     DataHolder(int linea,String text)
     {
-        this.linea = linea;
+        this.linea = linea ;
         this.text = text;
     }
 
     @Override
     public String toString() {
-        return "Linea "+ linea +" Texto "+text; //To change body of generated methods, choose Tools | Templates.
+        return "Linea "+ linea +" Texto "+ text; //To change body of generated methods, choose Tools | Templates.
     }
     
 }

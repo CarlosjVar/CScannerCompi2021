@@ -45,8 +45,8 @@ public class Principal {
         System.out.println("puto quien lo lea");
         }catch(Exception e){
             Symbol simbol =  p.getS();
-         
-            System.out.println("Error de sintaxis. Linea: " + (simbol.right + 1) + " Columna: " + (simbol.left + 1) + ", Texto: \"" + simbol.value + "\"");
+         System.out.println("Error de sintaxis. Linea: " + (simbol.right + 1) + " Columna: " + (simbol.left + 1) + ", Texto: \"" + simbol.value + "\"");
         }  
+        System.out.println(p.errores);
     }
  }
