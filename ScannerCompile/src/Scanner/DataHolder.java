@@ -21,7 +21,7 @@ public class DataHolder {
 
     @Override
     public String toString() {
-        return "Linea "+ linea +" Texto "+ text; //To change body of generated methods, choose Tools | Templates.
+        return  linea +" Texto "+ text; //To change body of generated methods, choose Tools | Templates.
     }
     
 }

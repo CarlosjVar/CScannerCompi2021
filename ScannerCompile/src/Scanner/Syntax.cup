@@ -8,19 +8,17 @@ parser code
 
     public ArrayList<String> errores = new ArrayList<String>();
 
-    public void addError(String error,Symbol token){
-            this.errores.add(error + token.right+1);
+
+    public void syntax_error(Symbol cur_token){
+	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
-    private Symbol s;
+    public void unrecovered_syntax_error(Symbol cur_token){
+    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        this.errores.add("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    }
     
-    public void syntax_error(Symbol s){
-        this.s = s;
-    }
-
-    public Symbol getS(){
-        return this.s;
-}
 :};
 
 terminal 
@@ -120,7 +118,8 @@ DEFAULT_AUX,
 DEFAULT_OPTIONS,
 CASE_AUX,
 CASE_OPTIONS,
-OPTIONS
+OPTIONS,
+ARRAY_AUX_CONST
 ;
 
 precedence right Asignacion;
@@ -133,11 +132,11 @@ precedence right Not;
  
 start with INICIO;
 
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX     |  ;
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon | DECLARACIONES_INICIALES  TIPO Identificador DECLARACIONES_INICIALES_AUX   |  ;
 
-DECLARACIONES_INICIALES_AUX::=  DECLARACIONES_INICIALES_AUX_AUX Scolon | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c Scolon  ;
+DECLARACIONES_INICIALES_AUX::= Scolon | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c Scolon  ;
 
-DECLARACIONES_INICIALES_AUX_AUX::= Asignacion EXP |  ;
+
 
 INICIO::= DECLARACIONES_INICIALES MAIN  ;
 
@@ -157,7 +156,7 @@ SENTENCIA::=
                 CONTINUE DECL_AUX |
                 Return Scolon DECL_AUX|
                 Break Scolon DECL_AUX|
-                Linea SENTENCIA|  
+                Linea SENTENCIA |  
                 ;
 ASIGNACION_VAR::= Identificador ARRAY_AUX Scolon;
 
@@ -165,20 +164,22 @@ DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  CONST_AUX TIPO Identificador ARRAY_AUX Scolon  DECLARACION_VAR |    ;
+DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST  Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon  DECLARACION_VAR |    ;
 
-ARRAY_AUX::= Corchete_a  EXP Corchete_c Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
+ARRAY_AUX::= Corchete_a EXP Corchete_c  | error |   ;
+
+ARRAY_AUX_CONST::= Corchete_a  EXP Corchete_c Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
+
+
+DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
 
 ARRAY_AUX_AUX::= EXP | Llave_a  ARRAY_EXP_AUX   Llave_c ;
 
 ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 
-
-DECLARACION_VAR_AUX::=  Asignacion EXP  |  ;
-
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
-        If error:e Llave_c   {:   this.parser.addError("If error in line" , (Symbol) e );  :}    ;
+       If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c  ;
 
 SENTENCIA_BOOLEANA ::= 
     EXP  |
@@ -190,7 +191,7 @@ OP_RELACIONALES::= Relacionales | And | Or | Not;
 
 IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c ;
 
-WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c ;
+WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c  ;
 
 DO_WHILE::= Do Llave_a  SENTENCIA   Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c ;
 

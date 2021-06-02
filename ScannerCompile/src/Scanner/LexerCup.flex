@@ -31,77 +31,73 @@ CharLiteral = \'(.[^\']*)\'
     private Symbol symbol(int type, Object value){
         return new Symbol(type, yyline, yycolumn, value);
     }
-
-    private Symbol symbol(int type){
-        return new Symbol(type, yyline, yycolumn);
-    }
 %}
 %%
 
 "//".* {/*Ignore*/}
 "/*"((\*+[^/*])|([^*]))*\**"*/" {System.out.println("Bloque de comentarios");}
 
-"("     {return new Symbol(sym.Parentesis_a, new DataHolder(yyline,yytext()));}
-")"     {return new Symbol(sym.Parentesis_c,new DataHolder(yyline,yytext()));}
-"{"     {return new Symbol(sym.Llave_a,new DataHolder(yyline,yytext()));}
-"}"     {return new Symbol(sym.Llave_c,new DataHolder(yyline,yytext()));}
+"("     {return new Symbol(sym.Parentesis_a,yycolumn,yyline ,yytext());}
+")"     {return new Symbol(sym.Parentesis_c,yycolumn,yyline ,yytext());}
+"{"     {return new Symbol(sym.Llave_a,yycolumn,yyline ,yytext());}
+"}"     {return new Symbol(sym.Llave_c,yycolumn,yyline ,yytext());}
 
 
 
-( "~" | "++" | "--" )   {return new Symbol(sym.Unarios,new DataHolder(yyline,yytext()));}
+( "~" | "++" | "--" )   {return new Symbol(sym.Unarios,yycolumn,yyline ,yytext());}
 
-( "==" | ">=" | ">" | "<=" | "<" | "!=" )   {return new Symbol(sym.Relacionales,new DataHolder(yyline,yytext()));}
+( "==" | ">=" | ">" | "<=" | "<" | "!=" )   {return new Symbol(sym.Relacionales,yycolumn,yyline ,yytext());}
 
-( "*" | "/" | "%" ) {return new Symbol(sym.Timesslash,new DataHolder(yyline,yytext()));}
-
-
-read {return new Symbol(sym.Read,new DataHolder(yyline,yytext()));}
-write {return new Symbol(sym.Write,new DataHolder(yyline,yytext()));}
-"int"     {return new Symbol(sym.Int,new DataHolder(yyline,yytext()));}
-break   {return new Symbol(sym.Break,new DataHolder(yyline,yytext()));}
-case    {return new Symbol(sym.Case,new DataHolder(yyline,yytext()));}
-char    {return new Symbol(sym.Char,new DataHolder(yyline,yytext()));}
-const   {return new Symbol(sym.Const,new DataHolder(yyline,yytext()));}
-continue    {return new Symbol(sym.Continue,new DataHolder(yyline,yytext()));}
-default     {return new Symbol(sym.Default,new DataHolder(yyline,yytext()));}
-do      {return new Symbol(sym.Do,new DataHolder(yyline,yytext()));}
-else    {return new Symbol(sym.Else,new DataHolder(yyline,yytext()));}
-for     {return new Symbol(sym.For,new DataHolder(yyline,yytext()));}
-if      {return new Symbol(sym.If,new DataHolder(yyline,yytext()));}
-long    {return new Symbol(sym.Long,new DataHolder(yyline,yytext()));}
-return  {return new Symbol(sym.Return,new DataHolder(yyline,yytext()));}
-short   {return new Symbol(sym.Short,new DataHolder(yyline,yytext()));}
-switch  {return new Symbol(sym.Switch,new DataHolder(yyline,yytext()));}
-void    {return new Symbol(sym.Void,new DataHolder(yyline,yytext()));}
-while   {return new Symbol(sym.While,new DataHolder(yyline,yytext()));}
-main    {return new Symbol(sym.Main,new DataHolder(yyline,yytext()));}
-{Identificadores}   {return new Symbol(sym.Identificador,new DataHolder(yyline,yytext()));} 
-";"     {return new Symbol(sym.Scolon,new DataHolder(yyline,yytext()));}
-{Integer}   {  return new Symbol(sym.Literal, new DataHolder(yyline,yytext()));}
-"=" {return new Symbol(sym.Asignacion,new DataHolder(yyline,yytext()));}
-"||" {return new Symbol(sym.Or,new DataHolder(yyline,yytext()));}
-"&&" {return new Symbol(sym.And,new DataHolder(yyline,yytext()));}
-"!"  {return new Symbol(sym.Not,new DataHolder(yyline,yytext()));}
-"+" {return new Symbol(sym.Mas,new DataHolder(yyline,yytext()));}
-"-" {return new Symbol(sym.Menos,new DataHolder(yyline,yytext()));}
-":" { return new Symbol(sym.Dos_puntos,new DataHolder(yyline,yytext()));}
-
-, {System.out.println("koma"); return new Symbol(sym.Coma,new DataHolder(yyline,yytext()));}
+( "*" | "/" | "%" ) {return new Symbol(sym.Timesslash,yycolumn,yyline ,yytext());}
 
 
-( "[" )     {return new Symbol(sym.Corchete_a, new DataHolder(yyline,yytext()));}
-( "]" )     {return new Symbol(sym.Corchete_c, new DataHolder(yyline,yytext()));}
+read {return new Symbol(sym.Read,yycolumn,yyline ,yytext());}
+write {return new Symbol(sym.Write,yycolumn,yyline ,yytext());}
+"int"     {return new Symbol(sym.Int,yycolumn,yyline ,yytext());}
+break   {return new Symbol(sym.Break,yycolumn,yyline ,yytext());}
+case    {return new Symbol(sym.Case,yycolumn,yyline ,yytext());}
+char    {return new Symbol(sym.Char,yycolumn,yyline ,yytext());}
+const   {return new Symbol(sym.Const,yycolumn,yyline ,yytext());}
+continue    {return new Symbol(sym.Continue,yycolumn,yyline ,yytext());}
+default     {return new Symbol(sym.Default,yycolumn,yyline ,yytext());}
+do      {return new Symbol(sym.Do,yycolumn,yyline ,yytext());}
+else    {return new Symbol(sym.Else,yycolumn,yyline ,yytext());}
+for     {return new Symbol(sym.For,yycolumn,yyline ,yytext());}
+if      {return new Symbol(sym.If,yycolumn,yyline ,yytext());}
+long    {return new Symbol(sym.Long,yycolumn,yyline ,yytext());}
+return  {return new Symbol(sym.Return,yycolumn,yyline ,yytext());}
+short   {return new Symbol(sym.Short,yycolumn,yyline ,yytext());}
+switch  {return new Symbol(sym.Switch,yycolumn,yyline ,yytext());}
+void    {return new Symbol(sym.Void,yycolumn,yyline ,yytext());}
+while   {return new Symbol(sym.While,yycolumn,yyline ,yytext());}
+main    {return new Symbol(sym.Main,yycolumn,yyline ,yytext());}
+{Identificadores}   {return new Symbol(sym.Identificador,yycolumn,yyline ,yytext());} 
+";"     {return new Symbol(sym.Scolon,yycolumn,yyline ,yytext());}
+{Integer}   {  return new Symbol(sym.Literal,yycolumn,yyline ,yytext());}
+"=" {return new Symbol(sym.Asignacion,yycolumn,yyline ,yytext());}
+"||" {return new Symbol(sym.Or,yycolumn,yyline ,yytext());}
+"&&" {return new Symbol(sym.And,yycolumn,yyline ,yytext());}
+"!"  {return new Symbol(sym.Not,yycolumn,yyline ,yytext());}
+"+" {return new Symbol(sym.Mas,yycolumn,yyline ,yytext());}
+"-" {return new Symbol(sym.Menos,yycolumn,yyline ,yytext());}
+":" { return new Symbol(sym.Dos_puntos,yycolumn,yyline ,yytext());}
 
-{Identificadores}({Identificadores}|{Integer})* {return new Symbol(sym.Identificador, new DataHolder(yyline,yytext()));}
-("(-"{Integer}+")")|{Integer}+ {return new Symbol(sym.Numero, new DataHolder(yyline,yytext()));}
+, {System.out.println("koma"); return new Symbol(sym.Coma,yycolumn,yyline ,yytext());}
+
+
+( "[" )     {return new Symbol(sym.Corchete_a,yycolumn,yyline ,yytext());}
+( "]" )     {return new Symbol(sym.Corchete_c,yycolumn,yyline ,yytext());}
+
+{Identificadores}({Identificadores}|{Integer})* {return new Symbol(sym.Identificador,yycolumn,yyline ,yytext());}
+("(-"{Integer}+")")|{Integer}+ {return new Symbol(sym.Numero,yycolumn,yyline ,yytext());}
 
 {espacio}+ {/*Ignore*/}
 
 
-{String } {System.out.println("String"); return new Symbol(sym.Literal, new DataHolder(yyline,yytext()));}
+{String } {System.out.println("String"); return new Symbol(sym.Literal,yycolumn,yyline ,yytext());}
 
-{CharLiteral } { System.out.println("Char"); return new Symbol(sym.Literal, new DataHolder(yyline,yytext()));}
+{CharLiteral } { System.out.println("Char"); return new Symbol(sym.Literal,yycolumn,yyline ,yytext());}
 
-"\n" {return new Symbol(sym.Linea,new DataHolder(yyline,yytext()));}
+"\n" {return new Symbol(sym.Linea,yycolumn,yyline ,yytext());}
 
- . { return new Symbol(sym.LEX_ERROR,new DataHolder(yyline,yytext()));}
+ . { return new Symbol(sym.LEX_ERROR,yycolumn,yyline ,yytext());}
