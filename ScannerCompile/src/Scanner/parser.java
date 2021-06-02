@@ -560,7 +560,7 @@ class CUP$parser$actions {
             {
               Object RESULT =null;
 
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES",32, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()) ,RESULT  );
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES",32, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
