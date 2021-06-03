@@ -19,6 +19,7 @@ public class sym {
   public static final int Menos = 38;
   public static final int Mas = 37;
   public static final int Else = 20;
+  public static final int Read = 42;
   public static final int Break = 4;
   public static final int Asignacion = 33;
   public static final int Corchete_c = 27;
@@ -42,12 +43,14 @@ public class sym {
   public static final int Char = 6;
   public static final int Unarios = 40;
   public static final int Do = 11;
-  public static final int LEX_ERROR = 41;
+  public static final int LEX_ERROR = 44;
   public static final int Continue = 9;
   public static final int Case = 5;
   public static final int Short = 15;
+  public static final int Dos_puntos = 43;
   public static final int Const = 7;
   public static final int Identificador = 22;
+  public static final int Write = 41;
   public static final int Numero = 32;
   public static final int Main = 30;
   public static final String[] terminalNames = new String[] {
@@ -92,6 +95,9 @@ public class sym {
   "Menos",
   "Timesslash",
   "Unarios",
+  "Write",
+  "Read",
+  "Dos_puntos",
   "LEX_ERROR"
   };
 }

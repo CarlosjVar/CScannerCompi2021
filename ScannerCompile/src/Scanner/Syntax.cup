@@ -132,17 +132,15 @@ precedence right Not;
  
 start with INICIO;
 
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon | DECLARACIONES_INICIALES  TIPO Identificador DECLARACIONES_INICIALES_AUX   |  ;
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon | DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX | ;
 
-DECLARACIONES_INICIALES_AUX::= Scolon | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c Scolon  ;
+DECLARACIONES_INICIALES_AUX::= Scolon | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c Scolon | ;
 
+INICIO::= DECLARACIONES_INICIALES MAIN ;
 
+MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c ;
 
-INICIO::= DECLARACIONES_INICIALES MAIN  ;
-
-MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a  DECLARACION_VAR SENTENCIA Llave_c  ;
-
-LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon| LANG_FUNCS;
+LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon | LANG_FUNCS ;
 
 SENTENCIA::=    
                 IF DECL_AUX |
@@ -156,19 +154,20 @@ SENTENCIA::=
                 CONTINUE DECL_AUX |
                 Return Scolon DECL_AUX|
                 Break Scolon DECL_AUX|
-                Linea SENTENCIA |  
+                Linea SENTENCIA |
+                error DECL_AUX|                
                 ;
-ASIGNACION_VAR::= Identificador ARRAY_AUX Scolon;
+ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon;
 
 DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST  Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon  DECLARACION_VAR |    ;
+DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon DECLARACION_VAR |    ;
 
 ARRAY_AUX::= Corchete_a EXP Corchete_c  | error |   ;
 
-ARRAY_AUX_CONST::= Corchete_a  EXP Corchete_c Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
+ARRAY_AUX_CONST::= Corchete_a EXP Corchete_c Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
 
 
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
@@ -186,18 +185,19 @@ SENTENCIA_BOOLEANA ::=
     Identificador OP_RELACIONALES EXP ;
 
 
-
 OP_RELACIONALES::= Relacionales | And | Or | Not;
 
-IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c ;
+IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
 
 WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c  ;
 
-DO_WHILE::= Do Llave_a  SENTENCIA   Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c ;
+DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c |
+            Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c ;
 
 CONTINUE::= Continue Scolon ;
 
-FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c ;
+FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
+       For Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c ;
 
 SENTENCIA_FOR ::=
     TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
@@ -242,17 +242,16 @@ LONG_AUX_AUX::= Int | ;
 
 LANG_FUNCS ::=Read Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon| Write Parentesis_a PARAMS_LL Parentesis_c Scolon  ;
 
-
 SW ::= Switch Parentesis_a OPTIONS Parentesis_c Llave_a 
      CASE_AUX
     DEFAULT_AUX
 Llave_c;
 
-DEFAULT_AUX ::= Default Dos_puntos DEFAULT_OPTIONS | ; 
+DEFAULT_AUX ::= Default Dos_puntos DEFAULT_OPTIONS | Default error DEFAULT_OPTIONS | ; 
 
 DEFAULT_OPTIONS ::= Llave_a SENTENCIA Llave_c | SENTENCIA;
 
-CASE_AUX ::= CASE_AUX Case Literal Dos_puntos CASE_OPTIONS| ;
+CASE_AUX ::= CASE_AUX Case Literal Dos_puntos CASE_OPTIONS| CASE_AUX Case error CASE_OPTIONS | ;
 
 CASE_OPTIONS ::= Llave_a SENTENCIA Llave_c | SENTENCIA ;
 

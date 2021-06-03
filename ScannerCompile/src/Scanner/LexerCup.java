@@ -893,7 +893,7 @@ public class LexerCup implements java_cup.runtime.Scanner {
             // fall through
           case 54: break;
           case 9:
-            { System.out.println("koma"); return new Symbol(sym.Coma,yycolumn,yyline ,yytext());
+            {  return new Symbol(sym.Coma,yycolumn,yyline ,yytext());
             }
             // fall through
           case 55: break;

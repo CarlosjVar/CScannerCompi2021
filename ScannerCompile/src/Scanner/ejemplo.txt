@@ -2,11 +2,13 @@ int a;
 int b;
 const int c = 3 ;
 
+int a (  ){
+ 
+    a = 5 ;
+
+};
+
 int main(){ 
-   short short int a;
-   const int a [;] = 3;  
-   if(1){}
-    if(){}
 
 }
    
