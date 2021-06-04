@@ -1,14 +1,12 @@
+
+int main(){
 int a;
-int b;
-const int c = 3 ;
+int b ;
+int c ;
 
-int a (  ){
- 
-    a = 5 ;
+for (int ; i<4; i++) {
 
-};
-
-int main(){ 
-
+b=3;
 }
-   
+int c= 4;
+}
