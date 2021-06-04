@@ -36,14 +36,24 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_Tokens = new javax.swing.JTable();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_Errores = new javax.swing.JTable();
+        btn_Archivo = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabla_Tokens1 = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabla_Errores1 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -94,33 +104,13 @@ public class TablaTokens extends javax.swing.JFrame {
         if (tabla_Tokens.getColumnModel().getColumnCount() > 0) {
             tabla_Tokens.getColumnModel().getColumn(0).setResizable(false);
             tabla_Tokens.getColumnModel().getColumn(1).setResizable(false);
+            tabla_Tokens.getColumnModel().getColumn(1).setHeaderValue("Tipo");
             tabla_Tokens.getColumnModel().getColumn(2).setResizable(false);
+            tabla_Tokens.getColumnModel().getColumn(2).setHeaderValue("Lineas");
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(76, 85, 669, 390);
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gato.png"))); // NOI18N
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(220, 10, 80, 90);
-
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Tokens Por Linea");
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(0, 0, 811, 77);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Fondo_2.png"))); // NOI18N
-        jLabel4.setText("Scanner Para");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(-80, -20, 890, 550);
-
-        jTabbedPane1.addTab("Tokens", jPanel1);
-
-        jPanel2.setBackground(new java.awt.Color(1, 0, 19));
-        jPanel2.setLayout(null);
+        jScrollPane1.setBounds(60, 130, 669, 480);
 
         tabla_Errores.setBackground(new java.awt.Color(51, 51, 51));
         tabla_Errores.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -148,43 +138,179 @@ public class TablaTokens extends javax.swing.JFrame {
         if (tabla_Errores.getColumnModel().getColumnCount() > 0) {
             tabla_Errores.getColumnModel().getColumn(0).setResizable(false);
             tabla_Errores.getColumnModel().getColumn(1).setResizable(false);
+            tabla_Errores.getColumnModel().getColumn(1).setHeaderValue("Linea");
         }
 
-        jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(110, 83, 599, 390);
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(800, 130, 650, 480);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gato.png"))); // NOI18N
-        jPanel2.add(jLabel7);
-        jLabel7.setBounds(220, 10, 80, 90);
+        btn_Archivo.setBackground(new java.awt.Color(22, 49, 87));
+        btn_Archivo.setFont(new java.awt.Font("sansserif", 0, 21)); // NOI18N
+        btn_Archivo.setForeground(new java.awt.Color(255, 255, 255));
+        btn_Archivo.setText("Cargar archivo");
+        btn_Archivo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_Archivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ArchivoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_Archivo);
+        btn_Archivo.setBounds(1180, 646, 167, 60);
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Errores Por Linea");
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(0, 0, 811, 77);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gato.png"))); // NOI18N
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(1370, 620, 80, 90);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/Fondo_2.png"))); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (1).png"))); // NOI18N
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(220, 30, 80, 90);
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Scanner Léxico");
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 20, 811, 77);
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Errores Léxicos");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(710, 20, 811, 77);
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (2).png"))); // NOI18N
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(930, 30, 80, 90);
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/sean-sinclair-gai1YB3UmDA-unsplash.jpg"))); // NOI18N
+        jLabel8.setText("Scanner Para");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(-620, -410, 2140, 1140);
+
+        jTabbedPane1.addTab("Scanner", jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(1, 0, 19));
+        jPanel2.setLayout(null);
+
+        tabla_Tokens1.setBackground(new java.awt.Color(51, 51, 51));
+        tabla_Tokens1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tabla_Tokens1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Tokens1.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Tokens1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_Tokens1.setGridColor(new java.awt.Color(51, 51, 51));
+        tabla_Tokens1.setRowHeight(25);
+        tabla_Tokens1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tabla_Tokens1);
+        if (tabla_Tokens1.getColumnModel().getColumnCount() > 0) {
+            tabla_Tokens1.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel2.add(jScrollPane3);
+        jScrollPane3.setBounds(60, 130, 669, 480);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (3).png"))); // NOI18N
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(920, 30, 80, 90);
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (4).png"))); // NOI18N
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(220, 30, 80, 90);
+
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Parser Sintáctico");
+        jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jLabel11);
+        jLabel11.setBounds(0, 20, 811, 77);
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Errores Sintácticos");
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(jLabel12);
+        jLabel12.setBounds(710, 20, 811, 77);
+
+        tabla_Errores1.setBackground(new java.awt.Color(51, 51, 51));
+        tabla_Errores1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Errores1.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Errores1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Error"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_Errores1.setGridColor(new java.awt.Color(51, 51, 51));
+        tabla_Errores1.setRowHeight(24);
+        tabla_Errores1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tabla_Errores1);
+        if (tabla_Errores1.getColumnModel().getColumnCount() > 0) {
+            tabla_Errores1.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        jPanel2.add(jScrollPane4);
+        jScrollPane4.setBounds(800, 130, 650, 480);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/sean-sinclair-gai1YB3UmDA-unsplash.jpg"))); // NOI18N
         jLabel5.setText("Scanner Para");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(0, 0, 890, 550);
+        jLabel5.setBounds(0, 0, 1520, 730);
 
-        jTabbedPane1.addTab("Errores", jPanel2);
+        jTabbedPane1.addTab("Parser", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1521, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 554, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_ArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ArchivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ArchivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,18 +349,28 @@ public class TablaTokens extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JButton btn_Archivo;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable tabla_Errores;
+    public javax.swing.JTable tabla_Errores1;
     public javax.swing.JTable tabla_Tokens;
+    public javax.swing.JTable tabla_Tokens1;
     // End of variables declaration//GEN-END:variables
 }

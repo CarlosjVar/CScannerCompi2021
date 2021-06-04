@@ -6,7 +6,7 @@
 package Scanner;
 
 import Controller.Controlador;
-import View.ventanaPrincipal;
+import View.TablaTokens;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -26,7 +26,7 @@ import java_cup.runtime.Symbol;
 public class Principal {
 
     public static void main(String[] args) throws IOException, Exception { 
-        ventanaPrincipal vista = new ventanaPrincipal();
+        TablaTokens vista = new TablaTokens();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();
         String ruta1 = "./src/Scanner/Lexer.flex";

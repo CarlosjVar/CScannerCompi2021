@@ -23,14 +23,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Controlador implements ActionListener{
     
-    private TablaTokens tabla;
-    private ventanaPrincipal ventana;
+    private TablaTokens ventana;
     
     public Controlador(){
     }
 
    
-    public Controlador(ventanaPrincipal vista) {
+    public Controlador(TablaTokens vista) {
         this.ventana = vista;
     }
     
@@ -48,27 +47,25 @@ public class Controlador implements ActionListener{
             if (archivo != null){
                 String path=archivo.getAbsolutePath();
                 Modelo.iniciar(path);  
-                this.tabla = new TablaTokens();
                 llenarLista();
-                this.ventana.setVisible(false);
-                tabla.setVisible(true);
-                
             }
-        }
+                
+         }
+     }
         
         
-    }
+    
     
     public void llenarLista(){
         
-        JTable table = this.tabla.tabla_Tokens;
+        JTable table = this.ventana.tabla_Tokens;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         for (Map.Entry<String,Token> entry : Modelo.allTokens.entrySet()) {
             String a = entry.getValue().getOcurrenciasTotales();
             model.addRow(new Object[]{entry.getKey(),entry.getValue().getTipo(),a});
         }
         
-        table = this.tabla.tabla_Errores;
+        table = this.ventana.tabla_Errores;
         model = (DefaultTableModel) table.getModel();
         System.out.println("Errores");
         for (Map.Entry<String,Token> entry : Modelo.allErrors.entrySet()) {
