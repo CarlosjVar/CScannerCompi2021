@@ -143,7 +143,7 @@ GLOB::= Const TIPO Identificador ARRAY_AUX_CONST Scolon | TIPO Identificador Sco
 DECLARACIONES_INICIALES_AUX::= Scolon 
                                 | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
                                 | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
-                                | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
+                                | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c 
                                 |  ;
 
 INICIO::= DECLARACIONES_INICIALES MAIN ;
@@ -214,7 +214,8 @@ FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
 SENTENCIA_FOR ::=
     TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
     Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
-    error Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+    error Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
+    TIPO Identificador Asignacion EXP Scolon error Scolon DECLARACION_FOR
     
 
 ;

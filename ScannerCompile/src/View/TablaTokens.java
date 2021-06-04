@@ -46,14 +46,14 @@ public class TablaTokens extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabla_Tokens1 = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla_Errores1 = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tabla_Tokens1 = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,10 +70,9 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel1.setFont(new java.awt.Font("Lucida Fax", 0, 12)); // NOI18N
         jPanel1.setLayout(null);
 
-        tabla_Tokens.setBackground(new java.awt.Color(51, 51, 51));
         tabla_Tokens.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         tabla_Tokens.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        tabla_Tokens.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Tokens.setForeground(new java.awt.Color(0, 0, 0));
         tabla_Tokens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -112,9 +111,8 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(60, 130, 669, 480);
 
-        tabla_Errores.setBackground(new java.awt.Color(51, 51, 51));
         tabla_Errores.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        tabla_Errores.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Errores.setForeground(new java.awt.Color(0, 0, 0));
         tabla_Errores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -155,11 +153,11 @@ public class TablaTokens extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_Archivo);
-        btn_Archivo.setBounds(1180, 646, 167, 60);
+        btn_Archivo.setBounds(1107, 646, 240, 60);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gato.png"))); // NOI18N
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(1370, 620, 80, 90);
+        jLabel6.setBounds(1370, 630, 80, 90);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (1).png"))); // NOI18N
         jPanel1.add(jLabel7);
@@ -188,50 +186,12 @@ public class TablaTokens extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/sean-sinclair-gai1YB3UmDA-unsplash.jpg"))); // NOI18N
         jLabel8.setText("Scanner Para");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(-620, -410, 2140, 1140);
+        jLabel8.setBounds(-620, -410, 2230, 1180);
 
         jTabbedPane1.addTab("Scanner", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(1, 0, 19));
         jPanel2.setLayout(null);
-
-        tabla_Tokens1.setBackground(new java.awt.Color(51, 51, 51));
-        tabla_Tokens1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tabla_Tokens1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        tabla_Tokens1.setForeground(new java.awt.Color(255, 255, 255));
-        tabla_Tokens1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabla_Tokens1.setGridColor(new java.awt.Color(51, 51, 51));
-        tabla_Tokens1.setRowHeight(25);
-        tabla_Tokens1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(tabla_Tokens1);
-        if (tabla_Tokens1.getColumnModel().getColumnCount() > 0) {
-            tabla_Tokens1.getColumnModel().getColumn(0).setResizable(false);
-        }
-
-        jPanel2.add(jScrollPane3);
-        jScrollPane3.setBounds(60, 130, 669, 480);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (3).png"))); // NOI18N
         jPanel2.add(jLabel10);
@@ -257,9 +217,8 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel2.add(jLabel12);
         jLabel12.setBounds(710, 20, 811, 77);
 
-        tabla_Errores1.setBackground(new java.awt.Color(51, 51, 51));
         tabla_Errores1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        tabla_Errores1.setForeground(new java.awt.Color(255, 255, 255));
+        tabla_Errores1.setForeground(new java.awt.Color(0, 0, 0));
         tabla_Errores1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -285,12 +244,22 @@ public class TablaTokens extends javax.swing.JFrame {
         }
 
         jPanel2.add(jScrollPane4);
-        jScrollPane4.setBounds(800, 130, 650, 480);
+        jScrollPane4.setBounds(820, 130, 650, 480);
+
+        tabla_Tokens1.setEditable(false);
+        tabla_Tokens1.setBackground(new java.awt.Color(255, 255, 255));
+        tabla_Tokens1.setColumns(20);
+        tabla_Tokens1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Tokens1.setRows(5);
+        jScrollPane5.setViewportView(tabla_Tokens1);
+
+        jPanel2.add(jScrollPane5);
+        jScrollPane5.setBounds(50, 130, 650, 480);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/sean-sinclair-gai1YB3UmDA-unsplash.jpg"))); // NOI18N
         jLabel5.setText("Scanner Para");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(0, 0, 1520, 730);
+        jLabel5.setBounds(0, 0, 1570, 760);
 
         jTabbedPane1.addTab("Parser", jPanel2);
 
@@ -365,12 +334,12 @@ public class TablaTokens extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable tabla_Errores;
     public javax.swing.JTable tabla_Errores1;
     public javax.swing.JTable tabla_Tokens;
-    public javax.swing.JTable tabla_Tokens1;
+    public javax.swing.JTextArea tabla_Tokens1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,16 +5,27 @@
  */
 package Controller;
 
+import Scanner.LexerCup;
 import Scanner.Modelo;
+import Scanner.parser;
 import TokenTypes.Token;
 import View.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -45,18 +56,40 @@ public class Controlador implements ActionListener{
             buscador.showOpenDialog(null);
             File archivo =buscador.getSelectedFile();
             if (archivo != null){
-                String path=archivo.getAbsolutePath();
-                Modelo.iniciar(path);  
-                llenarLista();
+                String path = archivo.getAbsolutePath();
+                //String ruta1 = "./src/Scanner/Lexer.flex";
+                //String ruta2 = "./src/Scanner/LexerCup.flex";
+                //String[] rutaS = {"-parser", "Sintax","./src/Scanner/Syntax.cup"};
+                //File archivo2;
+                //archivo = new File(ruta1);
+                // JFlex.Main.generate(archivo);
+                //archivo2 = new File(ruta2);
+                Modelo.iniciar(path);
+                Reader reader; 
+                try {
+                    reader = new FileReader(path);
+                    parser p = new parser(new LexerCup(reader));
+                    try{
+                        String texto =  new String(Files.readAllBytes(Paths.get(path)));
+                        p.parse();
+                        System.out.println("puto quien lo lea");
+                        llenarLista(p, texto);
+                    }
+                    catch(Exception A){
+                        System.out.println("gatiitos");
+                    }  
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-                
-         }
-     }
+        }
+    }
         
         
     
     
-    public void llenarLista(){
+    public void llenarLista(parser p, String t){
         
         JTable table = this.ventana.tabla_Tokens;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -71,6 +104,17 @@ public class Controlador implements ActionListener{
         for (Map.Entry<String,Token> entry : Modelo.allErrors.entrySet()) {
             String a = entry.getValue().getOcurrenciasTotales();
             model.addRow(new Object[]{entry.getKey(), a});
+        }
+        System.out.println(p.errores);
+        
+        JTextArea a = this.ventana.tabla_Tokens1;
+        a.setText(t);
+        
+        table = this.ventana.tabla_Errores1;
+        model = (DefaultTableModel) table.getModel();
+        System.out.println("Errores");
+        for ( String entry : p.errores) {
+            model.addRow(new Object[]{entry});
         }
     }
     
