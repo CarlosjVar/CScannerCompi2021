@@ -10,12 +10,10 @@ parser code
 
 
     public void syntax_error(Symbol cur_token){
-	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
         this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
     public void unrecovered_syntax_error(Symbol cur_token){
-    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
         this.errores.add("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
     
@@ -119,7 +117,12 @@ DEFAULT_OPTIONS,
 CASE_AUX,
 CASE_OPTIONS,
 OPTIONS,
-ARRAY_AUX_CONST
+ARRAY_AUX_CONST,
+VARS_AUX,
+VARS_AUX_AUX,
+PARAMS_PREV_VARS,
+PARAMS_VARS,
+PARAMS_AUX_VARS
 ;
 
 precedence right Asignacion;
@@ -138,15 +141,24 @@ DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRA
                             DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX 
                             | ;
 
-GLOB::= Const TIPO Identificador ARRAY_AUX_CONST Scolon | TIPO Identificador Scolon ;
+VARS_AUX ::= Identificador ARRAY_AUX VARS_AUX_AUX |  ;
+VARS_AUX_AUX::= Coma| ;
 
-DECLARACIONES_INICIALES_AUX::= Scolon 
+
+
+PARAMS_PREV_VARS::= PARAMS | ;
+
+PARAMS_VARS::= TIPO Identificador ARRAY_AUX PARAMS_AUX ;
+
+PARAMS_AUX_VARS::= Coma PARAMS | ;
+
+DECLARACIONES_INICIALES_AUX::=  VARS_AUX Scolon 
                                 | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
                                 | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
                                 | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c 
                                 |  ;
 
-INICIO::= DECLARACIONES_INICIALES MAIN ;
+INICIO::= DECLARACIONES_INICIALES MAIN | DECLARACIONES_INICIALES LLAMADA_FUNCION Scolon ;
 
 MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c |TIPO Main Parentesis_a Parentesis_c error Llave_c|  ;
 
@@ -173,7 +185,9 @@ DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon DECLARACION_VAR |    ;
+DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO VARS_AUX Scolon DECLARACION_VAR |    ;
+
+
 
 ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
 
@@ -227,7 +241,7 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR  ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR | LLAMADA_FUNCION  ;
 
 OPERADOR::= Mas | Menos | Timesslash ;
 
