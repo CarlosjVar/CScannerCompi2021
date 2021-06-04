@@ -107,7 +107,16 @@ public class Controlador implements ActionListener{
         }
         System.out.println(p.errores);
         
+        
+        
         JTextArea a = this.ventana.tabla_Tokens1;
+        String[] parts = t.split("\n");
+        int i = 1;
+        t="";
+        for (String part : parts) {
+                    t+=(i +".  "+ part + "\n");
+                    i++;
+        }
         a.setText(t);
         
         table = this.ventana.tabla_Errores1;
