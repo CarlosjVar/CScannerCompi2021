@@ -127,11 +127,11 @@ public class Modelo {
             });
     }
     //Método de desarrollador utilizada solo si es necesario generar de nuevo la clase encargada de las expresiones regulares
-    public static void generarLexer( ){
-        String ruta = ".\\src\\Scanner\\Lexer.flex";
-        File archivo = new File(ruta);
-        JFlex.Main.generate(archivo);
-    }
+//    public static void generarLexer( ){
+//        String ruta = ".\\src\\Scanner\\Lexer.flex";
+//        File archivo = new File(ruta);
+//        JFlex.Main.generate(archivo);
+//    }
 
 
 }

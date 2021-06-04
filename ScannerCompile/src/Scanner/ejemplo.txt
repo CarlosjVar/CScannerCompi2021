@@ -1,1 +1,12 @@
-int main ( ) { } ;
+
+int main(){
+int a;
+int b ;
+int c ;
+
+for (int ; i<4; i++) {
+
+b=3;
+}
+int c= 4;
+}

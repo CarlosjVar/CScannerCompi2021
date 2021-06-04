@@ -2,18 +2,23 @@
 package Scanner;
 
 import java_cup.runtime.Symbol;
-
+import java.util.ArrayList;
 parser code
 {:
-    private Symbol s;
-    
-    public void syntax_error(Symbol s){
-        this.s = s;
+
+    public ArrayList<String> errores = new ArrayList<String>();
+
+
+    public void syntax_error(Symbol cur_token){
+	System.err.println("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
     }
 
-    public Symbol getS(){
-        return this.s;
-}
+    public void unrecovered_syntax_error(Symbol cur_token){
+    	System.err.println("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+        this.errores.add("Fatal error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
+    }
+    
 :};
 
 terminal 
@@ -23,6 +28,7 @@ terminal
     Case,
     Char,
     Const,
+    Coma,
     Continue,
     Default,
     Do,
@@ -55,13 +61,66 @@ terminal
     Menos,
     Timesslash,
     Unarios,
+    Write,
+    Read,
+    Dos_puntos,
     LEX_ERROR
     ;
 
 
-non  terminal INICIO, GLOBALES, MAIN, DECLARACION_FUNCION, SENTENCIA, LLAMADA_FUNCION, DECLARACION_VAR, ASIGNACION, IF, IF_ELSE, WHILE, DO_WHILE,
- FOR,PARAMS , TIPO, LONG , SHORT,EXP, SENTENCIA_BOOLEANA, Op_booleano , SENTENCIA_FOR, DECLARACION_FOR, OPERADOR,OP_RELACIONALES;
-
+non  terminal INICIO, 
+MAIN, 
+DECLARACION_FUNCION, 
+SENTENCIA, 
+LLAMADA_FUNCION, 
+DECLARACION_VAR, 
+IF, 
+IF_ELSE,
+WHILE, 
+DO_WHILE,
+FOR,
+PARAMS, 
+PARAMS_AUX,
+TIPO, 
+LONG , 
+SHORT,
+EXP, 
+SENTENCIA_BOOLEANA,
+Op_booleano , 
+SENTENCIA_FOR, 
+DECLARACION_FOR, 
+OPERADOR,OP_RELACIONALES , 
+CONST_AUX , 
+DECLARACION_VAR_AUX,
+DECL_AUX,
+PARAMS_LL_AUX,
+PARAMS_LL,
+LLAMADA_FUNCION_AUX,
+PARAMS_PREV,
+PARAMS_LL_PREV,
+LINEA_AUX,
+DECLARACIONES_INICIALES,
+DECLARACIONES_INICIALES_AUX,
+ASIGNACION_VAR,
+DECLARACIONES_INICIALES_AUX_AUX,
+SHORT_AUX,
+SHORT_AUX_AUX,
+LONG_AUX,
+LONG_AUX_AUX,
+CONTINUE,
+LANG_FUNCS,
+ARRAY_AUX,
+ARRAY_AUX_AUX,
+NUMERO_AUX,
+ARRAY_EXP_AUX,
+SW,
+DEFAULT_AUX,
+DEFAULT_OPTIONS,
+CASE_AUX,
+CASE_OPTIONS,
+OPTIONS,
+ARRAY_AUX_CONST
+;
 
 precedence right Asignacion;
 precedence left Or;
@@ -70,78 +129,145 @@ precedence nonassoc Relacionales;
 precedence left Mas, Menos;
 precedence left Timesslash;
 precedence right Not;
-
+ 
 start with INICIO;
 
-GLOBALES::=  Scolon ;
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon |
+                            DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX |
+                            DECLARACIONES_INICIALES Const TIPO error ARRAY_AUX_CONST Scolon|
+                            DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX 
+                            | ;
 
-INICIO ::= GLOBALES DECLARACION_FUNCION MAIN Scolon|  DECLARACION_FUNCION MAIN Scolon | MAIN Scolon;
+DECLARACIONES_INICIALES_AUX::= Scolon 
+                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
+                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
+                                | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
+                                |  ;
 
-MAIN::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+INICIO::= DECLARACIONES_INICIALES MAIN ;
+
+MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c |TIPO Main Parentesis_a Parentesis_c error Llave_c| ;
+
+LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon | LANG_FUNCS ;
+
+SENTENCIA::=    
+                IF DECL_AUX |
+                IF_ELSE  DECL_AUX |
+                WHILE DECL_AUX|
+                DO_WHILE Scolon DECL_AUX |
+                FOR DECL_AUX |
+                SW DECL_AUX|
+                LLAMADA_FUNCION DECL_AUX |
+                ASIGNACION_VAR DECL_AUX|
+                CONTINUE DECL_AUX |
+                Return Scolon DECL_AUX|
+                Break Scolon DECL_AUX|
+                Linea SENTENCIA |
+                error DECL_AUX|                
+                ;
+ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon |Identificador Asignacion error Scolon ;
+
+DECL_AUX::= SENTENCIA  ;
+
+CONST_AUX::= Const | ;
+
+DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon DECLARACION_VAR |    ;
+
+ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
+
+ARRAY_AUX_CONST::= Corchete_a EXP Corchete_c Asignacion ARRAY_AUX_AUX  | Corchete_a  Corchete_c  Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
 
 
+DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
 
-DECLARACION_FUNCION::= TIPO Identificador Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c Scolon ;
+ARRAY_AUX_AUX::= EXP | Llave_a  ARRAY_EXP_AUX   Llave_c ;
 
-SENTENCIA::= SENTENCIA DECLARACION_VAR  | DECLARACION_VAR |
-        SENTENCIA LLAMADA_FUNCION | LLAMADA_FUNCION
-        SENTENCIA ASIGNACION | ASIGNACION | 
-        SENTENCIA IF | IF | 
-        SENTENCIA IF_ELSE | IF_ELSE |
-        SENTENCIA WHILE| WHILE |
-        SENTENCIA DO_WHILE | DO_WHILE |
-        SENTENCIA FOR | FOR  ;
+ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 
+IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
+       If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
+        If Parentesis_a  SENTENCIA_BOOLEANA Parentesis_c error ;
 
-LLAMADA_FUNCION::= Identificador Parentesis_a Parentesis_c Scolon | Identificador Parentesis_a PARAMS Parentesis_c  Scolon ;
-
-DECLARACION_VAR::= Const TIPO Identificador ASIGNACION EXP Scolon | TIPO Identificador Asignacion EXP Scolon | TIPO Identificador Scolon| Const TIPO Identificador Scolon;
-
-
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Numero | OPERADOR;
-
-OPERADOR::= Mas| Menos | Timesslash  ; 
+SENTENCIA_BOOLEANA ::= EXP  |
+                        Identificador OP_RELACIONALES EXP|
+                         Identificador OP_RELACIONALES error;
 
 
+OP_RELACIONALES::= Relacionales | And | Or | Not;
 
-ASIGNACION::= Identificador Asignacion EXP Scolon ;
+IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
 
-IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
+WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c  ;
 
-OP_RELACIONALES::= Relacionales|  Unarios | And | Or | Not;
+DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c |
+            Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c ;
 
-SENTENCIA_BOOLEANA ::= 
-    Op_booleano  |
-    Identificador OP_RELACIONALES Op_booleano ;
-    
+CONTINUE::= Continue Scolon ;
 
-Op_booleano::= Numero | Literal | Identificador;
-
-IF_ELSE::=  If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c Else Llave_a SENTENCIA Llave_c ;
-
-WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c ;
-
-DO_WHILE::= Do Llave_a SENTENCIA Llave_c While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Scolon ;
-
-FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c ;
+FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
+       For Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
+        For Parentesis_a SENTENCIA_FOR Parentesis_c error SENTENCIA Llave_c ;
 
 SENTENCIA_FOR ::=
-    TIPO Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
-    Identificador Asignacion Numero Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+    TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
+    Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
+    error Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+    
+
 ;
 
 DECLARACION_FOR ::= 
     Identificador Asignacion Numero |
     Identificador Unarios | 
-    Unarios Identificador
+    Unarios Identificador|
+    error
 ;
 
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR  ;
 
-PARAMS::= Identificador ;
+OPERADOR::= Mas | Menos | Timesslash ;
 
-TIPO ::= Int | Void | Char | LONG |SHORT ;
+PARAMS_PREV::= PARAMS | ;
 
-LONG ::= Long | Long Int |Long Long| Long Long Int ;
+PARAMS::= TIPO Identificador PARAMS_AUX ;
 
-SHORT ::= Short | Short Int | Short Short | Short Short Int ;
+PARAMS_AUX::= Coma PARAMS | ;
+
+PARAMS_LL_PREV::= PARAMS_LL | ;
+
+PARAMS_LL::= Identificador PARAMS_LL_AUX ;
+
+PARAMS_LL_AUX::= Coma PARAMS_LL | ;
+
+TIPO::= Int | Char | Void | SHORT | LONG;
+
+SHORT::= Short SHORT_AUX ;
+
+SHORT_AUX::= Int | Short SHORT_AUX_AUX ; 
+
+SHORT_AUX_AUX::=  Int | ;
+
+LONG::= Long LONG_AUX;
+
+LONG_AUX::= Int | Long LONG_AUX_AUX;
+
+LONG_AUX_AUX::= Int | ;
+
+LANG_FUNCS ::=Read Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon| Write Parentesis_a PARAMS_LL Parentesis_c Scolon  ;
+
+SW ::= Switch Parentesis_a OPTIONS Parentesis_c Llave_a 
+     CASE_AUX
+    DEFAULT_AUX
+Llave_c;
+
+DEFAULT_AUX ::= Default Dos_puntos DEFAULT_OPTIONS | Default error DEFAULT_OPTIONS | ; 
+
+DEFAULT_OPTIONS ::= Llave_a SENTENCIA Llave_c | SENTENCIA;
+
+CASE_AUX ::= CASE_AUX Case Literal Dos_puntos CASE_OPTIONS| CASE_AUX Case error CASE_OPTIONS | ;
+
+CASE_OPTIONS ::= Llave_a SENTENCIA Llave_c | SENTENCIA ;
+
+OPTIONS::= Literal | Identificador | Identificador Asignacion Literal ;
+

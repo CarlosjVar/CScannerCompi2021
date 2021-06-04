@@ -15,6 +15,7 @@ import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
@@ -31,24 +32,22 @@ public class Principal {
         String ruta1 = "./src/Scanner/Lexer.flex";
         String ruta2 = "./src/Scanner/LexerCup.flex";
         String[] rutaS = {"-parser", "Sintax","./src/Scanner/Syntax.cup"};
-             
-        //File archivo;
+        File archivo;
         //archivo = new File(ruta1);
        // JFlex.Main.generate(archivo);
-        //archivo = new File(ruta2);
-       // JFlex.Main.generate(archivo);
+        archivo = new File(ruta2);
         
         Reader reader = new FileReader("./src/Scanner/ejemplo.txt");  
         
         LexerCup s = new LexerCup(reader);
         parser p = new parser(new LexerCup(reader));
-        
+
         try{
         p.parse();
         System.out.println("puto quien lo lea");
         }catch(Exception e){
-            Symbol simbol =  p.getS();
-            System.out.println("Error de sintaxis. Linea: " + (simbol.right + 1) + " Columna: " + (simbol.left + 1) + ", Texto: \"" + simbol.value + "\"");
+        
         }  
+        System.out.println(p.errores);
     }
  }

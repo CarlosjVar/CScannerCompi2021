@@ -10,7 +10,7 @@ import java_cup.runtime.Symbol;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-public class LexerCup implements java_cup.runtime.Scanner {
+public class Lexer implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -452,7 +452,7 @@ public class LexerCup implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public LexerCup(java.io.Reader in) {
+  public Lexer(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -893,7 +893,7 @@ public class LexerCup implements java_cup.runtime.Scanner {
             // fall through
           case 54: break;
           case 9:
-            {  return new Symbol(sym.Coma,yycolumn,yyline ,yytext());
+            { System.out.println("koma"); return new Symbol(sym.Coma,yycolumn,yyline ,yytext());
             }
             // fall through
           case 55: break;
