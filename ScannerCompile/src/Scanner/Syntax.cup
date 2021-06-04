@@ -191,22 +191,19 @@ DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARAC
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
 
 
-IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
+IF ::= If Parentesis_a EXP Parentesis_c Llave_a SENTENCIA Llave_c |
        If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
-        If Parentesis_a  SENTENCIA_BOOLEANA Parentesis_c error ;
+        If Parentesis_a  EXP Parentesis_c error ;
 
-SENTENCIA_BOOLEANA ::= EXP  |
-                        EXP OP_RELACIONALES EXP|
-                         EXP OP_RELACIONALES error;
 
 
 OP_RELACIONALES::= Relacionales | And | Or | Not;
 
 IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
 
-WHILE::= While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c| While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c  error  SENTENCIA  Llave_c  ;
+WHILE::= While Parentesis_a EXP Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c| While Parentesis_a EXP Parentesis_c  error  SENTENCIA  Llave_c  ;
 
-DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a SENTENCIA_BOOLEANA Parentesis_c |
+DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a EXP Parentesis_c |
             Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c ;
 
 CONTINUE::= Continue Scolon ;
@@ -216,9 +213,9 @@ FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
         For Parentesis_a SENTENCIA_FOR Parentesis_c error SENTENCIA Llave_c ;
 
 SENTENCIA_FOR ::=
-    TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
-    Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
-    error Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
+    TIPO Identificador Asignacion EXP Scolon EXP Scolon DECLARACION_FOR |
+    Identificador Asignacion EXP Scolon EXP Scolon DECLARACION_FOR|
+    error Scolon EXP Scolon DECLARACION_FOR|
     TIPO Identificador Asignacion EXP Scolon error Scolon DECLARACION_FOR
     
 
@@ -231,7 +228,7 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP  | Identificador | Literal | Numero | OPERADOR |Unarios| LLAMADA_FUNCION | OP_RELACIONALES ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | Identificador | Literal | Numero | OPERADOR |Unarios| LLAMADA_FUNCION | OP_RELACIONALES ;
 
 
 
