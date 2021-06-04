@@ -132,13 +132,21 @@ precedence right Not;
  
 start with INICIO;
 
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon | DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX | ;
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon |
+                            DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX |
+                            DECLARACIONES_INICIALES Const TIPO error ARRAY_AUX_CONST Scolon|
+                            DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX 
+                            | ;
 
-DECLARACIONES_INICIALES_AUX::= Scolon | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c Scolon | ;
+DECLARACIONES_INICIALES_AUX::= Scolon 
+                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
+                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
+                                | error Llave_a DECLARACION_VAR SENTENCIA Llave_c  
+                                |  ;
 
 INICIO::= DECLARACIONES_INICIALES MAIN ;
 
-MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c ;
+MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c |TIPO Main Parentesis_a Parentesis_c error Llave_c| ;
 
 LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon | LANG_FUNCS ;
 
@@ -157,7 +165,7 @@ SENTENCIA::=
                 Linea SENTENCIA |
                 error DECL_AUX|                
                 ;
-ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon;
+ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon |Identificador Asignacion error Scolon ;
 
 DECL_AUX::= SENTENCIA  ;
 
@@ -165,9 +173,9 @@ CONST_AUX::= Const | ;
 
 DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO Identificador ARRAY_AUX Scolon DECLARACION_VAR |    ;
 
-ARRAY_AUX::= Corchete_a EXP Corchete_c  | error |   ;
+ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
 
-ARRAY_AUX_CONST::= Corchete_a EXP Corchete_c Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
+ARRAY_AUX_CONST::= Corchete_a EXP Corchete_c Asignacion ARRAY_AUX_AUX  | Corchete_a  Corchete_c  Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
 
 
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
@@ -178,11 +186,12 @@ ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
-       If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c  ;
+       If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
+        If Parentesis_a  SENTENCIA_BOOLEANA Parentesis_c error ;
 
-SENTENCIA_BOOLEANA ::= 
-    EXP  |
-    Identificador OP_RELACIONALES EXP ;
+SENTENCIA_BOOLEANA ::= EXP  |
+                        Identificador OP_RELACIONALES EXP|
+                         Identificador OP_RELACIONALES error;
 
 
 OP_RELACIONALES::= Relacionales | And | Or | Not;
@@ -197,20 +206,25 @@ DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a SENTENCIA_BOOLEAN
 CONTINUE::= Continue Scolon ;
 
 FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
-       For Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c ;
+       For Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
+        For Parentesis_a SENTENCIA_FOR Parentesis_c error SENTENCIA Llave_c ;
 
 SENTENCIA_FOR ::=
     TIPO Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR |
-    Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+    Identificador Asignacion EXP Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR|
+    error Scolon SENTENCIA_BOOLEANA Scolon DECLARACION_FOR
+    
+
 ;
 
 DECLARACION_FOR ::= 
     Identificador Asignacion Numero |
     Identificador Unarios | 
-    Unarios Identificador
+    Unarios Identificador|
+    error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR   ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR  ;
 
 OPERADOR::= Mas | Menos | Timesslash ;
 
