@@ -1,12 +1,25 @@
-
 int main(){
-int a;
-int b ;
-int c ;
 
-for (int ; i<4; i++) {
+    a = 3;
+    int c ;
+    
+    if(1){
+    }
 
-b=3;
+    switch(pene){
+        case 1:{
+            a=b;
+            break;
+        }
+        default:{
+            c=d;
+            break;
+        }
+    }
+    c = 4;
+    int l;
+    if(1 == a)
+
+    }
 }
-int c= 4;
-}
+a = 3
