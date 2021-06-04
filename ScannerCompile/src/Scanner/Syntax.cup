@@ -121,8 +121,7 @@ ARRAY_AUX_CONST,
 VARS_AUX,
 VARS_AUX_AUX,
 PARAMS_PREV_VARS,
-PARAMS_VARS,
-PARAMS_AUX_VARS
+PARAMS_VARS
 ;
 
 precedence right Asignacion;
@@ -135,24 +134,25 @@ precedence right Not;
  
 start with INICIO;
 
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO Identificador ARRAY_AUX_CONST Scolon |
-                            DECLARACIONES_INICIALES TIPO Identificador DECLARACIONES_INICIALES_AUX |
-                            DECLARACIONES_INICIALES Const TIPO error ARRAY_AUX_CONST Scolon|
-                            DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX 
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO PARAMS_LL DECLARACION_VAR_AUX Scolon |
+                            DECLARACIONES_INICIALES TIPO PARAMS_LL DECLARACIONES_INICIALES_AUX |
+                            DECLARACIONES_INICIALES Const TIPO error DECLARACION_VAR_AUX Scolon|
+                            DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX |    
+                            DECLARACIONES_INICIALES error Scolon
                             | ;
 
-VARS_AUX ::= Identificador ARRAY_AUX VARS_AUX_AUX |  ;
+VARS_AUX ::= Identificador VARS_AUX_AUX |  ;
 VARS_AUX_AUX::= Coma| ;
 
 
 
 PARAMS_PREV_VARS::= PARAMS | ;
 
-PARAMS_VARS::= TIPO Identificador ARRAY_AUX PARAMS_AUX ;
+PARAMS_VARS::= TIPO Identificador PARAMS_AUX ;
 
 PARAMS_AUX_VARS::= Coma PARAMS | ;
 
-DECLARACIONES_INICIALES_AUX::=  VARS_AUX Scolon 
+DECLARACIONES_INICIALES_AUX::=  Scolon 
                                 | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
                                 | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
                                 | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c 
@@ -179,26 +179,16 @@ SENTENCIA::=
                 Linea SENTENCIA |
                 error  DECL_AUX {: System.out.println("Error pero"); :} |                
                 ;
-ASIGNACION_VAR::= Identificador Asignacion ARRAY_AUX_AUX Scolon |Identificador Asignacion error Scolon| Identificador error EXP Scolon ;
+ASIGNACION_VAR::= Identificador Asignacion EXP Scolon |Identificador Asignacion error Scolon| Identificador error EXP Scolon ;
 
 DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  Const TIPO Identificador ARRAY_AUX_CONST Scolon DECLARACION_VAR | TIPO VARS_AUX Scolon DECLARACION_VAR |    ;
-
-
-
-ARRAY_AUX::= Corchete_a EXP Corchete_c  |Corchete_a  Corchete_c  | error |   ;
-
-ARRAY_AUX_CONST::= Corchete_a EXP Corchete_c Asignacion ARRAY_AUX_AUX  | Corchete_a  Corchete_c  Asignacion ARRAY_AUX_AUX  |  DECLARACION_VAR_AUX ;
+DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX Scolon DECLARACION_VAR |    ;
 
 
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
-
-ARRAY_AUX_AUX::= EXP | Llave_a  ARRAY_EXP_AUX   Llave_c ;
-
-ARRAY_EXP_AUX::= EXP |  EXP Coma ARRAY_EXP_AUX;
 
 
 IF ::= If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c |
@@ -241,7 +231,9 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | Identificador | Literal | Numero | OPERADOR | LLAMADA_FUNCION  ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP  | Identificador | Literal | Numero | OPERADOR |Unarios| LLAMADA_FUNCION | OP_RELACIONALES ;
+
+
 
 OPERADOR::= Mas | Menos | Timesslash ;
 
@@ -267,7 +259,7 @@ SHORT_AUX_AUX::=  Int | ;
 
 LONG::= Long LONG_AUX;
 
-LONG_AUX::= Int | Long LONG_AUX_AUX;
+LONG_AUX::= Int | Long LONG_AUX_AUX |;
 
 LONG_AUX_AUX::= Int | ;
 
