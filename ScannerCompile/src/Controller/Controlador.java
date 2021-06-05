@@ -86,13 +86,11 @@ public class Controlador implements ActionListener{
         }
     }
         
-        
-    
-    
-    public void llenarLista(parser p, String t){
+        public void llenarLista(parser p, String t){
         
         JTable table = this.ventana.tabla_Tokens;
         DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         for (Map.Entry<String,Token> entry : Modelo.allTokens.entrySet()) {
             String a = entry.getValue().getOcurrenciasTotales();
             model.addRow(new Object[]{entry.getKey(),entry.getValue().getTipo(),a});
@@ -101,16 +99,16 @@ public class Controlador implements ActionListener{
         table = this.ventana.tabla_Errores;
         model = (DefaultTableModel) table.getModel();
         System.out.println("Errores");
+        model.setRowCount(0);
         for (Map.Entry<String,Token> entry : Modelo.allErrors.entrySet()) {
             String a = entry.getValue().getOcurrenciasTotales();
             model.addRow(new Object[]{entry.getKey(), a});
         }
         System.out.println(p.errores);
         
-        
-        
-        JTextArea a = this.ventana.tabla_Tokens1;
         String[] parts = t.split("\n");
+        JTextArea a = this.ventana.tabla_Tokens1;
+        a.setText("");
         int i = 1;
         t="";
         for (String part : parts) {
@@ -121,10 +119,14 @@ public class Controlador implements ActionListener{
         
         table = this.ventana.tabla_Errores1;
         model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         System.out.println("Errores");
         for ( String entry : p.errores) {
             model.addRow(new Object[]{entry});
         }
     }
+    
+    
+  
     
 }

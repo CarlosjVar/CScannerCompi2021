@@ -29,23 +29,6 @@ public class Principal {
         TablaTokens vista = new TablaTokens();
         Controlador ctrl = new Controlador( vista);
         ctrl.iniciar();
-        String ruta1 = "./src/Scanner/Lexer.flex";
-        String ruta2 = "./src/Scanner/LexerCup.flex";
-        String[] rutaS = {"-parser", "Sintax","./src/Scanner/Syntax.cup"};
-        File archivo;
-        //archivo = new File(ruta1);
-       // JFlex.Main.generate(archivo);
-        archivo = new File(ruta2);
         
-        Reader reader = new FileReader("./src/Scanner/ejemplo.txt");     
-        parser p = new parser(new LexerCup(reader));
-
-        try{
-        p.parse();
-        System.out.println("puto quien lo lea");
-        }catch(Exception e){
-        
-        }  
-        System.out.println(p.errores);
     }
  }

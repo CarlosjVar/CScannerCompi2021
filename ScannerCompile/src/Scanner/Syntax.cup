@@ -228,11 +228,11 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | Identificador | Literal | Numero | OPERADOR |Unarios| LLAMADA_FUNCION | OP_RELACIONALES ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | Identificador | Literal | Numero | OPERADOR | LLAMADA_FUNCION | OP_RELACIONALES ;
 
 
 
-OPERADOR::= Mas | Menos | Timesslash ;
+OPERADOR::= Mas | Menos | Timesslash   ;
 
 PARAMS_PREV::= PARAMS | ;
 
