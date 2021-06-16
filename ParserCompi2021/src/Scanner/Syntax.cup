@@ -134,8 +134,8 @@ precedence right Not;
  
 start with INICIO;
 
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const TIPO PARAMS_LL DECLARACION_VAR_AUX Scolon |
-                            DECLARACIONES_INICIALES TIPO PARAMS_LL DECLARACIONES_INICIALES_AUX |
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const:c TIPO:t PARAMS_LL:p DECLARACION_VAR_AUX:decl Scolon:scolon {: System.out.println(t+"   Hola tipo"); :}  |
+                            DECLARACIONES_INICIALES TIPO:t PARAMS_LL:p DECLARACIONES_INICIALES_AUX:decl  {: System.out.println((String )t + (String )p + "   Hola tipo"); :} |
                             DECLARACIONES_INICIALES Const TIPO error DECLARACION_VAR_AUX Scolon|
                             DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX |    
                             DECLARACIONES_INICIALES error Scolon
@@ -243,11 +243,11 @@ PARAMS_AUX::= Coma PARAMS | ;
 
 PARAMS_LL_PREV::= PARAMS_LL | ;
 
-PARAMS_LL::= Identificador PARAMS_LL_AUX ;
+PARAMS_LL::= Identificador:i  PARAMS_LL_AUX:i2 {: Object[] intArray = new Object[]{i,i2};  RESULT = intArray ; :} ;
 
-PARAMS_LL_AUX::= Coma PARAMS_LL | ;
+PARAMS_LL_AUX::= Coma PARAMS_LL:i {: RESULT = i; :} | ;
 
-TIPO::= Int | Char | Void | SHORT | LONG;
+TIPO::= Int:t {: RESULT =t; :} | Char:t {: RESULT =t; :} | Void:t {: RESULT =t; :} | SHORT | LONG;
 
 SHORT::= Short SHORT_AUX ;
 
