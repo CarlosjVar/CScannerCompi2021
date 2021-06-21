@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/carlo/Desktop/ParserCompi2021/src/Scanner/LexerCup.flex</file>
-            <file>file:/C:/Users/carlo/Desktop/ParserCompi2021/src/Scanner/Principal.java</file>
-            <file>file:/C:/Users/carlo/Desktop/ParserCompi2021/src/Scanner/parser.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/Syntax.cup</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Controller/Controlador.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/SemanticStructures.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/parser.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/ejemplo.txt</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/Principal.java</file>
         </group>
     </open-files>
 </project-private>

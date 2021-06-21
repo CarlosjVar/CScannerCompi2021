@@ -7,7 +7,7 @@ parser code
 {:
 
     public ArrayList<String> errores = new ArrayList<String>();
-
+    
 
     public void syntax_error(Symbol cur_token){
         this.errores.add("Syntax error at line: " + (cur_token.right+1) + " at column: " + (cur_token.left+1) + " on: " + cur_token.value);
