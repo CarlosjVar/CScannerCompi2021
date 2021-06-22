@@ -182,7 +182,8 @@ SENTENCIA::=
                 Linea SENTENCIA |
                 error  DECL_AUX {: System.out.println("Error pero"); :} |                
                 ;
-ASIGNACION_VAR::= Identificador Asignacion EXP Scolon |Identificador Asignacion error Scolon| Identificador error EXP Scolon ;
+
+ASIGNACION_VAR::= Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),ileft,iright); :} Asignacion EXP Scolon |Identificador Asignacion error Scolon| Identificador error EXP Scolon ;
 
 DECL_AUX::= SENTENCIA  ;
 
@@ -231,7 +232,12 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | Identificador | Literal | Numero | OPERADOR | LLAMADA_FUNCION | OP_RELACIONALES ;
+EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | 
+    Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),ileft,iright); :}| 
+    Literal:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),ileft,iright); :} |
+    Numero:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),ileft,iright); :} | 
+    OPERADOR:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),ileft,iright); :} |
+    LLAMADA_FUNCION | OP_RELACIONALES ;
 
 
 

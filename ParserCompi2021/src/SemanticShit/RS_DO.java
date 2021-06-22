@@ -11,11 +11,10 @@ package SemanticShit;
  */
 public class RS_DO extends RS {
     public String valor;
-    public String tipo;
     public Integer linea;
     public Integer columna;
     public boolean banderita;
-    public boolean error;
+    public boolean error = false;
 
     public RS_DO(String valor, Integer linea, Integer columna, boolean banderita) {
         this.valor = valor;

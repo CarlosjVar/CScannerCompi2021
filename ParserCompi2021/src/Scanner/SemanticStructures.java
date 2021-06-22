@@ -52,11 +52,37 @@ public class SemanticStructures {
         RS_Operador RSoperador = new RS_Operador(tipo, linea, columna);
         this.pushRS(RSoperador);
     }
-    
-    public void recuerdaVariable(String tipo, Integer linea, Integer columna){
-        RS_DO RStipo = new RS_DO(tipo, linea, columna, false);
-        this.pushRS(RStipo);
+
+    public void recuerdaVariable(String valor, Integer linea, Integer columna){
+        RS_DO RS_DO_ = new RS_DO(valor, linea, columna, false);
+        if(!this.TablaSimbolos.containsKey(RS_DO_.valor)){
+            RS_DO_.error=true;
+            this.TablaSimbolos.put(RS_DO_.valor,RS_DO_);
+            this.errores.add("La variable "+ RS_DO_.valor +" no está declarada. Linea "+ linea +", columna " + columna);
+        }
+        this.pushRS(RS_DO_);
     }
+    
+    public void evalBinary(){
+        RS_DO RS_DO2 = (RS_DO) this.popRS();
+        RS_Operador RS_OP = (RS_Operador) this.popRS();
+        RS_DO RS_DO1 = (RS_DO) this.popRS();
+        RS_DO RS_DO_;
+        int calculo = 0;
+        if(RS_DO2.banderita && RS_DO1.banderita ){
+            if("+".equals(RS_OP.operador)) { calculo = Integer.parseInt(RS_DO2.valor)+Integer.parseInt(RS_DO1.valor);}
+            else if("-".equals(RS_OP.operador)) { calculo = Integer.parseInt(RS_DO1.valor)-Integer.parseInt(RS_DO2.valor);}
+            else if("/".equals(RS_OP.operador) && Integer.parseInt(RS_DO2.valor)!=0 ) {  calculo = Integer.parseInt(RS_DO1.valor)/Integer.parseInt(RS_DO2.valor);}
+            else if("*".equals(RS_OP.operador)) { calculo = Integer.parseInt(RS_DO1.valor)*Integer.parseInt(RS_DO2.valor);}
+            RS_DO_ = new RS_DO(Integer.toString(calculo), RS_DO1.linea, RS_DO1.columna, true);   
+        }
+        else{
+            RS_DO_ = new RS_DO(RS_DO2.valor+"+"+RS_DO1.valor, RS_DO1.linea, RS_DO1.columna, true);  
+        }
+        this.pushRS(RS_DO_);
+    }
+    
+    
     
     public void insertarTS(){
         RS_Tipo tipo = (RS_Tipo)this.getBottom();
