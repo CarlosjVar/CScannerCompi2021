@@ -7,7 +7,11 @@ package Controller;
 
 import Scanner.LexerCup;
 import Scanner.Modelo;
+import Scanner.SemanticStructures;
 import Scanner.parser;
+import SemanticShit.RS;
+import SemanticShit.RS_ID;
+import SemanticShit.RS_Tipo;
 import TokenTypes.Token;
 import View.*;
 import java.awt.event.ActionEvent;
@@ -73,10 +77,27 @@ public class Controlador implements ActionListener{
                         String texto =  new String(Files.readAllBytes(Paths.get(path)));
                         p.parse();
                         System.out.println("puto quien lo lea");
+                        for(RS tipo: SemanticStructures.getInstance().stack)
+                        {
+                            try{
+                                RS_Tipo tipote = (RS_Tipo) tipo;
+                                System.out.println("Token "+tipote.token+ " Linea "+tipote.linea + " columna "+tipote.columna);
+                            }
+                            catch(Exception error)
+                            {
+                                RS_ID Id = (RS_ID) tipo;
+                                System.out.println("Token "+Id.token+ " Linea "+Id.linea + " columna "+Id.columna);
+                            }
+                            
+                        }
+                        for (String error: SemanticStructures.getInstance().errores)
+                        {
+                            System.out.println(error);
+                        }
                         llenarLista(p, texto);
                     }
                     catch(Exception A){
-                        System.out.println("gatiitos");
+                       A.printStackTrace();
                     }  
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);

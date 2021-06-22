@@ -134,14 +134,14 @@ precedence right Not;
  
 start with INICIO;
 
-DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const:c TIPO:t PARAMS_LL:p DECLARACION_VAR_AUX:decl Scolon:scolon {: System.out.println(t+"   Hola tipo"); :}  |
-                            DECLARACIONES_INICIALES TIPO:t PARAMS_LL:p DECLARACIONES_INICIALES_AUX:decl  {: System.out.println((String )t + (String )p + "   Hola tipo"); :} |
+DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const:c TIPO:t PARAMS_LL:p DECLARACION_VAR_AUX:decl Scolon:scolon    |
+                            DECLARACIONES_INICIALES TIPO:t PARAMS_LL:p DECLARACIONES_INICIALES_AUX:decl  {:SemanticStructures.getInstance().insertarTS(); :} |
                             DECLARACIONES_INICIALES Const TIPO error DECLARACION_VAR_AUX Scolon|
                             DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX |    
                             DECLARACIONES_INICIALES error Scolon
                             | ;
 
-VARS_AUX ::= Identificador VARS_AUX_AUX |  ;
+VARS_AUX ::= Identificador:i VARS_AUX_AUX {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),ileft,iright); :} |  ;
 VARS_AUX_AUX::= Coma| ;
 
 
@@ -162,7 +162,7 @@ INICIO::= DECLARACIONES_INICIALES MAIN | DECLARACIONES_INICIALES LLAMADA_FUNCION
 
 MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c |TIPO Main Parentesis_a Parentesis_c error Llave_c|  ;
 
-LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c Scolon | LANG_FUNCS ;
+LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c | LANG_FUNCS ;
 
 SENTENCIA::=    
                 IF DECL_AUX |
@@ -186,7 +186,7 @@ DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX Scolon DECLARACION_VAR |    ;
+DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX Scolon DECLARACION_VAR {:SemanticStructures.getInstance().insertarTS(); :} |    ;
 
 
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
@@ -243,11 +243,11 @@ PARAMS_AUX::= Coma PARAMS | ;
 
 PARAMS_LL_PREV::= PARAMS_LL | ;
 
-PARAMS_LL::= Identificador:i  PARAMS_LL_AUX:i2 {: Object[] intArray = new Object[]{i,i2};  RESULT = intArray ; :} ;
+PARAMS_LL::= Identificador:i  PARAMS_LL_AUX {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),ileft,iright) ; :} ;
 
 PARAMS_LL_AUX::= Coma PARAMS_LL:i {: RESULT = i; :} | ;
 
-TIPO::= Int:t {: RESULT =t; :} | Char:t {: RESULT =t; :} | Void:t {: RESULT =t; :} | SHORT | LONG;
+TIPO::= Int:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tleft,tright); :} | Char:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tleft,tright); :} | Void:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tleft,tright);:} | SHORT | LONG;
 
 SHORT::= Short SHORT_AUX ;
 

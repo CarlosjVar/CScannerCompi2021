@@ -10,8 +10,12 @@ package SemanticShit;
  * @author carlo
  */
 public class RS_Tipo extends RS{
-    String token;
-    RS_Tipo(String token){
+    public String token;
+    public Integer linea;
+    public Integer columna;
+    public RS_Tipo(String token, Integer columna, Integer linea){
         this.token=token;
+        this.linea = linea;
+        this.columna = columna;
     }
 }

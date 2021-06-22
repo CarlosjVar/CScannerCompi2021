@@ -37,15 +37,8 @@ public class Principal {
        // JFlex.Main.generate(archivo);
         archivo = new File(ruta2);
         
-        Reader reader = new FileReader("./src/Scanner/ejemplo.txt");     
-        parser p = new parser(new LexerCup(reader));
 
-        try{
-        p.parse();
-        System.out.println("puto quien lo lea");
-        }catch(Exception e){
-        
-        }  
-        System.out.println(p.errores);
+
+       
     }
  }

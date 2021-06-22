@@ -10,8 +10,13 @@ package SemanticShit;
  * @author carlo
  */
 public class RS_ID extends RS {
-    String token;
-    RS_ID(String token){
+    public String token;
+    public Integer linea;
+    public Integer columna;
+    public RS_ID(String token, Integer linea, Integer columna){
         this.token=token;
+        this.linea = linea;
+        this.columna = columna;
+
     }
 }
