@@ -6,7 +6,9 @@
 package Scanner;
 
 import SemanticShit.RS;
+import SemanticShit.RS_DO;
 import SemanticShit.RS_ID;
+import SemanticShit.RS_Operador;
 import SemanticShit.RS_Tipo;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +22,7 @@ public class SemanticStructures {
     HashMap<String,Object> TablaSimbolos = new HashMap<String,Object>();
     private static SemanticStructures Struct;
     public ArrayList<String> errores = new ArrayList<String>();
+    
     public static SemanticStructures getInstance()
     {
         if(Struct==null )
@@ -33,11 +36,28 @@ public class SemanticStructures {
         RS_Tipo Rtipo = new RS_Tipo(tipo,linea,columna);
         this.pushRS(Rtipo);
     }
+    
     public void recuerdaId(String id, Integer linea, Integer columna)
     {
         RS_ID RId = new RS_ID(id,linea,columna);
         this.pushRS(RId);
     }
+    
+    public void recuerdaConst(String tipo, Integer linea, Integer columna){
+        RS_DO RStipo = new RS_DO(tipo, linea, columna, true);
+        this.pushRS(RStipo);
+    }
+    
+    public void recuerdaOperador(String tipo, Integer linea, Integer columna){
+        RS_Operador RSoperador = new RS_Operador(tipo, linea, columna);
+        this.pushRS(RSoperador);
+    }
+    
+    public void recuerdaVariable(String tipo, Integer linea, Integer columna){
+        RS_DO RStipo = new RS_DO(tipo, linea, columna, false);
+        this.pushRS(RStipo);
+    }
+    
     public void insertarTS(){
         RS_Tipo tipo = (RS_Tipo)this.getBottom();
 
@@ -62,17 +82,22 @@ public class SemanticStructures {
         }
         this.deleteTop();
     }
+    
     public void pushRS(RS rs){
         this.stack.add(rs);
         System.out.println(this.stack.toString());
     }
+    
     public RS popRS(){
         return this.stack.get(this.stack.size()-1);
     }
+    
     public RS getBottom(){
          return this.stack.get(0);
     }
+    
     public void deleteTop(){
         this.stack.remove(this.stack.size()-1);
     }
+    
 }
