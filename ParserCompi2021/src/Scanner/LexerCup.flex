@@ -48,8 +48,6 @@ CharLiteral = \'(.[^\']*)\'
 
 ( "==" | ">=" | ">" | "<=" | "<" | "!=" )   {return new Symbol(sym.Relacionales,yycolumn,yyline ,yytext());}
 
-( "*" | "/" | "%" ) {return new Symbol(sym.Timesslash,yycolumn,yyline ,yytext());}
-
 
 read {return new Symbol(sym.Read,yycolumn,yyline ,yytext());}
 write {return new Symbol(sym.Write,yycolumn,yyline ,yytext());}
@@ -81,6 +79,9 @@ main    {return new Symbol(sym.Main,yycolumn,yyline ,yytext());}
 "+" {return new Symbol(sym.Mas,yycolumn,yyline ,yytext());}
 "-" {return new Symbol(sym.Menos,yycolumn,yyline ,yytext());}
 ":" { return new Symbol(sym.Dos_puntos,yycolumn,yyline ,yytext());}
+"*" {return new Symbol(sym.Multiplicacion,yycolumn,yyline ,yytext());}
+"/" {return new Symbol(sym.Division,yycolumn,yyline ,yytext());}"
+"%" {return new Symbol(sym.Modulo,yycolumn,yyline ,yytext());}"
 
 , {System.out.println("koma"); return new Symbol(sym.Coma,yycolumn,yyline ,yytext());}
 

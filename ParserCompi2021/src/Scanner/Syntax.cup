@@ -57,7 +57,9 @@ terminal
     Not,
     Mas,
     Menos,
-    Timesslash,
+    Multiplicacion,
+    Division,
+    Modulo,
     Unarios,
     Write,
     Read,
@@ -129,7 +131,7 @@ precedence left Or;
 precedence left And;
 precedence nonassoc Relacionales;
 precedence left Mas, Menos;
-precedence left Timesslash;
+precedence left Multiplicacion, Division, Modulo;
 precedence right Not;
  
 start with INICIO;
@@ -233,7 +235,7 @@ EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | 
 
 
 
-OPERADOR::= Mas | Menos | Timesslash   ;
+OPERADOR::= Mas | Menos | Multiplicacion | Division | Modulo ;
 
 PARAMS_PREV::= PARAMS | ;
 
