@@ -33,8 +33,8 @@ public class Principal {
         String ruta2 = "./src/Scanner/LexerCup.flex";
         String[] rutaS = {"-parser", "Sintax","./src/Scanner/Syntax.cup"};
         File archivo;
-        //archivo = new File(ruta1);
-       // JFlex.Main.generate(archivo);
+       // archivo = new File(ruta1);
+        //JFlex.Main.generate(archivo);
         archivo = new File(ruta2);
         
 
