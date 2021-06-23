@@ -11,12 +11,11 @@ package SemanticShit;
  */
 public class RS_ID extends RS {
     public String token;
-    public Integer linea;
-    public Integer columna;
-    public RS_ID(String token, Integer linea, Integer columna){
-        this.token=token;
-        this.linea = linea;
-        this.columna = columna;
 
+    public RS_ID(String valor, int linea, int columna) {
+        super(valor, linea, columna);
     }
+
+
+
 }

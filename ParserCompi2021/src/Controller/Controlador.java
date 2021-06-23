@@ -80,13 +80,13 @@ public class Controlador implements ActionListener{
                         for(RS tipo: SemanticStructures.getInstance().stack)
                         {
                             try{
-                                RS_Tipo tipote = (RS_Tipo) tipo;
-                                System.out.println("Token "+tipote.token+ " Linea "+tipote.linea + " columna "+tipote.columna);
+                                RS tipote =  tipo;
+                                System.out.println("Token "+tipote.valor  + " Linea "+tipote.linea + " columna "+tipote.columna);
                             }
                             catch(Exception error)
                             {
-                                RS_ID Id = (RS_ID) tipo;
-                                System.out.println("Token "+Id.token+ " Linea "+Id.linea + " columna "+Id.columna);
+                                RS Id =  tipo;
+                                System.out.println("Token "+Id.valor+ " Linea "+Id.linea + " columna "+Id.columna);
                             }
                             
                         }

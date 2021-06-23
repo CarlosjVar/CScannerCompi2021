@@ -10,14 +10,12 @@ package SemanticShit;
  * @author Laptop
  */
 public class RS_Operador extends RS {
-    public String operador;
-    public Integer linea;
-    public Integer columna;
 
-    public RS_Operador(String operador, Integer linea, Integer columna) {
-        this.operador = operador;
-        this.linea = linea;
-        this.columna = columna;
+    public RS_Operador(String operador, int linea, int columna) {
+        super(operador, linea, columna);
     }
+
+
+
     
 }

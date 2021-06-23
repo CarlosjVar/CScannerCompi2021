@@ -64,16 +64,20 @@ public class SemanticStructures {
     }
     
     public void evalBinary(){
+        System.out.println(this.stack);
         RS_DO RS_DO2 = (RS_DO) this.popRS();
+        this.deleteTop();
         RS_Operador RS_OP = (RS_Operador) this.popRS();
+        this.deleteTop();
         RS_DO RS_DO1 = (RS_DO) this.popRS();
+        this.deleteTop();
         RS_DO RS_DO_;
         int calculo = 0;
         if(RS_DO2.banderita && RS_DO1.banderita ){
-            if("+".equals(RS_OP.operador)) { calculo = Integer.parseInt(RS_DO2.valor)+Integer.parseInt(RS_DO1.valor);}
-            else if("-".equals(RS_OP.operador)) { calculo = Integer.parseInt(RS_DO1.valor)-Integer.parseInt(RS_DO2.valor);}
-            else if("/".equals(RS_OP.operador) && Integer.parseInt(RS_DO2.valor)!=0 ) {  calculo = Integer.parseInt(RS_DO1.valor)/Integer.parseInt(RS_DO2.valor);}
-            else if("*".equals(RS_OP.operador)) { calculo = Integer.parseInt(RS_DO1.valor)*Integer.parseInt(RS_DO2.valor);}
+            if("+".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO2.valor)+Integer.parseInt(RS_DO1.valor);}
+            else if("-".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO1.valor)-Integer.parseInt(RS_DO2.valor);}
+            else if("/".equals(RS_OP.valor) && Integer.parseInt(RS_DO2.valor)!=0 ) {  calculo = Integer.parseInt(RS_DO1.valor)/Integer.parseInt(RS_DO2.valor);}
+            else if("*".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO1.valor)*Integer.parseInt(RS_DO2.valor);}
             RS_DO_ = new RS_DO(Integer.toString(calculo), RS_DO1.linea, RS_DO1.columna, true);   
         }
         else{
@@ -91,13 +95,13 @@ public class SemanticStructures {
             try
             {
                 RS_ID stackpop = (RS_ID)this.popRS(); 
-                if(this.TablaSimbolos.containsKey(stackpop.token))
+                if(this.TablaSimbolos.containsKey(stackpop.valor))
                 {
-                    this.errores.add("La variable "+ stackpop.token +" ya está definidida en la linea "+ stackpop.columna+ " , columna" + stackpop.linea);
+                    this.errores.add("La variable "+ stackpop.valor  +" ya está definidida en la linea "+ stackpop.columna+ " , columna" + stackpop.linea);
                     this.deleteTop();
                     continue;
                 }
-                this.TablaSimbolos.put(stackpop.token,tipo.token );
+                this.TablaSimbolos.put(stackpop.valor,tipo );
                 
                 this.deleteTop();
             }
@@ -111,7 +115,7 @@ public class SemanticStructures {
     
     public void pushRS(RS rs){
         this.stack.add(rs);
-        System.out.println(this.stack.toString());
+      
     }
     
     public RS popRS(){
@@ -124,6 +128,11 @@ public class SemanticStructures {
     
     public void deleteTop(){
         this.stack.remove(this.stack.size()-1);
+    }
+    
+    public void wipeStack()
+    {
+        stack = new ArrayList<RS>();
     }
     
 }

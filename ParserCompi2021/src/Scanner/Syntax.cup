@@ -123,7 +123,9 @@ ARRAY_AUX_CONST,
 VARS_AUX,
 VARS_AUX_AUX,
 PARAMS_PREV_VARS,
-PARAMS_VARS
+PARAMS_VARS,
+MAIN_2,
+ASIG_SEM
 ;
 
 precedence right Asignacion;
@@ -150,7 +152,7 @@ VARS_AUX_AUX::= Coma| ;
 
 PARAMS_PREV_VARS::= PARAMS | ;
 
-PARAMS_VARS::= TIPO Identificador PARAMS_AUX ;
+PARAMS_VARS::= TIPO Identificador PARAMS_AUX {:System.out.println("asd");:} ;
 
 PARAMS_AUX_VARS::= Coma PARAMS | ;
 
@@ -162,7 +164,10 @@ DECLARACIONES_INICIALES_AUX::=  Scolon
 
 INICIO::= DECLARACIONES_INICIALES MAIN | DECLARACIONES_INICIALES LLAMADA_FUNCION Scolon ;
 
-MAIN ::= TIPO Main Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c |TIPO Main Parentesis_a Parentesis_c error Llave_c|  ;
+MAIN ::= TIPO MAIN_2 Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c |TIPO MAIN_2 Parentesis_a Parentesis_c error Llave_c|  ;
+
+
+MAIN_2 ::= Main {: SemanticStructures.getInstance().wipeStack(); :} ;
 
 LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c | LANG_FUNCS ;
 
@@ -183,8 +188,9 @@ SENTENCIA::=
                 error  DECL_AUX {: System.out.println("Error pero"); :} |                
                 ;
 
-ASIGNACION_VAR::= Identificador:i Asignacion EXP Scolon {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),ileft,iright); SemanticStructures.getInstance().evalBinary();:}|Identificador Asignacion error Scolon | Identificador error EXP Scolon ;
+ASIGNACION_VAR::=  ASIG_SEM Asignacion EXP Scolon {:  SemanticStructures.getInstance().evalBinary();  :} |ASIG_SEM Asignacion error Scolon | ASIG_SEM error EXP Scolon ;
 
+ASIG_SEM::= Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),iright,ileft); :} ;
 DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
@@ -233,18 +239,18 @@ DECLARACION_FOR ::=
 ;
 
 EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | 
-    Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),ileft,iright); :}| 
-    Literal:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),ileft,iright); :} |
-    Numero:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),ileft,iright); :} | 
+    Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),iright,ileft); :}| 
+    Literal:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),iright,ileft); :} |
+    Numero:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),iright,ileft); :} | 
     OPERADOR| LLAMADA_FUNCION | OP_RELACIONALES ;
 
 
 
-OPERADOR::= Mas:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),ileft,iright); :}  |
- Menos:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),ileft,iright); :} | 
- Multiplicacion:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),ileft,iright); :} | 
- Division:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),ileft,iright); :} | 
- Modulo:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),ileft,iright); :};
+OPERADOR::= Mas:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :}  |
+ Menos:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} | 
+ Multiplicacion:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} | 
+ Division:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} | 
+ Modulo:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :};
 
 PARAMS_PREV::= PARAMS | ;
 
@@ -254,11 +260,11 @@ PARAMS_AUX::= Coma PARAMS | ;
 
 PARAMS_LL_PREV::= PARAMS_LL | ;
 
-PARAMS_LL::= Identificador:i  PARAMS_LL_AUX {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),ileft,iright) ; :} ;
+PARAMS_LL::= Identificador:i  PARAMS_LL_AUX {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),iright,ileft) ; :} ;
 
 PARAMS_LL_AUX::= Coma PARAMS_LL:i {: RESULT = i; :} | ;
 
-TIPO::= Int:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tleft,tright); :} | Char:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tleft,tright); :} | Void:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tleft,tright);:} | SHORT | LONG;
+TIPO::= Int:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tright,tleft); :} | Char:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tright,tleft); :} | Void:t {: RESULT =t; SemanticStructures.getInstance().recuerdaTipo(String.valueOf(t),tright,tleft);:} | SHORT | LONG;
 
 SHORT::= Short SHORT_AUX ;
 

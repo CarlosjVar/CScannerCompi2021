@@ -10,17 +10,23 @@ package SemanticShit;
  * @author Laptop
  */
 public class RS_DO extends RS {
-    public String valor;
-    public Integer linea;
-    public Integer columna;
     public boolean banderita;
     public boolean error = false;
 
-    public RS_DO(String valor, Integer linea, Integer columna, boolean banderita) {
-        this.valor = valor;
-        this.linea = linea;
-        this.columna = columna;
-        this.banderita = banderita;
+    public RS_DO(String valor, int linea, int columna,boolean banderita) {
+        super(valor, linea, columna);
+         this.banderita = banderita;
     }
+
+
+
+    /**
+     *
+     * @param valor
+     * @param linea
+     * @param columna
+     * @param banderita
+     */
+   
     
 }
