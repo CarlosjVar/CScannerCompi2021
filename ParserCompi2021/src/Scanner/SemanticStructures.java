@@ -26,6 +26,7 @@ public class SemanticStructures {
     int whileCount= 0 ;
     int forCount = 0;
     int funcParamsCount = 0;
+    int switchCount = 0;
     
     public static SemanticStructures getInstance()
     {
