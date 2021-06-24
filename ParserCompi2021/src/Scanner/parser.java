@@ -827,7 +827,7 @@ class CUP$parser$actions {
 		int declleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int declright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object decl = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		SemanticStructures.getInstance().insertarTS(); 
+
               CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES",32, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -938,7 +938,7 @@ class CUP$parser$actions {
           case 14: // DECLARACIONES_INICIALES_AUX ::= Scolon 
             {
               Object RESULT =null;
-
+		SemanticStructures.getInstance().insertarTS(); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES_AUX",33, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -947,7 +947,7 @@ class CUP$parser$actions {
           case 15: // DECLARACIONES_INICIALES_AUX ::= Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
             {
               Object RESULT =null;
-
+		SemanticStructures.getInstance().recuerdaFuncion(); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES_AUX",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -956,7 +956,7 @@ class CUP$parser$actions {
           case 16: // DECLARACIONES_INICIALES_AUX ::= Parentesis_a PARAMS_PREV Parentesis_c Scolon 
             {
               Object RESULT =null;
-
+		SemanticStructures.getInstance().recuerdaFuncion(); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES_AUX",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -965,7 +965,7 @@ class CUP$parser$actions {
           case 17: // DECLARACIONES_INICIALES_AUX ::= Parentesis_a PARAMS_PREV Parentesis_c error DECLARACION_VAR SENTENCIA Llave_c 
             {
               Object RESULT =null;
-
+		SemanticStructures.getInstance().recuerdaFuncion(); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("DECLARACIONES_INICIALES_AUX",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

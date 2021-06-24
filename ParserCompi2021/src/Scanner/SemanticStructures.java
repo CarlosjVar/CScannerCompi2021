@@ -7,6 +7,7 @@ package Scanner;
 
 import SemanticShit.RS;
 import SemanticShit.RS_DO;
+import SemanticShit.RS_FU;
 import SemanticShit.RS_ID;
 import SemanticShit.RS_Operador;
 import SemanticShit.RS_Tipo;
@@ -60,11 +61,45 @@ public class SemanticStructures {
             this.TablaSimbolos.put(RS_DO_.valor,RS_DO_);
             this.errores.add("La variable "+ RS_DO_.valor +" no está declarada. Linea "+ linea +", columna " + columna);
         }
-        this.pushRS(RS_DO_);
+        this.pushRS(RS_DO_);     
+    }
+    
+    public void recuerdaFuncion(){
+        ArrayList <RS_Tipo> params = new ArrayList <RS_Tipo>();
+        for(RS rs : this.stack)
+        {
+            if (rs instanceof RS_Tipo)
+            {
+                params.add((RS_Tipo)rs);
+                this.deleteTop();
+            }
+            else
+            {    
+                break;             
+            }
+        }
+        RS_FU RS_FU_;
+        RS nombre = this.popRS();
+        this.deleteTop();
+        RS tipo = this.popRS();
+        RS_FU_ = new RS_FU(nombre.valor, nombre.linea,tipo.columna,tipo.valor);
+        if(this.TablaSimbolos.containsKey(RS_FU_.valor))
+        {                     
+            
+            this.errores.add("La variable "+ RS_FU_.valor +" no está declarada. Linea "+ nombre.linea +", columna " + tipo.columna);            
+        }
+        else
+        {
+            this.TablaSimbolos.put(RS_FU_.valor,RS_FU_);
+        }
+        this.pushRS(RS_FU_);
     }
     
     public void evalBinary(){
-        System.out.println(this.stack);
+        //TODO agregar loop
+        for(RS rs : this.stack){
+        System.out.println("ME CAGO EN CARLOS V "+rs.valor);
+        System.out.println("ME CAGO EN CARLOS L "+rs.linea);}
         RS_DO RS_DO2 = (RS_DO) this.popRS();
         this.deleteTop();
         RS_Operador RS_OP = (RS_Operador) this.popRS();

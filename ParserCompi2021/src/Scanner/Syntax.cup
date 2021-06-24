@@ -139,7 +139,7 @@ precedence right Not;
 start with INICIO;
 
 DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const:c TIPO:t PARAMS_LL:p DECLARACION_VAR_AUX:decl Scolon:scolon    |
-                            DECLARACIONES_INICIALES TIPO:t PARAMS_LL:p DECLARACIONES_INICIALES_AUX:decl  {:SemanticStructures.getInstance().insertarTS(); :} |
+                            DECLARACIONES_INICIALES TIPO:t PARAMS_LL:p DECLARACIONES_INICIALES_AUX:decl|
                             DECLARACIONES_INICIALES Const TIPO error DECLARACION_VAR_AUX Scolon|
                             DECLARACIONES_INICIALES TIPO error DECLARACIONES_INICIALES_AUX |    
                             DECLARACIONES_INICIALES error Scolon
@@ -148,18 +148,16 @@ DECLARACIONES_INICIALES::= DECLARACIONES_INICIALES Const:c TIPO:t PARAMS_LL:p DE
 VARS_AUX ::= Identificador:i VARS_AUX_AUX {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),ileft,iright); :} |  ;
 VARS_AUX_AUX::= Coma| ;
 
-
-
 PARAMS_PREV_VARS::= PARAMS | ;
 
 PARAMS_VARS::= TIPO Identificador PARAMS_AUX {:System.out.println("asd");:} ;
 
 PARAMS_AUX_VARS::= Coma PARAMS | ;
 
-DECLARACIONES_INICIALES_AUX::=  Scolon 
-                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c 
-                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon 
-                                | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c 
+DECLARACIONES_INICIALES_AUX::=  Scolon {:SemanticStructures.getInstance().insertarTS(); :}
+                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c {:SemanticStructures.getInstance().recuerdaFuncion(); :} 
+                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon {:SemanticStructures.getInstance().recuerdaFuncion(); :}
+                                | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c {:SemanticStructures.getInstance().recuerdaFuncion(); :}
                                 |  ;
 
 INICIO::= DECLARACIONES_INICIALES MAIN | DECLARACIONES_INICIALES LLAMADA_FUNCION Scolon ;
