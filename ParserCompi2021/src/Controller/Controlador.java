@@ -10,6 +10,7 @@ import Scanner.Modelo;
 import Scanner.SemanticStructures;
 import Scanner.parser;
 import SemanticShit.RS;
+import SemanticShit.RS_FU;
 import SemanticShit.RS_ID;
 import SemanticShit.RS_Tipo;
 import TokenTypes.Token;
@@ -77,25 +78,18 @@ public class Controlador implements ActionListener{
                         String texto =  new String(Files.readAllBytes(Paths.get(path)));
                         p.parse();
                         System.out.println("puto quien lo lea");
-                        for(RS tipo: SemanticStructures.getInstance().stack)
-                        {
-                            try{
-                                RS tipote =  tipo;
-                                System.out.println("Token "+tipote.valor  + " Linea "+tipote.linea + " columna "+tipote.columna);
-                            }
-                            catch(Exception error)
-                            {
-                                RS Id =  tipo;
-                                System.out.println("Token "+Id.valor+ " Linea "+Id.linea + " columna "+Id.columna);
-                            }
-                            
-                        }
+                        
                         for (String error: SemanticStructures.getInstance().errores)
                         {
                             System.out.println(error);
                         }
                         llenarLista(p, texto);
+             
+                        System.out.println(SemanticStructures.getInstance().TablaSimbolos.keySet());
+                        RS_FU fu = (RS_FU) SemanticStructures.getInstance().TablaSimbolos.get("func");
+                        System.out.println(fu.params);
                     }
+                  
                     catch(Exception A){
                        A.printStackTrace();
                     }  

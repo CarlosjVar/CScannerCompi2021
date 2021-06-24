@@ -20,9 +20,12 @@ import java.util.HashMap;
  */
 public class SemanticStructures {
     public ArrayList<RS> stack = new ArrayList<RS>();
-    HashMap<String,Object> TablaSimbolos = new HashMap<String,Object>();
+    public HashMap<String,Object> TablaSimbolos = new HashMap<String,Object>();
     private static SemanticStructures Struct;
     public ArrayList<String> errores = new ArrayList<String>();
+    int whileCount= 0 ;
+    int forCount = 0;
+    int funcParamsCount = 0;
     
     public static SemanticStructures getInstance()
     {
@@ -66,40 +69,42 @@ public class SemanticStructures {
     
     public void recuerdaFuncion(){
         ArrayList <RS_Tipo> params = new ArrayList <RS_Tipo>();
-        for(RS rs : this.stack)
+        while(this.funcParamsCount>0)
         {
-            if (rs instanceof RS_Tipo)
-            {
-                params.add((RS_Tipo)rs);
-                this.deleteTop();
-            }
-            else
-            {    
-                break;             
-            }
+
+
+            RS_ID  Id = (RS_ID) this.popRS();
+            this.deleteTop();
+            RS_Tipo tipo  = (RS_Tipo ) this.popRS();
+            this.deleteTop();
+            
+            this.funcParamsCount--;
+            tipo.name = Id.valor;
+            params.add(tipo);
+
         }
-        RS_FU RS_FU_;
+        System.out.println(params);
         RS nombre = this.popRS();
         this.deleteTop();
         RS tipo = this.popRS();
-        RS_FU_ = new RS_FU(nombre.valor, nombre.linea,tipo.columna,tipo.valor);
-        if(this.TablaSimbolos.containsKey(RS_FU_.valor))
+        RS_FU func= new RS_FU(nombre.valor, nombre.linea,tipo.columna,tipo.valor);
+        func.params = params;
+        
+        System.out.println(func.valor);
+        if(this.TablaSimbolos.containsKey(func.valor))
         {                     
             
-            this.errores.add("La variable "+ RS_FU_.valor +" no está declarada. Linea "+ nombre.linea +", columna " + tipo.columna);            
+            this.errores.add("La variable "+ func.valor +" no está declarada. Linea "+ nombre.linea +", columna " + tipo.columna);            
         }
         else
         {
-            this.TablaSimbolos.put(RS_FU_.valor,RS_FU_);
+            this.TablaSimbolos.put(func.valor,func);
         }
-        this.pushRS(RS_FU_);
+        //this.pushRS(func);
     }
     
     public void evalBinary(){
         //TODO agregar loop
-        for(RS rs : this.stack){
-        System.out.println("ME CAGO EN CARLOS V "+rs.valor);
-        System.out.println("ME CAGO EN CARLOS L "+rs.linea);}
         RS_DO RS_DO2 = (RS_DO) this.popRS();
         this.deleteTop();
         RS_Operador RS_OP = (RS_Operador) this.popRS();
@@ -118,7 +123,6 @@ public class SemanticStructures {
         else{
             RS_DO_ = new RS_DO(RS_DO2.valor+"+"+RS_DO1.valor, RS_DO1.linea, RS_DO1.columna, true);  
         }
-        this.pushRS(RS_DO_);
     }
     
     
@@ -169,5 +173,7 @@ public class SemanticStructures {
     {
         stack = new ArrayList<RS>();
     }
-    
+    public void addCountParams(){
+        this.funcParamsCount= this.funcParamsCount +1 ;
+    }
 }

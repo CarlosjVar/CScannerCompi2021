@@ -10,9 +10,14 @@ package SemanticShit;
  * @author carlo
  */
 public class RS_Tipo extends RS{
-
+    public String name;
     public RS_Tipo(String valor, int linea, int columna) {
         super(valor, linea, columna);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + this.name; //To change body of generated methods, choose Tools | Templates.
     }
 
   

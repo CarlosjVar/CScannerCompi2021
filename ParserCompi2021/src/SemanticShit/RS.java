@@ -19,4 +19,11 @@ abstract public class RS {
         this.linea = linea;
         this.columna = columna;
     }
+
+    @Override
+    public String toString() {
+        return "Soy del tipo "+ this.getClass().getName() +", valor=" + valor +"\n";
+    }
+    
+    
 }

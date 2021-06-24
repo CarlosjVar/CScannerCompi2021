@@ -125,7 +125,9 @@ VARS_AUX_AUX,
 PARAMS_PREV_VARS,
 PARAMS_VARS,
 MAIN_2,
-ASIG_SEM
+ASIG_SEM,
+IDENTIFICADOR_AUX_SEM,
+CLOSE_PAR_SEM
 ;
 
 precedence right Asignacion;
@@ -155,10 +157,11 @@ PARAMS_VARS::= TIPO Identificador PARAMS_AUX {:System.out.println("asd");:} ;
 PARAMS_AUX_VARS::= Coma PARAMS | ;
 
 DECLARACIONES_INICIALES_AUX::=  Scolon {:SemanticStructures.getInstance().insertarTS(); :}
-                                | Parentesis_a PARAMS_PREV Parentesis_c Llave_a DECLARACION_VAR SENTENCIA Llave_c {:SemanticStructures.getInstance().recuerdaFuncion(); :} 
-                                | Parentesis_a PARAMS_PREV Parentesis_c Scolon {:SemanticStructures.getInstance().recuerdaFuncion(); :}
-                                | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c {:SemanticStructures.getInstance().recuerdaFuncion(); :}
+                                | Parentesis_a PARAMS_PREV CLOSE_PAR_SEM Llave_a DECLARACION_VAR SENTENCIA Llave_c 
+                                | Parentesis_a PARAMS_PREV CLOSE_PAR_SEM Scolon 
+                                | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c 
                                 |  ;
+CLOSE_PAR_SEM::=  Parentesis_c  {:SemanticStructures.getInstance().recuerdaFuncion(); :}  ;
 
 INICIO::= DECLARACIONES_INICIALES MAIN | DECLARACIONES_INICIALES LLAMADA_FUNCION Scolon ;
 
@@ -250,10 +253,11 @@ OPERADOR::= Mas:i {: SemanticStructures.getInstance().recuerdaOperador(String.va
  Division:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} | 
  Modulo:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :};
 
-PARAMS_PREV::= PARAMS | ;
+PARAMS_PREV::= PARAMS  | ;
 
-PARAMS::= TIPO Identificador PARAMS_AUX ;
+PARAMS::= TIPO IDENTIFICADOR_AUX_SEM PARAMS_AUX  ;
 
+IDENTIFICADOR_AUX_SEM::=  Identificador:i {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),iright,ileft);  SemanticStructures.getInstance().addCountParams(); :} ;
 PARAMS_AUX::= Coma PARAMS | ;
 
 PARAMS_LL_PREV::= PARAMS_LL | ;
