@@ -23,10 +23,10 @@ public class SemanticStructures {
     public HashMap<String,Object> TablaSimbolos = new HashMap<String,Object>();
     private static SemanticStructures Struct;
     public ArrayList<String> errores = new ArrayList<String>();
-    int whileCount= 0 ;
-    int forCount = 0;
-    int funcParamsCount = 0;
-    int switchCount = 0;
+    public int whileCount= 0 ;
+    public int forCount = 0;
+    public int funcParamsCount = 0;
+    public int switchCount = 0;
     
     public static SemanticStructures getInstance()
     {
@@ -84,7 +84,6 @@ public class SemanticStructures {
             params.add(tipo);
 
         }
-        System.out.println(params);
         RS nombre = this.popRS();
         this.deleteTop();
         RS tipo = this.popRS();
@@ -177,4 +176,21 @@ public class SemanticStructures {
     public void addCountParams(){
         this.funcParamsCount= this.funcParamsCount +1 ;
     }
+    
+    public void addWhileCount(){
+        this.whileCount++;
+    }
+     public void reduceWhileCount(){
+        this.whileCount--;
+    }
+    public void checkWhile( String token, Integer linea, Integer columna){
+        if(!(this.whileCount>0)){
+            this.errores.add("Error en linea "+ linea+ " ,columna "+columna+ "\nPalabra reservada "+ token +" fuera de los bloques válidos");
+        }
+        
+    }
+    
+    
+    
 }
+
