@@ -104,6 +104,7 @@ public class SemanticStructures {
         //this.pushRS(func);
     }
     
+    
     public void evalBinary(){
         //TODO agregar loop
         RS_DO RS_DO2 = (RS_DO) this.popRS();
@@ -126,7 +127,47 @@ public class SemanticStructures {
         }
     }
     
-    
+    public void evalFuncion(){
+        
+        RS llamado = this.stack.get(0);
+        RS_FU func = (RS_FU)this.TablaSimbolos.get(llamado.valor);
+        
+        if(func != null)
+        {
+            ArrayList <RS_Tipo> paramsTS = func.params;
+            ArrayList <RS> paramsFU = new ArrayList <RS>();
+            while(this.funcParamsCount>0)
+            {
+                RS_ID  Id = (RS_ID) this.popRS();
+                this.deleteTop();
+
+                if(!this.TablaSimbolos.containsKey(Id.valor))
+                {
+                    RS_DO RS_DO_ = new RS_DO(Id.valor,Id.linea,Id.columna, false);
+                    RS_DO_.error=true;
+                    this.TablaSimbolos.put(RS_DO_.valor,RS_DO_);
+                    this.errores.add("La variable "+ RS_DO_.valor +" no está declarada. Linea "+ Id.linea +", columna " + Id.columna);
+                }
+
+                this.funcParamsCount--;
+                paramsFU.add(Id);
+            }
+        }
+        else
+        {
+            RS_FU RS_FU_ = new RS_FU(llamado.valor,llamado.linea,llamado.columna,"error");
+            RS_FU_.error=true;
+            this.TablaSimbolos.put(RS_FU_.valor,RS_FU_);
+            this.errores.add("La variable "+ RS_FU_.valor +" no está declarada. Linea "+ RS_FU_.linea +", columna " + RS_FU_.columna);
+        }
+        //System.out.println(paramsFU);
+        RS nombre = this.popRS();
+              
+        if(!this.TablaSimbolos.containsKey(nombre.valor))
+        {
+            
+        }
+    }
     
     public void insertarTS(){
         RS_Tipo tipo = (RS_Tipo)this.getBottom();
