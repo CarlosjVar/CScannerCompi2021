@@ -94,7 +94,6 @@ public class SemanticStructures {
         System.out.println(func.valor);
         if(this.TablaSimbolos.containsKey(func.valor))
         {                     
-            
             this.errores.add("La variable "+ func.valor +" no está declarada. Linea "+ nombre.linea +", columna " + tipo.columna);            
         }
         else
@@ -104,8 +103,16 @@ public class SemanticStructures {
         //this.pushRS(func);
     }
     
+    public void comoUstedQuiera(){
+        if(this.stack.size()>2){
+            evalBinary();
+        }
+        else{
+            assing();
+        }
+    }
+    
     public void evalBinary(){
-        //TODO agregar loop
         RS_DO RS_DO2 = (RS_DO) this.popRS();
         this.deleteTop();
         RS_Operador RS_OP = (RS_Operador) this.popRS();
@@ -126,7 +133,26 @@ public class SemanticStructures {
         }
     }
     
+    public void evalUnary(){
+        RS_DO RS_DO = (RS_DO) this.popRS();
+        this.deleteTop();
+        RS_Operador RS_OP = (RS_Operador) this.popRS();
+        this.deleteTop();
+        RS_Operador RS_OP1 = (RS_Operador) this.popRS();
+        this.deleteTop();
+        int calculo = 0;
+        if(RS_DO.banderita ){
+            if("+".equals(RS_OP.valor) && "+".equals(RS_OP1.valor) ) { calculo = (Integer.parseInt(RS_DO.valor))+1;}
+            else if("-".equals(RS_OP.valor) && "-".equals(RS_OP1.valor) ) { calculo = (Integer.parseInt(RS_DO.valor))-1;}
+        }
+        else{
+            System.out.println("VELVET ES HERMOSOOOOOOOOO");
+        }
+    }
     
+    private void assing() {
+         System.out.println("VELVET ES HERMOSOOOOOOOOO!");
+    }
     
     public void insertarTS(){
         RS_Tipo tipo = (RS_Tipo)this.getBottom();
@@ -177,4 +203,6 @@ public class SemanticStructures {
     public void addCountParams(){
         this.funcParamsCount= this.funcParamsCount +1 ;
     }
+
+    
 }
