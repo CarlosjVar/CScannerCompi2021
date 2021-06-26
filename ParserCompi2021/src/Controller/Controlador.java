@@ -69,6 +69,7 @@ public class Controlador implements ActionListener{
                 //archivo = new File(ruta1);
                 // JFlex.Main.generate(archivo);
                 //archivo2 = new File(ruta2);
+                SemanticStructures.getInstance().stack = new ArrayList();
                 Modelo.iniciar(path);
                 Reader reader; 
                 try {
@@ -84,10 +85,11 @@ public class Controlador implements ActionListener{
                             System.out.println(error);
                         }
                         llenarLista(p, texto);
+                        
+                        Object pepe = SemanticStructures.getInstance().TablaSimbolos.get("pepe");
+                        System.out.println(pepe);
              
-                        System.out.println(SemanticStructures.getInstance().TablaSimbolos.keySet());
-                        RS_FU fu = (RS_FU) SemanticStructures.getInstance().TablaSimbolos.get("func");
-                        System.out.println(fu.params);
+                       
                     }
                   
                     catch(Exception A){

@@ -127,7 +127,11 @@ PARAMS_VARS,
 MAIN_2,
 ASIG_SEM,
 IDENTIFICADOR_AUX_SEM,
-CLOSE_PAR_SEM
+CLOSE_PAR_SEM,
+WHILE_SEMANTIC,
+BREAK,
+DO_SEMANTIC,
+FOR_SEMANTIC
 ;
 
 precedence right Asignacion;
@@ -181,18 +185,20 @@ SENTENCIA::=
                 SW DECL_AUX|
                 LLAMADA_FUNCION DECL_AUX |
                 ASIGNACION_VAR DECL_AUX|
-                CONTINUE DECL_AUX |
+                CONTINUE Scolon DECL_AUX |
                 Return EXP Scolon DECL_AUX|
                 Return Scolon DECL_AUX|
-                Break Scolon DECL_AUX|
+                BREAK Scolon DECL_AUX|
                 Linea SENTENCIA |
                 error  DECL_AUX {: System.out.println("Error pero"); :} |                
                 ;
 
-ASIGNACION_VAR::=  ASIG_SEM Asignacion EXP Scolon {:  SemanticStructures.getInstance().evalBinary();  :} |ASIG_SEM Asignacion error Scolon | ASIG_SEM error EXP Scolon ;
+ASIGNACION_VAR::=  ASIG_SEM Asignacion EXP Scolon {:  SemanticStructures.getInstance().evalBinary();  :} | ASIG_SEM Unarios Scolon {: System.out.println("Unarios") ; :} | ASIG_SEM Asignacion error Scolon | ASIG_SEM error EXP Scolon ;
 
 ASIG_SEM::= Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),iright,ileft); :} ;
 DECL_AUX::= SENTENCIA  ;
+
+BREAK::= Break:i  {: SemanticStructures.getInstance().checkWhile(String.valueOf(i),iright,ileft);  :} ;
 
 CONST_AUX::= Const | ;
 
@@ -212,16 +218,21 @@ OP_RELACIONALES::= Relacionales | And | Or | Not;
 
 IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
 
-WHILE::= While Parentesis_a EXP Parentesis_c  Llave_a  SENTENCIA  Llave_c | While Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c| While Parentesis_a EXP Parentesis_c  error  SENTENCIA  Llave_c  ;
+WHILE::= WHILE_SEMANTIC Parentesis_a EXP Parentesis_c  Llave_a  SENTENCIA  Llave_c {: SemanticStructures.getInstance().reduceWhileCount(); :} | WHILE_SEMANTIC Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c| WHILE_SEMANTIC Parentesis_a EXP Parentesis_c  error  SENTENCIA  Llave_c  ;
 
-DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a EXP Parentesis_c |
-            Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c ;
+WHILE_SEMANTIC::= While {: SemanticStructures.getInstance().addWhileCount(); :} ;
 
-CONTINUE::= Continue Scolon ;
+DO_WHILE::= DO_SEMANTIC Llave_a  SENTENCIA  Llave_c  While Parentesis_a EXP Parentesis_c {: SemanticStructures.getInstance().reduceWhileCount(); :} |
+            DO_SEMANTIC Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c {: SemanticStructures.getInstance().reduceWhileCount(); :} ;
+
+DO_SEMANTIC::= Do {: SemanticStructures.getInstance().addWhileCount(); :} ;
+CONTINUE::= Continue:i  {: SemanticStructures.getInstance().checkWhile(String.valueOf(i),iright,ileft);  :} ;
 
 FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
        For Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
         For Parentesis_a SENTENCIA_FOR Parentesis_c error SENTENCIA Llave_c ;
+FOR_SEMANTIC::= For {: SemanticStructures.getInstance().addWhileCount(); :} ;
+
 
 SENTENCIA_FOR ::=
     TIPO Identificador Asignacion EXP Scolon EXP Scolon DECLARACION_FOR |
@@ -258,6 +269,7 @@ PARAMS_PREV::= PARAMS  | ;
 PARAMS::= TIPO IDENTIFICADOR_AUX_SEM PARAMS_AUX  ;
 
 IDENTIFICADOR_AUX_SEM::=  Identificador:i {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),iright,ileft);  SemanticStructures.getInstance().addCountParams(); :} ;
+
 PARAMS_AUX::= Coma PARAMS | ;
 
 PARAMS_LL_PREV::= PARAMS_LL | ;
