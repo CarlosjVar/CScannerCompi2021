@@ -12,6 +12,8 @@ import SemanticShit.RS_ID;
 import SemanticShit.RS_Operador;
 import SemanticShit.RS_Tipo;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -89,6 +91,7 @@ public class SemanticStructures {
         this.deleteTop();
         RS tipo = this.popRS();
         RS_FU func= new RS_FU(nombre.valor, nombre.linea,tipo.columna,tipo.valor);
+        Collections.reverse(Arrays.asList(params));
         func.params = params;
         
         System.out.println(func.valor);
@@ -131,42 +134,48 @@ public class SemanticStructures {
         
         RS llamado = this.stack.get(0);
         RS_FU func = (RS_FU)this.TablaSimbolos.get(llamado.valor);
-        
+        boolean error = true;
         if(func != null)
-        {
+        { 
             ArrayList <RS_Tipo> paramsTS = func.params;
-            ArrayList <RS> paramsFU = new ArrayList <RS>();
-            while(this.funcParamsCount>0)
+            
+            if(paramsTS.size() == this.stack.size() - 1)
             {
-                RS_ID  Id = (RS_ID) this.popRS();
-                this.deleteTop();
-
-                if(!this.TablaSimbolos.containsKey(Id.valor))
+                error = false;
+                while(this.stack.size() > 1)
                 {
-                    RS_DO RS_DO_ = new RS_DO(Id.valor,Id.linea,Id.columna, false);
-                    RS_DO_.error=true;
-                    this.TablaSimbolos.put(RS_DO_.valor,RS_DO_);
-                    this.errores.add("La variable "+ RS_DO_.valor +" no está declarada. Linea "+ Id.linea +", columna " + Id.columna);
-                }
+                    RS_ID  Id = (RS_ID) this.popRS();
+                    this.deleteTop();
 
-                this.funcParamsCount--;
-                paramsFU.add(Id);
+                    if(!this.TablaSimbolos.containsKey(Id.valor))
+                    {
+                        RS_DO RS_DO_ = new RS_DO(Id.valor,Id.linea,Id.columna, false);
+                        RS_DO_.error=true;
+                        this.TablaSimbolos.put(RS_DO_.valor,RS_DO_);
+                        this.errores.add("La variable "+ RS_DO_.valor +" no está declarada. Linea "+ Id.linea +", columna " + Id.columna);
+                    }
+                    else
+                    {
+                        RS_Tipo varLlamada = (RS_Tipo)this.TablaSimbolos.get(Id.valor);
+                        RS_Tipo varFuncion = paramsTS.get(this.stack.size()-2);
+                        if(varLlamada.valor != varFuncion.valor)
+                        {
+                            RS_DO RS_DO_Tipo = new RS_DO(Id.valor,Id.linea,Id.columna, false);
+                            RS_DO_Tipo.error=true;
+                            this.errores.add("La variable "+ RS_DO_Tipo.valor +" no es del tipo correcto. Linea "+ Id.linea +", columna " + Id.columna);
+                            }
+                    }
+                }
             }
         }
-        else
+        if(error)
         {
             RS_FU RS_FU_ = new RS_FU(llamado.valor,llamado.linea,llamado.columna,"error");
             RS_FU_.error=true;
             this.TablaSimbolos.put(RS_FU_.valor,RS_FU_);
-            this.errores.add("La variable "+ RS_FU_.valor +" no está declarada. Linea "+ RS_FU_.linea +", columna " + RS_FU_.columna);
+            this.errores.add("La función "+ RS_FU_.valor +" no está declarada. Linea "+ RS_FU_.linea +", columna " + RS_FU_.columna);
         }
         //System.out.println(paramsFU);
-        RS nombre = this.popRS();
-              
-        if(!this.TablaSimbolos.containsKey(nombre.valor))
-        {
-            
-        }
     }
     
     public void insertarTS(){
