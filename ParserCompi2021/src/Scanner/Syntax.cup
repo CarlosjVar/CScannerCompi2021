@@ -129,7 +129,9 @@ ASIG_SEM,
 IDENTIFICADOR_AUX_SEM,
 CLOSE_PAR_SEM,
 WHILE_SEMANTIC,
-BREAK
+BREAK,
+DO_SEMANTIC,
+FOR_SEMANTIC
 ;
 
 precedence right Asignacion;
@@ -220,15 +222,17 @@ WHILE::= WHILE_SEMANTIC Parentesis_a EXP Parentesis_c  Llave_a  SENTENCIA  Llave
 
 WHILE_SEMANTIC::= While {: SemanticStructures.getInstance().addWhileCount(); :} ;
 
-DO_WHILE::= Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a EXP Parentesis_c |
-            Do Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c ;
+DO_WHILE::= DO_SEMANTIC Llave_a  SENTENCIA  Llave_c  While Parentesis_a EXP Parentesis_c {: SemanticStructures.getInstance().reduceWhileCount(); :} |
+            DO_SEMANTIC Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c {: SemanticStructures.getInstance().reduceWhileCount(); :} ;
 
-
+DO_SEMANTIC::= Do {: SemanticStructures.getInstance().addWhileCount(); :} ;
 CONTINUE::= Continue:i  {: SemanticStructures.getInstance().checkWhile(String.valueOf(i),iright,ileft);  :} ;
 
 FOR::= For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c |
        For Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
         For Parentesis_a SENTENCIA_FOR Parentesis_c error SENTENCIA Llave_c ;
+FOR_SEMANTIC::= For {: SemanticStructures.getInstance().addWhileCount(); :} ;
+
 
 SENTENCIA_FOR ::=
     TIPO Identificador Asignacion EXP Scolon EXP Scolon DECLARACION_FOR |

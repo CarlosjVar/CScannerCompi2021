@@ -69,6 +69,7 @@ public class Controlador implements ActionListener{
                 //archivo = new File(ruta1);
                 // JFlex.Main.generate(archivo);
                 //archivo2 = new File(ruta2);
+                SemanticStructures.getInstance().stack = new ArrayList();
                 Modelo.iniciar(path);
                 Reader reader; 
                 try {
