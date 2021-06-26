@@ -16,8 +16,10 @@ public class RS_FU extends RS {
     
     public String tipo;
     public ArrayList <RS_Tipo> params;
+    public boolean error = false;
+    public String returnType;
     
-    public RS_FU(String valor, int linea, int columna,String tipo){        
+    public RS_FU(String valor, int linea, int columna, String tipo){        
         super(valor, linea, columna);
         this.params = new ArrayList<RS_Tipo>();
         this.tipo = tipo;

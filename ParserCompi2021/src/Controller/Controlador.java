@@ -72,24 +72,22 @@ public class Controlador implements ActionListener{
                 SemanticStructures.getInstance().stack = new ArrayList();
                 Modelo.iniciar(path);
                 Reader reader; 
+                SemanticStructures.getInstance().stack = new ArrayList();
+                SemanticStructures.getInstance().TablaSimbolos = new HashMap();
                 try {
                     reader = new FileReader(path);
                     parser p = new parser(new LexerCup(reader));
                     try{
                         String texto =  new String(Files.readAllBytes(Paths.get(path)));
                         p.parse();
-                        System.out.println("puto quien lo lea");
                         
                         for (String error: SemanticStructures.getInstance().errores)
                         {
                             System.out.println(error);
                         }
                         llenarLista(p, texto);
-                        
                         Object pepe = SemanticStructures.getInstance().TablaSimbolos.get("pepe");
                         System.out.println(pepe);
-             
-                       
                     }
                   
                     catch(Exception A){
