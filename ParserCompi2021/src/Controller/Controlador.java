@@ -77,17 +77,13 @@ public class Controlador implements ActionListener{
                     try{
                         String texto =  new String(Files.readAllBytes(Paths.get(path)));
                         p.parse();
-                        System.out.println("puto quien lo lea");
                         
                         for (String error: SemanticStructures.getInstance().errores)
                         {
                             System.out.println(error);
                         }
                         llenarLista(p, texto);
-             
-                        System.out.println(SemanticStructures.getInstance().TablaSimbolos.keySet());
-                        RS_FU fu = (RS_FU) SemanticStructures.getInstance().TablaSimbolos.get("meCagoEnCarlos");
-                        System.out.println(fu.params);
+
                     }
                   
                     catch(Exception A){

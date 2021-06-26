@@ -71,7 +71,6 @@ public class SemanticStructures {
     }
     
     public void recuerdaFuncion(){
-        System.out.println("recuerdaFuncion"+this.stack.get(0));
         ArrayList <RS_Tipo> params = new ArrayList <RS_Tipo>();
         while(this.funcParamsCount>0)
         {
@@ -87,15 +86,15 @@ public class SemanticStructures {
             params.add(tipo);
 
         }
-        System.out.println(params);
         RS nombre = this.popRS();
         this.deleteTop();
         RS tipo = this.popRS();
+        this.deleteTop();
         RS_FU func= new RS_FU(nombre.valor, nombre.linea,tipo.columna,tipo.valor);
         Collections.reverse(Arrays.asList(params));
         func.params = params;
         
-        System.out.println(func.valor);
+
         if(this.TablaSimbolos.containsKey(func.valor))
         {                     
             
@@ -107,7 +106,7 @@ public class SemanticStructures {
             
         }
         //this.pushRS(func);
-        this.deleteTop();
+        System.out.println("Restante de la pila:"+this.stack);
     }
     
     
@@ -134,7 +133,7 @@ public class SemanticStructures {
     }
     
     public void evalFuncion(){
-        System.out.println(this.stack);
+        System.out.println("Pila en inicio de evaluación función "+this.stack);
         RS llamado = this.stack.get(0);
         RS_FU func = (RS_FU)this.TablaSimbolos.get(llamado.valor);
         boolean error = true;
@@ -160,8 +159,9 @@ public class SemanticStructures {
                     else
                     {
                         RS_Tipo varLlamada = (RS_Tipo)this.TablaSimbolos.get(Id.valor);
-                        RS_Tipo varFuncion = paramsTS.get(this.stack.size()-2);
-                        if(varLlamada.valor != varFuncion.valor)
+                        RS_Tipo varFuncion = paramsTS.get(this.stack.size()-1);
+                        System.out.println("Valor tabla simbolos "+varLlamada+ "Valor param funcion "+varFuncion);
+                        if(!varLlamada.valor.equals(varFuncion.valor))
                         {
                             RS_DO RS_DO_Tipo = new RS_DO(Id.valor,Id.linea,Id.columna, false);
                             RS_DO_Tipo.error=true;
@@ -170,6 +170,10 @@ public class SemanticStructures {
                     }
                 }
             }
+            else
+            { this.errores.add("Cantidad de parametros erronea");}
+                   
+                    
         }
         if(error)
         {
