@@ -143,7 +143,6 @@ public class SemanticStructures {
             
             if(paramsTS.size() == this.stack.size() - 1)
             {
-                error = false;
                 while(this.stack.size() > 1)
                 {
                     RS_ID  Id = (RS_ID) this.popRS();
@@ -162,6 +161,7 @@ public class SemanticStructures {
                         RS_Tipo varFuncion = paramsTS.get(this.stack.size()-1);
                         if(!varLlamada.valor.equals(varFuncion.valor))
                         {
+                           // System.out.println("evalFunc"+Id+" "+varFuncion);
                             RS_DO RS_DO_Tipo = new RS_DO(Id.valor,Id.linea,Id.columna, false);
                             RS_DO_Tipo.error=true;
                             this.errores.add("La variable "+ RS_DO_Tipo.valor +" no es del tipo correcto. Linea "+ Id.linea +", columna " + Id.columna);
@@ -170,11 +170,14 @@ public class SemanticStructures {
                 }
             }
             else
-            { this.errores.add("Cantidad de parametros erronea");}
+            { 
+                this.errores.add("Cantidad de parametros erronea");
+                this.stack = new ArrayList();
+            }
                    
                     
         }
-        if(error)
+        else
         {
             RS_FU RS_FU_ = new RS_FU(llamado.valor,llamado.linea,llamado.columna,"error");
             RS_FU_.error=true;
@@ -186,7 +189,7 @@ public class SemanticStructures {
     
     public void insertarTS(){
         RS_Tipo tipo = (RS_Tipo)this.getBottom();
-
+        System.out.println("inicioPila insertarTS"+this.stack);
         while(this.popRS() != tipo){
             try
             {

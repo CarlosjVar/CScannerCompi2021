@@ -128,7 +128,8 @@ MAIN_2,
 ASIG_SEM,
 IDENTIFICADOR_AUX_SEM,
 CLOSE_PAR_SEM,
-IDENTIFICADOR_FUNCION
+IDENTIFICADOR_FUNCION,
+ESECOLON_DEKLARAZION
 ;
 
 precedence right Asignacion;
@@ -199,7 +200,9 @@ DECL_AUX::= SENTENCIA  ;
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX Scolon DECLARACION_VAR {:SemanticStructures.getInstance().insertarTS(); :} |    ;
+DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX ESECOLON_DEKLARAZION DECLARACION_VAR  |    ;
+
+ESECOLON_DEKLARAZION::= Scolon {:SemanticStructures.getInstance().insertarTS(); :};
 
 
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
