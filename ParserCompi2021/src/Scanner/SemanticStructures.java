@@ -71,6 +71,7 @@ public class SemanticStructures {
     }
     
     public void recuerdaFuncion(){
+        System.out.println("recuerdaFuncion"+this.stack.get(0));
         ArrayList <RS_Tipo> params = new ArrayList <RS_Tipo>();
         while(this.funcParamsCount>0)
         {
@@ -98,13 +99,15 @@ public class SemanticStructures {
         if(this.TablaSimbolos.containsKey(func.valor))
         {                     
             
-            this.errores.add("La variable "+ func.valor +" no está declarada. Linea "+ nombre.linea +", columna " + tipo.columna);            
+            this.errores.add("La funcion "+ func.valor +" ya esta declarada. Linea "+ nombre.linea +", columna " + tipo.columna);            
         }
         else
         {
             this.TablaSimbolos.put(func.valor,func);
+            
         }
         //this.pushRS(func);
+        this.deleteTop();
     }
     
     
@@ -131,7 +134,7 @@ public class SemanticStructures {
     }
     
     public void evalFuncion(){
-        
+        System.out.println(this.stack);
         RS llamado = this.stack.get(0);
         RS_FU func = (RS_FU)this.TablaSimbolos.get(llamado.valor);
         boolean error = true;
@@ -173,7 +176,7 @@ public class SemanticStructures {
             RS_FU RS_FU_ = new RS_FU(llamado.valor,llamado.linea,llamado.columna,"error");
             RS_FU_.error=true;
             this.TablaSimbolos.put(RS_FU_.valor,RS_FU_);
-            this.errores.add("La función "+ RS_FU_.valor +" no está declarada. Linea "+ RS_FU_.linea +", columna " + RS_FU_.columna);
+            this.errores.add("puto La función "+ RS_FU_.valor +" no está declarada. Linea "+ RS_FU_.linea +", columna " + RS_FU_.columna);
         }
         //System.out.println(paramsFU);
     }

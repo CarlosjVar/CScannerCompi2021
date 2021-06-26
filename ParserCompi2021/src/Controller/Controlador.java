@@ -86,7 +86,7 @@ public class Controlador implements ActionListener{
                         llenarLista(p, texto);
              
                         System.out.println(SemanticStructures.getInstance().TablaSimbolos.keySet());
-                        RS_FU fu = (RS_FU) SemanticStructures.getInstance().TablaSimbolos.get("func");
+                        RS_FU fu = (RS_FU) SemanticStructures.getInstance().TablaSimbolos.get("meCagoEnCarlos");
                         System.out.println(fu.params);
                     }
                   

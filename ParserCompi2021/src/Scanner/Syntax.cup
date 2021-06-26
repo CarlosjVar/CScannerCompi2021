@@ -127,7 +127,8 @@ PARAMS_VARS,
 MAIN_2,
 ASIG_SEM,
 IDENTIFICADOR_AUX_SEM,
-CLOSE_PAR_SEM
+CLOSE_PAR_SEM,
+IDENTIFICADOR_FUNCION
 ;
 
 precedence right Asignacion;
@@ -170,7 +171,9 @@ MAIN ::= TIPO MAIN_2 Parentesis_a Parentesis_c Llave_a DECLARACION_VAR SENTENCIA
 
 MAIN_2 ::= Main {: SemanticStructures.getInstance().wipeStack(); :} ;
 
-LLAMADA_FUNCION::= Identificador Parentesis_a PARAMS_LL_PREV Parentesis_c | LANG_FUNCS ;
+LLAMADA_FUNCION::= IDENTIFICADOR_FUNCION Parentesis_a PARAMS_LL_PREV Parentesis_c {: SemanticStructures.getInstance().evalFuncion(); :}| LANG_FUNCS;
+
+IDENTIFICADOR_FUNCION::= Identificador:i {: SemanticStructures.getInstance().recuerdaId(String.valueOf(i),ileft,iright); :};
 
 SENTENCIA::=    
                 IF DECL_AUX |
@@ -179,7 +182,7 @@ SENTENCIA::=
                 DO_WHILE Scolon DECL_AUX |
                 FOR DECL_AUX |
                 SW DECL_AUX|
-                LLAMADA_FUNCION DECL_AUX |
+                LLAMADA_FUNCION Scolon DECL_AUX |
                 ASIGNACION_VAR DECL_AUX|
                 CONTINUE DECL_AUX |
                 Return EXP Scolon DECL_AUX|
