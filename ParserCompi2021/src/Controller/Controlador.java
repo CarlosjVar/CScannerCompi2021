@@ -71,6 +71,8 @@ public class Controlador implements ActionListener{
                 //archivo2 = new File(ruta2);
                 Modelo.iniciar(path);
                 Reader reader; 
+                SemanticStructures.getInstance().stack = new ArrayList();
+                SemanticStructures.getInstance().TablaSimbolos = new HashMap();
                 try {
                     reader = new FileReader(path);
                     parser p = new parser(new LexerCup(reader));

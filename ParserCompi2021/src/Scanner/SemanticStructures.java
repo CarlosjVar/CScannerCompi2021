@@ -106,7 +106,7 @@ public class SemanticStructures {
             
         }
         //this.pushRS(func);
-        System.out.println("Restante de la pila:"+this.stack);
+    
     }
     
     
@@ -130,10 +130,10 @@ public class SemanticStructures {
         else{
             RS_DO_ = new RS_DO(RS_DO2.valor+"+"+RS_DO1.valor, RS_DO1.linea, RS_DO1.columna, true);  
         }
+        this.deleteTop();
     }
     
     public void evalFuncion(){
-        System.out.println("Pila en inicio de evaluación función "+this.stack);
         RS llamado = this.stack.get(0);
         RS_FU func = (RS_FU)this.TablaSimbolos.get(llamado.valor);
         boolean error = true;
@@ -160,7 +160,6 @@ public class SemanticStructures {
                     {
                         RS_Tipo varLlamada = (RS_Tipo)this.TablaSimbolos.get(Id.valor);
                         RS_Tipo varFuncion = paramsTS.get(this.stack.size()-1);
-                        System.out.println("Valor tabla simbolos "+varLlamada+ "Valor param funcion "+varFuncion);
                         if(!varLlamada.valor.equals(varFuncion.valor))
                         {
                             RS_DO RS_DO_Tipo = new RS_DO(Id.valor,Id.linea,Id.columna, false);
