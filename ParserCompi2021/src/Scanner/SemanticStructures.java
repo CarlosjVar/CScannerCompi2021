@@ -108,14 +108,6 @@ public class SemanticStructures {
     
     }
     
-    public void comoUstedQuiera(){
-        if(this.stack.size()>2){
-            evalBinary();
-        }
-        else{
-            assing();
-        }
-    }
     
     public void evalBinary(){
         RS_DO RS_DO2 = (RS_DO) this.popRS();
@@ -183,11 +175,11 @@ public class SemanticStructures {
                         RS_Tipo varFuncion = paramsTS.get(this.stack.size()-1);
                         if(!varLlamada.valor.equals(varFuncion.valor))
                         {
-                           // System.out.println("evalFunc"+Id+" "+varFuncion);
+                            // System.out.println("evalFunc"+Id+" "+varFuncion);
                             RS_DO RS_DO_Tipo = new RS_DO(Id.valor,Id.linea,Id.columna, false);
                             RS_DO_Tipo.error=true;
                             this.errores.add("La variable "+ RS_DO_Tipo.valor +" no es del tipo correcto. Linea "+ Id.linea +", columna " + Id.columna);
-                            }
+                        }
                     }
                 }
             }
@@ -214,8 +206,7 @@ public class SemanticStructures {
     }
     
     public void insertarTS(){
-        RS_Tipo tipo = (RS_Tipo)this.getBottom();
-        System.out.println("inicioPila insertarTS"+this.stack);
+        RS_Tipo tipo = (RS_Tipo)this.getBottom();      
         while(this.popRS() != tipo){
             try
             {
@@ -274,9 +265,15 @@ public class SemanticStructures {
             this.errores.add("Error en linea "+ linea+ " ,columna "+columna+ "\nPalabra reservada "+ token +" fuera de los bloques válidos");
         }
         
+    }   
+    public void comoUstedQuiera(){
+        if(this.stack.size()>2){
+            evalBinary();
+        }
+        else{
+            assing();
+        }
     }
-    
-    
     
 }
 

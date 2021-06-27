@@ -36,9 +36,6 @@ public class Principal {
        // archivo = new File(ruta1);
         //JFlex.Main.generate(archivo);
         archivo = new File(ruta2);
-        
-
-
        
     }
  }
