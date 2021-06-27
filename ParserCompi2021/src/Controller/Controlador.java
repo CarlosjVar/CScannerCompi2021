@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Scanner.CodeMonkey;
 import Scanner.LexerCup;
 import Scanner.Modelo;
 import Scanner.SemanticStructures;
@@ -77,6 +78,8 @@ public class Controlador implements ActionListener{
                 try {
                     reader = new FileReader(path);
                     parser p = new parser(new LexerCup(reader));
+                    CodeMonkey.getInstance().initializeString();
+  
                     try{
                         String texto =  new String(Files.readAllBytes(Paths.get(path)));
                         p.parse();
@@ -88,6 +91,7 @@ public class Controlador implements ActionListener{
                         llenarLista(p, texto);
                         Object pepe = SemanticStructures.getInstance().TablaSimbolos.get("pepe");
                         System.out.println(pepe);
+                        CodeMonkey.getInstance().WriteAsmHeader(path);
                     }
                   
                     catch(Exception A){

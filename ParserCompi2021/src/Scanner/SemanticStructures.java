@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.regex.Matcher;
 
 /**
  *
@@ -29,6 +30,7 @@ public class SemanticStructures {
     public int forCount = 0;
     public int funcParamsCount = 0;
     public int switchCount = 0;
+    public boolean AssignBinary=false;
     
     public static SemanticStructures getInstance()
     {
@@ -71,6 +73,7 @@ public class SemanticStructures {
     }
     
     public void recuerdaFuncion(){
+        CodeMonkey.getInstance().codeStarted=true;
         ArrayList <RS_Tipo> params = new ArrayList <RS_Tipo>();
         while(this.funcParamsCount>0)
         {
@@ -110,6 +113,7 @@ public class SemanticStructures {
     
     
     public void evalBinary(){
+        System.out.println("Inicio Stack evBinary"+ this.stack);
         RS_DO RS_DO2 = (RS_DO) this.popRS();
         this.deleteTop();
         RS_Operador RS_OP = (RS_Operador) this.popRS();
@@ -118,36 +122,88 @@ public class SemanticStructures {
         this.deleteTop();
         RS_DO RS_DO_;
         int calculo = 0;
-        if(RS_DO2.banderita && RS_DO1.banderita ){
+        String regex = "/[+*\\/-]/g";
+        if(RS_DO2.banderita && RS_DO1.banderita && !RS_OP.valor.matches(regex)){
             if("+".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO2.valor)+Integer.parseInt(RS_DO1.valor);}
             else if("-".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO1.valor)-Integer.parseInt(RS_DO2.valor);}
             else if("/".equals(RS_OP.valor) && Integer.parseInt(RS_DO2.valor)!=0 ) {  calculo = Integer.parseInt(RS_DO1.valor)/Integer.parseInt(RS_DO2.valor);}
             else if("*".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO1.valor)*Integer.parseInt(RS_DO2.valor);}
-            RS_DO_ = new RS_DO(Integer.toString(calculo), RS_DO1.linea, RS_DO1.columna, true);   
+            
+            
+        CodeMonkey.getInstance().addToString("MOV EAX,"+calculo);
+        this.AssignBinary=true;
+            
         }
         else{
-            RS_DO_ = new RS_DO(RS_DO2.valor+"+"+RS_DO1.valor, RS_DO1.linea, RS_DO1.columna, true);  
+            this.AssignBinary=true;
+            if("+".equals(RS_OP.valor)) { 
+     
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "ADD EAX,"+  RS_DO2.valor :"ADD EAX,"+"["+ RS_DO2.valor+"]");
+            
+            }
+            else if("-".equals(RS_OP.valor)) { 
+            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "SUB EAX,"+  RS_DO2.valor :"SUB EAX,"+"["+ RS_DO2.valor+"]");
+            }
+            else if("/".equals(RS_OP.valor) && Integer.parseInt(RS_DO2.valor)!=0 ) { 
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("DIV EBX");
+            }
+            else if("*".equals(RS_OP.valor)) {
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("MUL EBX");
+            }
+            else if("<".equals(RS_OP.valor)){
+            
+            }
+            else if(">".equals(RS_OP.valor)){
+            
+            }
+            else if("==".equals(RS_OP.valor)){
+            
+            }
+            else if(">=".equals(RS_OP.valor)){
+            
+            }
+            else if("<=".equals(RS_OP.valor)){
+            
+            }
+            else if("!=".equals(RS_OP.valor)){
+            
+            }
         }
-        this.deleteTop();
+
+        //System.out.println("Final stack evBinary"+this.stack);
+
     }
     
     public void evalUnary(){
-        RS_DO RS_DO = (RS_DO) this.popRS();
-        this.deleteTop();
         RS_Operador RS_OP = (RS_Operador) this.popRS();
         this.deleteTop();
-        RS_Operador RS_OP1 = (RS_Operador) this.popRS();
+        RS_DO RS_DO = (RS_DO) this.popRS();
         this.deleteTop();
+
         int calculo = 0;
         if(RS_DO.banderita ){
-            if("+".equals(RS_OP.valor) && "+".equals(RS_OP1.valor) ) { calculo = (Integer.parseInt(RS_DO.valor))+1;}
-            else if("-".equals(RS_OP.valor) && "-".equals(RS_OP1.valor) ) { calculo = (Integer.parseInt(RS_DO.valor))-1;}
+            if("++".equals(RS_OP.valor) ) { calculo = (Integer.parseInt(RS_DO.valor))+1;}
+            else if("--".equals(RS_OP.valor) ) { calculo = (Integer.parseInt(RS_DO.valor))-1;}
         }
         else{
-            System.out.println("VELVET ES HERMOSOOOOOOOOO");
+             if("++".equals(RS_OP.valor) ) {CodeMonkey.getInstance().addToString("INC "+RS_DO.valor);}
+            else if("--".equals(RS_OP.valor) ) {CodeMonkey.getInstance().addToString("DEC "+RS_DO.valor);}
+           
         }
     }
     public void evalFuncion(){
+        System.out.println("Inicio stack evFunc"+this.stack);
         RS llamado = this.stack.get(0);
         RS_FU func = (RS_FU)this.TablaSimbolos.get(llamado.valor);
         boolean error = true;
@@ -201,11 +257,30 @@ public class SemanticStructures {
         //System.out.println(paramsFU);
     }
     
-    private void assing() {
+    public void assign() {
+        
+        if(this.AssignBinary){
+            
+            RS VARIABLE = this.popRS();
+            this.deleteTop();
+            CodeMonkey.getInstance().addToString("MOV [" +VARIABLE.valor+"],EAX" );
+            this.AssignBinary=false;
+        }
+        else
+        {
+        RS VALUE = this.popRS();
+        this.deleteTop();
+        RS VAR = this.popRS();
+        this.deleteTop();
+        String regex = "[0-9]";
+        CodeMonkey.getInstance().addToString(VALUE.valor.matches(regex)? "MOV EAX,"+ VALUE.valor :"MOV EAX,"+"["+VALUE.valor+"]" );
+         CodeMonkey.getInstance().addToString("MOV [" +VAR.valor+"],EAX" );
          System.out.println("VELVET ES HERMOSOOOOOOOOO!");
+        }
+
     }
     
-    public void insertarTS(){
+    public void insertarTS(boolean isGlobal){
         RS_Tipo tipo = (RS_Tipo)this.getBottom();      
         while(this.popRS() != tipo){
             try
@@ -218,7 +293,9 @@ public class SemanticStructures {
                     continue;
                 }
                 this.TablaSimbolos.put(stackpop.valor,tipo );
-                
+                if(isGlobal){CodeMonkey.getInstance().addToString(stackpop.valor+"\tresd 1");
+                }
+
                 this.deleteTop();
             }
             catch(Exception e)
@@ -269,9 +346,10 @@ public class SemanticStructures {
     public void comoUstedQuiera(){
         if(this.stack.size()>2){
             evalBinary();
+            assign();
         }
         else{
-            assing();
+            assign();
         }
     }
     

@@ -133,7 +133,8 @@ BREAK,
 DO_SEMANTIC,
 FOR_SEMANTIC,
 ESECOLON_DEKLARAZION,
-IDENTIFICADOR_FUNCION
+IDENTIFICADOR_FUNCION,
+UNARIOS_SEM
 ;
 
 precedence right Asignacion;
@@ -162,7 +163,7 @@ PARAMS_VARS::= TIPO Identificador PARAMS_AUX {:System.out.println("asd");:} ;
 
 PARAMS_AUX_VARS::= Coma PARAMS | ;
 
-DECLARACIONES_INICIALES_AUX::=  Scolon {:SemanticStructures.getInstance().insertarTS(); :}
+DECLARACIONES_INICIALES_AUX::=  Scolon {:SemanticStructures.getInstance().insertarTS(true); :}
                                 | Parentesis_a PARAMS_PREV CLOSE_PAR_SEM Llave_a DECLARACION_VAR SENTENCIA Llave_c 
                                 | Parentesis_a PARAMS_PREV CLOSE_PAR_SEM Scolon 
                                 | Parentesis_a PARAMS_PREV Parentesis_c error  DECLARACION_VAR SENTENCIA Llave_c 
@@ -197,9 +198,13 @@ SENTENCIA::=
                 error  DECL_AUX {: System.out.println("Error pero"); :} |                
                 ;
 
-ASIGNACION_VAR::=  ASIG_SEM Asignacion EXP Scolon {:  SemanticStructures.getInstance().evalBinary();  :} | ASIG_SEM Unarios Scolon {: System.out.println("Unarios") ; :} | ASIG_SEM Asignacion error Scolon | ASIG_SEM error EXP Scolon ;
+ASIGNACION_VAR::=  ASIG_SEM Asignacion EXP Scolon {:  SemanticStructures.getInstance().comoUstedQuiera();  :} | ASIG_SEM UNARIOS_SEM Scolon {: SemanticStructures.getInstance().evalUnary(); :} | ASIG_SEM Asignacion error Scolon | ASIG_SEM error EXP Scolon ;
+
+UNARIOS_SEM::= Unarios:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :};
 
 ASIG_SEM::= Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),iright,ileft); :} ;
+
+
 DECL_AUX::= SENTENCIA  ;
 
 BREAK::= Break:i  {: SemanticStructures.getInstance().checkWhile(String.valueOf(i),iright,ileft);  :} ;
@@ -208,7 +213,7 @@ CONST_AUX::= Const | ;
 
 DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX ESECOLON_DEKLARAZION DECLARACION_VAR  |    ;
 
-ESECOLON_DEKLARAZION::= Scolon {:SemanticStructures.getInstance().insertarTS(); :};
+ESECOLON_DEKLARAZION::= Scolon {:SemanticStructures.getInstance().insertarTS(false); :};
 
 
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
@@ -220,7 +225,10 @@ IF ::= If Parentesis_a EXP Parentesis_c Llave_a SENTENCIA Llave_c |
 
 
 
-OP_RELACIONALES::= Relacionales | And | Or | Not;
+OP_RELACIONALES::= Relacionales:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} |
+And:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :}|
+Or:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :}| 
+Not:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} ;
 
 IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
 
@@ -256,7 +264,7 @@ DECLARACION_FOR ::=
     error
 ;
 
-EXP::= EXP OPERADOR EXP | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP | 
+EXP::= EXP OPERADOR EXP {: SemanticStructures.getInstance().evalBinary(); :} | Parentesis_a EXP Parentesis_c | OP_RELACIONALES EXP | EXP OP_RELACIONALES EXP {: SemanticStructures.getInstance().evalBinary(); :}  | 
     Identificador:i {: SemanticStructures.getInstance().recuerdaVariable(String.valueOf(i),iright,ileft); :}| 
     Literal:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),iright,ileft); :} |
     Numero:i {: SemanticStructures.getInstance().recuerdaConst(String.valueOf(i),iright,ileft); :} | 
