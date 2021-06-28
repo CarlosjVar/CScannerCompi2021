@@ -391,10 +391,18 @@ public class SemanticStructures {
             
         else if(string.equals("else"))
         {
-            
+             CodeMonkey.getInstance().addToString("JMP "+"if_Exit_"+this.ifCount);
+            CodeMonkey.getInstance().addToString("else_label_"+this.ifCount+":");
         }
         else if(string.equals("endIf"))
         {
+            CodeMonkey.getInstance().addToString("if_Exit_"+this.ifCount+":");
+            this.ifCount++;
+        }
+        else if(string.equals("endElse"))
+        {
+            String replaceLabel = "if_Exit_"+this.ifCount;
+            CodeMonkey.getInstance().StringToWrite = CodeMonkey.getInstance().StringToWrite.replaceFirst(replaceLabel, "else_label_"+this.ifCount);
             CodeMonkey.getInstance().addToString("if_Exit_"+this.ifCount+":");
             this.ifCount++;
         }

@@ -137,7 +137,8 @@ IDENTIFICADOR_FUNCION,
 UNARIOS_SEM,
 Parentesis_c_if,
 Llave_c_if,
-Parentesis_c_while
+Parentesis_c_while,
+Else_if
 ;
 
 precedence right Asignacion;
@@ -222,9 +223,11 @@ DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
 
 
 IF ::= If Parentesis_a EXP Parentesis_c_if  Llave_a SENTENCIA Llave_c_if {: SemanticStructures.getInstance().writeLabelIf("endIf"); :} |
-       If Parentesis_a EXP Parentesis_c_if Llave_a SENTENCIA Llave_c_if Else Llave_a SENTENCIA Llave_c    |
+       If Parentesis_a EXP Parentesis_c_if Llave_a SENTENCIA Llave_c_if Else_if Llave_a SENTENCIA Llave_c  {: SemanticStructures.getInstance().writeLabelIf("endElse"); :}  |
        If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
        If Parentesis_a  EXP Parentesis_c error ;
+
+Else_if::= Else {: SemanticStructures.getInstance().writeLabelIf("else"); :};
 
 Llave_c_if::=  Llave_c  ; 
 Parentesis_c_if::= Parentesis_c {: SemanticStructures.getInstance().writeLabelIf("if"); :} |  ;
