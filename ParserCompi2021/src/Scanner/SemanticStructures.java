@@ -27,6 +27,8 @@ public class SemanticStructures {
     private static SemanticStructures Struct;
     public ArrayList<String> errores = new ArrayList<String>();
     public int whileCount= 0 ;
+    public int whileCountlabel= 0;
+    public int ifCount = 0;
     public int forCount = 0;
     public int funcParamsCount = 0;
     public int switchCount = 0;
@@ -77,8 +79,6 @@ public class SemanticStructures {
         ArrayList <RS_Tipo> params = new ArrayList <RS_Tipo>();
         while(this.funcParamsCount>0)
         {
-
-
             RS_ID  Id = (RS_ID) this.popRS();
             this.deleteTop();
             RS_Tipo tipo  = (RS_Tipo ) this.popRS();
@@ -122,8 +122,8 @@ public class SemanticStructures {
         this.deleteTop();
         RS_DO RS_DO_;
         int calculo = 0;
-        String regex = "/[+*\\/-]/g";
-        if(RS_DO2.banderita && RS_DO1.banderita && !RS_OP.valor.matches(regex)){
+        String regex = "[+*/-]";
+        if(RS_DO2.banderita && RS_DO1.banderita && RS_OP.valor.matches(regex)){
             if("+".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO2.valor)+Integer.parseInt(RS_DO1.valor);}
             else if("-".equals(RS_OP.valor)) { calculo = Integer.parseInt(RS_DO1.valor)-Integer.parseInt(RS_DO2.valor);}
             else if("/".equals(RS_OP.valor) && Integer.parseInt(RS_DO2.valor)!=0 ) {  calculo = Integer.parseInt(RS_DO1.valor)/Integer.parseInt(RS_DO2.valor);}
@@ -132,9 +132,10 @@ public class SemanticStructures {
             
         CodeMonkey.getInstance().addToString("MOV EAX,"+calculo);
         this.AssignBinary=true;
-            
+            System.out.println("Final stack folding" + this.stack);
         }
         else{
+            //System.out.println("Entre a no folding operador:" +RS_OP.valor );
             this.AssignBinary=true;
             if("+".equals(RS_OP.valor)) { 
      
@@ -162,22 +163,46 @@ public class SemanticStructures {
                 CodeMonkey.getInstance().addToString("MUL EBX");
             }
             else if("<".equals(RS_OP.valor)){
-            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("CMP EAX,EBX");
+                CodeMonkey.getInstance().setStringCompare("JGE ");
             }
             else if(">".equals(RS_OP.valor)){
-            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("CMP EAX,EBX");
+                CodeMonkey.getInstance().setStringCompare("JLE ");
             }
             else if("==".equals(RS_OP.valor)){
-            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("CMP EAX,EBX");
+                CodeMonkey.getInstance().setStringCompare("JNE ");
             }
             else if(">=".equals(RS_OP.valor)){
-            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("CMP EAX,EBX");
+                CodeMonkey.getInstance().setStringCompare("JL ");
             }
             else if("<=".equals(RS_OP.valor)){
-            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("CMP EAX,EBX");
+                CodeMonkey.getInstance().setStringCompare("JG ");
             }
             else if("!=".equals(RS_OP.valor)){
-            
+                String regex2 = "[0-9]";
+                CodeMonkey.getInstance().addToString( RS_DO1.valor.matches(regex2)? "MOV EAX,"+  RS_DO1.valor :"MOV EAX,"+"["+ RS_DO1.valor+"]" );
+                CodeMonkey.getInstance().addToString( RS_DO2.valor.matches(regex2)? "MOV EBX,"+  RS_DO2.valor :"MOV EAX,"+"["+ RS_DO2.valor+"]" );
+                CodeMonkey.getInstance().addToString("CMP EAX,EBX");
+                CodeMonkey.getInstance().setStringCompare("JE ");
             }
         }
 
@@ -258,13 +283,14 @@ public class SemanticStructures {
     }
     
     public void assign() {
-        
-        if(this.AssignBinary){
+        System.out.println("Inicio stack asignación" + this.stack);
+        if(this.AssignBinary && this.stack.size()==1){
             
             RS VARIABLE = this.popRS();
             this.deleteTop();
             CodeMonkey.getInstance().addToString("MOV [" +VARIABLE.valor+"],EAX" );
             this.AssignBinary=false;
+            System.out.println("Inicio stack asignación" + this.stack);
         }
         else
         {
@@ -344,13 +370,50 @@ public class SemanticStructures {
         
     }   
     public void comoUstedQuiera(){
+        System.out.println("Inicio Diferencia asignacion"+this.stack);
         if(this.stack.size()>2){
             evalBinary();
             assign();
         }
         else{
             assign();
+            if(this.stack.size()>0)
+            {
+                this.deleteTop();
+            }
         }
+    }
+    public void writeLabelIf(String string){
+        if(string.equals("if"))
+        {
+            CodeMonkey.getInstance().addToString(CodeMonkey.getInstance().CompareInstruction + "if_Exit_"+this.ifCount);
+        }
+            
+        else if(string.equals("else"))
+        {
+            
+        }
+        else if(string.equals("endIf"))
+        {
+            CodeMonkey.getInstance().addToString("if_Exit_"+this.ifCount+":");
+            this.ifCount++;
+        }
+        else if(string.equals("while"))
+        {
+            CodeMonkey.getInstance().addToString("whileLabel"+this.whileCountlabel+":");
+        }
+        else if(string.equals("whileStart"))
+        {
+            CodeMonkey.getInstance().addToString(CodeMonkey.getInstance().CompareInstruction + "while_Exit_"+this.whileCountlabel+":");
+        }
+        else if(string.equals("whileEnd"))
+        {
+            CodeMonkey.getInstance().addToString("JMP "+ "whileLabel"+this.whileCountlabel);
+            CodeMonkey.getInstance().addToString("while_Exit_"+this.whileCountlabel+":");
+            this.whileCountlabel++;
+            
+        }
+    
     }
     
 }

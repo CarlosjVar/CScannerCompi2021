@@ -19,6 +19,7 @@ public class CodeMonkey {
         private static CodeMonkey Struct;
         public String StringToWrite = "";
         public boolean codeStarted=false;
+        public String CompareInstruction="";
             
     public static CodeMonkey getInstance()
     {
@@ -54,6 +55,10 @@ public class CodeMonkey {
             this.initializeCode();
         }
         this.StringToWrite+= newString+ "\n";
+    }
+    public void setStringCompare(String cmpString)
+    {
+        this.CompareInstruction = cmpString;
     }
 
 

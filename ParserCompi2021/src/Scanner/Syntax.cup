@@ -134,7 +134,10 @@ DO_SEMANTIC,
 FOR_SEMANTIC,
 ESECOLON_DEKLARAZION,
 IDENTIFICADOR_FUNCION,
-UNARIOS_SEM
+UNARIOS_SEM,
+Parentesis_c_if,
+Llave_c_if,
+Parentesis_c_while
 ;
 
 precedence right Asignacion;
@@ -183,7 +186,6 @@ IDENTIFICADOR_FUNCION::= Identificador:i {: SemanticStructures.getInstance().rec
 
 SENTENCIA::=    
                 IF DECL_AUX |
-                IF_ELSE  DECL_AUX |
                 WHILE DECL_AUX|
                 DO_WHILE Scolon DECL_AUX |
                 FOR DECL_AUX |
@@ -211,7 +213,7 @@ BREAK::= Break:i  {: SemanticStructures.getInstance().checkWhile(String.valueOf(
 
 CONST_AUX::= Const | ;
 
-DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO VARS_AUX ESECOLON_DEKLARAZION DECLARACION_VAR  |    ;
+DECLARACION_VAR::=  Const TIPO Identificador DECLARACION_VAR_AUX Scolon DECLARACION_VAR | TIPO PARAMS_LL ESECOLON_DEKLARAZION DECLARACION_VAR  |    ;
 
 ESECOLON_DEKLARAZION::= Scolon {:SemanticStructures.getInstance().insertarTS(false); :};
 
@@ -219,22 +221,25 @@ ESECOLON_DEKLARAZION::= Scolon {:SemanticStructures.getInstance().insertarTS(fal
 DECLARACION_VAR_AUX::=  Asignacion EXP | Asignacion error  ;
 
 
-IF ::= If Parentesis_a EXP Parentesis_c Llave_a SENTENCIA Llave_c |
+IF ::= If Parentesis_a EXP Parentesis_c_if  Llave_a SENTENCIA Llave_c_if {: SemanticStructures.getInstance().writeLabelIf("endIf"); :} |
+       If Parentesis_a EXP Parentesis_c_if Llave_a SENTENCIA Llave_c_if Else Llave_a SENTENCIA Llave_c    |
        If Parentesis_a error Parentesis_c Llave_a SENTENCIA Llave_c|
-        If Parentesis_a  EXP Parentesis_c error ;
+       If Parentesis_a  EXP Parentesis_c error ;
 
-
+Llave_c_if::=  Llave_c  ; 
+Parentesis_c_if::= Parentesis_c {: SemanticStructures.getInstance().writeLabelIf("if"); :} |  ;
 
 OP_RELACIONALES::= Relacionales:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} |
 And:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :}|
 Or:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :}| 
 Not:i {: SemanticStructures.getInstance().recuerdaOperador(String.valueOf(i),iright,ileft); :} ;
 
-IF_ELSE::=  IF  Else Llave_a SENTENCIA Llave_c | IF error Llave_a SENTENCIA Llave_c ;
 
-WHILE::= WHILE_SEMANTIC Parentesis_a EXP Parentesis_c  Llave_a  SENTENCIA  Llave_c {: SemanticStructures.getInstance().reduceWhileCount(); :} | WHILE_SEMANTIC Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c| WHILE_SEMANTIC Parentesis_a EXP Parentesis_c  error  SENTENCIA  Llave_c  ;
+WHILE::= WHILE_SEMANTIC Parentesis_a EXP Parentesis_c_while  Llave_a  SENTENCIA  Llave_c {: SemanticStructures.getInstance().reduceWhileCount(); SemanticStructures.getInstance().writeLabelIf("whileEnd"); :} | WHILE_SEMANTIC Parentesis_a error  Parentesis_c  Llave_a  SENTENCIA  Llave_c| WHILE_SEMANTIC Parentesis_a EXP Parentesis_c  error  SENTENCIA  Llave_c  ;
 
-WHILE_SEMANTIC::= While {: SemanticStructures.getInstance().addWhileCount(); :} ;
+Parentesis_c_while::= Parentesis_c {: SemanticStructures.getInstance().writeLabelIf("whileStart");  :} ;
+
+WHILE_SEMANTIC::= While {: SemanticStructures.getInstance().addWhileCount(); SemanticStructures.getInstance().writeLabelIf("while"); :} ;
 
 DO_WHILE::= DO_SEMANTIC Llave_a  SENTENCIA  Llave_c  While Parentesis_a EXP Parentesis_c {: SemanticStructures.getInstance().reduceWhileCount(); :} |
             DO_SEMANTIC Llave_a  SENTENCIA  Llave_c  While Parentesis_a error Parentesis_c {: SemanticStructures.getInstance().reduceWhileCount(); :} ;
