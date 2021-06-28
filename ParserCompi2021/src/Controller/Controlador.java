@@ -68,6 +68,8 @@ public class Controlador implements ActionListener{
                 Reader reader; 
                 SemanticStructures.getInstance().stack = new ArrayList();
                 SemanticStructures.getInstance().TablaSimbolos = new HashMap();
+                SemanticStructures.getInstance().ifCount=0;
+                SemanticStructures.getInstance().whileCountlabel=0;
                 try {
                     reader = new FileReader(path);
                     parser p = new parser(new LexerCup(reader));

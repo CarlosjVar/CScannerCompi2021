@@ -3,10 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Laptop/OneDrive/Documentos/Quinto%20Semestre/COMPILADORES%20E%20INTERPRETES/CScannerCompi2021/ParserCompi2021/src/Scanner/CodeMonkey.java</file>
-            <file>file:/C:/Users/Laptop/OneDrive/Documentos/Quinto%20Semestre/COMPILADORES%20E%20INTERPRETES/CScannerCompi2021/ParserCompi2021/src/View/TablaTokens.java</file>
-            <file>file:/C:/Users/Laptop/OneDrive/Documentos/Quinto%20Semestre/COMPILADORES%20E%20INTERPRETES/CScannerCompi2021/ParserCompi2021/src/Controller/Controlador.java</file>
-            <file>file:/C:/Users/Laptop/OneDrive/Documentos/Quinto%20Semestre/COMPILADORES%20E%20INTERPRETES/CScannerCompi2021/ParserCompi2021/src/Scanner/SemanticStructures.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Controller/Controlador.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/Lexer.flex</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/SemanticShit/RS_FU.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/Lexer.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/Syntax.cup</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/SemanticStructures.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/Modelo.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/parser.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/SemanticShit/RS_DO.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/LexerCup.flex</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/SemanticShit/RS_Tipo.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/LexerCup.java</file>
+            <file>file:/D:/Universidad/ScannerJAVACompi2021/CScannerCompi2021/ParserCompi2021/src/Scanner/CodeMonkey.java</file>
         </group>
     </open-files>
 </project-private>
