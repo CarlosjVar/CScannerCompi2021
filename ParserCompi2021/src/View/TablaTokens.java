@@ -6,6 +6,10 @@
 package View;
 
 import java.awt.Toolkit;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -46,15 +50,22 @@ public class TablaTokens extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabla_Errores1 = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabla_Tokens1 = new javax.swing.JTextArea();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabla_Errores2 = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        codigo_e = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -179,7 +190,7 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel1.add(jLabel3);
         jLabel3.setBounds(710, 20, 811, 77);
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (2).png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (3).png"))); // NOI18N
         jPanel1.add(jLabel9);
         jLabel9.setBounds(930, 30, 80, 90);
 
@@ -193,29 +204,17 @@ public class TablaTokens extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(1, 0, 19));
         jPanel2.setLayout(null);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (3).png"))); // NOI18N
-        jPanel2.add(jLabel10);
-        jLabel10.setBounds(920, 30, 80, 90);
-
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (4).png"))); // NOI18N
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(220, 30, 80, 90);
+        jLabel13.setBounds(200, 30, 80, 90);
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Parser Sintáctico");
+        jLabel11.setText("Código");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel2.add(jLabel11);
-        jLabel11.setBounds(0, 20, 811, 77);
-
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Errores Sintácticos");
-        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jPanel2.add(jLabel12);
-        jLabel12.setBounds(710, 20, 811, 77);
+        jLabel11.setBounds(230, 70, 210, 30);
 
         tabla_Errores1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         tabla_Errores1.setForeground(new java.awt.Color(0, 0, 0));
@@ -224,7 +223,7 @@ public class TablaTokens extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Error"
+                "Error Sintáctico"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -239,12 +238,9 @@ public class TablaTokens extends javax.swing.JFrame {
         tabla_Errores1.setRowHeight(24);
         tabla_Errores1.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(tabla_Errores1);
-        if (tabla_Errores1.getColumnModel().getColumnCount() > 0) {
-            tabla_Errores1.getColumnModel().getColumn(0).setResizable(false);
-        }
 
         jPanel2.add(jScrollPane4);
-        jScrollPane4.setBounds(820, 130, 650, 480);
+        jScrollPane4.setBounds(660, 130, 810, 230);
 
         tabla_Tokens1.setEditable(false);
         tabla_Tokens1.setBackground(new java.awt.Color(255, 255, 255));
@@ -254,14 +250,76 @@ public class TablaTokens extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tabla_Tokens1);
 
         jPanel2.add(jScrollPane5);
-        jScrollPane5.setBounds(50, 130, 650, 480);
+        jScrollPane5.setBounds(60, 130, 540, 480);
+
+        tabla_Errores2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla_Errores2.setForeground(new java.awt.Color(0, 0, 0));
+        tabla_Errores2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Error Semántico"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla_Errores2.setGridColor(new java.awt.Color(51, 51, 51));
+        tabla_Errores2.setRowHeight(24);
+        tabla_Errores2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane6.setViewportView(tabla_Errores2);
+
+        jPanel2.add(jScrollPane6);
+        jScrollPane6.setBounds(660, 380, 810, 230);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/sean-sinclair-gai1YB3UmDA-unsplash.jpg"))); // NOI18N
         jLabel5.setText("Scanner Para");
         jPanel2.add(jLabel5);
         jLabel5.setBounds(0, 0, 1570, 760);
 
-        jTabbedPane1.addTab("Parser", jPanel2);
+        jTabbedPane1.addTab("Análisis", jPanel2);
+
+        jPanel3.setBackground(new java.awt.Color(1, 0, 19));
+        jPanel3.setLayout(null);
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/WhatsApp Image 2021-06-27 at 18.25.38.jpeg"))); // NOI18N
+        jPanel3.add(jLabel14);
+        jLabel14.setBounds(850, 120, 540, 480);
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 30)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Código Ensamblador");
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jPanel3.add(jLabel12);
+        jLabel12.setBounds(140, 80, 540, 30);
+
+        codigo_e.setEditable(false);
+        codigo_e.setBackground(new java.awt.Color(255, 255, 255));
+        codigo_e.setColumns(20);
+        codigo_e.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        codigo_e.setRows(5);
+        jScrollPane8.setViewportView(codigo_e);
+
+        jPanel3.add(jScrollPane8);
+        jScrollPane8.setBounds(150, 120, 540, 480);
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/gatito (2).png"))); // NOI18N
+        jPanel3.add(jLabel15);
+        jLabel15.setBounds(200, 40, 80, 90);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/sean-sinclair-gai1YB3UmDA-unsplash.jpg"))); // NOI18N
+        jLabel10.setText("Scanner Para");
+        jPanel3.add(jLabel10);
+        jLabel10.setBounds(0, 0, 1570, 760);
+
+        jTabbedPane1.addTab("Código", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,14 +373,46 @@ public class TablaTokens extends javax.swing.JFrame {
                 new TablaTokens().setVisible(true);
             }
         });
+    
     }
 
+    public JButton getBtn_Archivo() {
+        return btn_Archivo;
+    }
+
+    public JTable getTabla_Errores() {
+        return tabla_Errores;
+    }
+
+    public JTable getTabla_Errores1() {
+        return tabla_Errores1;
+    }
+
+    public JTable getTabla_Errores2() {
+        return tabla_Errores2;
+    }
+
+    public JTable getTabla_Tokens() {
+        return tabla_Tokens;
+    }
+
+    public JTextArea getTabla_Tokens1() {
+        return tabla_Tokens1;
+    }
+
+    public JTextArea getCodigo_e() {
+        return codigo_e;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btn_Archivo;
+    public javax.swing.JTextArea codigo_e;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -332,13 +422,17 @@ public class TablaTokens extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable tabla_Errores;
     public javax.swing.JTable tabla_Errores1;
+    public javax.swing.JTable tabla_Errores2;
     public javax.swing.JTable tabla_Tokens;
     public javax.swing.JTextArea tabla_Tokens1;
     // End of variables declaration//GEN-END:variables

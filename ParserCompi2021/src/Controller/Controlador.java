@@ -52,24 +52,17 @@ public class Controlador implements ActionListener{
     
     public void iniciar(){
         this.ventana.setVisible(true);
-        this.ventana.btn_Archivo.addActionListener(this);
+        this.ventana.getBtn_Archivo().addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource()==this.ventana.btn_Archivo){
+        if (e.getSource()==this.ventana.getBtn_Archivo()){
             JFileChooser buscador= new JFileChooser();
             buscador.showOpenDialog(null);
-            File archivo =buscador.getSelectedFile();
+            File archivo = buscador.getSelectedFile();
             if (archivo != null){
                 String path = archivo.getAbsolutePath();
-                //String ruta1 = "./src/Scanner/Lexer.flex";
-                //String ruta2 = "./src/Scanner/LexerCup.flex";
-                //String[] rutaS = {"-parser", "Sintax","./src/Scanner/Syntax.cup"};
-                //File archivo2;
-                //archivo = new File(ruta1);
-                // JFlex.Main.generate(archivo);
-                //archivo2 = new File(ruta2);
                 SemanticStructures.getInstance().stack = new ArrayList();
                 Modelo.iniciar(path);
                 Reader reader; 
@@ -88,9 +81,9 @@ public class Controlador implements ActionListener{
                         {
                             System.out.println(error);
                         }
-                        llenarLista(p, texto);
-                        Object pepe = SemanticStructures.getInstance().TablaSimbolos.get("pepe");
-                        System.out.println(pepe);
+                        
+                        ArrayList<String> errores = SemanticStructures.getInstance().errores;
+                        llenarLista(p, texto, errores);
                         CodeMonkey.getInstance().WriteAsmHeader(path);
                     }
                   
@@ -105,9 +98,9 @@ public class Controlador implements ActionListener{
         }
     }
         
-        public void llenarLista(parser p, String t){
+        public void llenarLista(parser p, String t, ArrayList<String> e){
         
-        JTable table = this.ventana.tabla_Tokens;
+        JTable table = this.ventana.getTabla_Tokens();
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
         for (Map.Entry<String,Token> entry : Modelo.allTokens.entrySet()) {
@@ -115,7 +108,7 @@ public class Controlador implements ActionListener{
             model.addRow(new Object[]{entry.getKey(),entry.getValue().getTipo(),a});
         }
         
-        table = this.ventana.tabla_Errores;
+        table = this.ventana.getTabla_Errores();
         model = (DefaultTableModel) table.getModel();
         System.out.println("Errores");
         model.setRowCount(0);
@@ -126,7 +119,7 @@ public class Controlador implements ActionListener{
         System.out.println(p.errores);
         
         String[] parts = t.split("\n");
-        JTextArea a = this.ventana.tabla_Tokens1;
+        JTextArea a = this.ventana.getTabla_Tokens1();
         a.setText("");
         int i = 1;
         t="";
@@ -136,13 +129,24 @@ public class Controlador implements ActionListener{
         }
         a.setText(t);
         
-        table = this.ventana.tabla_Errores1;
+        table = this.ventana.getTabla_Errores1();
         model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        System.out.println("Errores");
         for ( String entry : p.errores) {
             model.addRow(new Object[]{entry});
         }
+        
+        table = this.ventana.getTabla_Errores2();
+        model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        for ( String entry : e) {
+            model.addRow(new Object[]{entry});
+        }
+        
+        a = this.ventana.getCodigo_e();
+        a.setText("");
+        String ubicacion = CodeMonkey.getInstance().StringToWrite;
+        a.setText(ubicacion);
     }
     
     
